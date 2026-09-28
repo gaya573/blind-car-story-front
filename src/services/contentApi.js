@@ -5,6 +5,7 @@
 import axios from 'axios';
 import { API_BASE_URL } from '../config/apiConfig';
 import { carAPI } from './carApi';
+import { rebrandPromotion } from '../bcs/promotionRebrand';
 
 export const contentHttp = axios.create({
   baseURL: API_BASE_URL,
@@ -387,7 +388,8 @@ export const contentAPI = {
     if (cardType) params.card_type = cardType;
     
     const items = await fetchList('/api/content/promotions/brand', params);
-    return hydrateBrandExtraInfo(items);
+    // 원더 사이트와 같은 데이터라 블라인드 사이트에서는 원더굿라이프 표기·이미지를 바꿔 보여준다.
+    return hydrateBrandExtraInfo(items.map(rebrandPromotion));
   },
 
   getCardPromotions: async (position = null, limit = 100, cardType) => {
