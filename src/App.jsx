@@ -114,8 +114,11 @@ function App() {
 
   const location = useLocation();
   const navigate = useNavigate();
+  // 로딩 직후 창 너비가 아직 0으로 잡히는 경우가 있어(헤드리스·백그라운드 탭), 0은 모바일로 보지 않는다.
+  // 그렇지 않으면 PC 사용자가 /m 으로 튕긴다.
+  const isNarrowViewport = () => window.innerWidth > 0 && window.innerWidth <= 768;
   const [isMobileViewport, setIsMobileViewport] = useState(
-    typeof window !== 'undefined' ? window.innerWidth <= 768 : false,
+    typeof window !== 'undefined' ? isNarrowViewport() : false,
   );
 
   // 뷰포트가 일정 이하(모바일 브레이크포인트)일 때는 어떤 화면이든 무조건 /m 으로 이동
@@ -126,7 +129,7 @@ function App() {
 
     const evaluateAndRedirect = () => {
       const isMobilePath = location.pathname.startsWith('/m');
-      const isMobile = window.innerWidth <= 768;
+      const isMobile = isNarrowViewport();
 
       // 뷰포트 기준 상태도 함께 업데이트 (초기 진입 시에도 즉시 반영)
       setIsMobileViewport(isMobile);

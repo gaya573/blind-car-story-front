@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const extractYoutubeId = (url) => {
+const extractYoutubeId = (url) => {
   if (!url) return null;
   const match = String(url).match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{6,})/);
   return match ? match[1] : null;

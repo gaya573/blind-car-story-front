@@ -1,193 +1,117 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
-import styles from '../advance/MobileAdvance.module.css';
-import mobileMainStyles from '../main/MobleMain.module.css';
-import { contentAPI } from '../../services/contentApi.js';
 import SeoHelmet from '../../components/SeoHelmet.jsx';
 import { getPageSeo } from '../../config/seoConfig';
-import Event from '../../components/mobileMain/Event.jsx';
-import { sendToKakaoOnly } from '../../services/consultHelper';
-import { setStoredUserPhone } from '../../utils/phoneStorage';
+import { MobileSubHeader } from '../../bcs/layout/MobileLayout';
+import { useBcsUi } from '../../bcs/BcsUiContext';
+import styles from './MobileBrand.module.css';
+import { PROMOTION_TABS, brandPromotionsQuery, promotionStatusText, toPromotionModel } from './brandPromotion';
 
-const FALLBACK_IMAGE = '/placeholder/car.svg';
+// 배너 이미지가 없는 기획전은 퍼블리싱처럼 글자 타일로 보여 준다.
+const TILE_THEMES = ['dark', 'gold', 'night'];
 
-function MobileBrandBenefits() {
-  const navigate = useNavigate();
-  const [tab, setTab] = useState('active');
-  const [eventSubmitting, setEventSubmitting] = useState(false);
-
-  const { data: promotions = [] } = useQuery({
-    queryKey: ['mobile-brand-benefits', tab],
-    // 데스크탑 /promotion 과 동일하게 탭에 따라 position=TOP/BOTTOM 조회
-    queryFn: () => {
-      const position = tab === 'active' ? 'TOP' : 'BOTTOM';
-      return contentAPI.getBrandPromotions(position, 100);
-    },
-    staleTime: 1000 * 60 * 5,
-  });
-
-  const cards = useMemo(() => {
-    return (promotions || []).map((item) => {
-      const brandName = item.extraInfo || item.brandName || item.brand?.name || '블라인드 카스토리';
-      const title = item.title || `${brandName} 프로모션`;
-      const subtitle = item.subtitle || item.description || '지금 계약 시, 인기 브랜드 즉시 출고 혜택';
-      const image = item.imageUrl || item.image_url || FALLBACK_IMAGE;
-
-      return {
-        id: item.id?.toString() || `brand-benefit-${Math.random()}`,
-        title,
-        subtitle,
-        image,
-        badgeText: brandName,
-        badgeVariant: 'yellow',
-        promotion: item,
-      };
-    });
-  }, [promotions]);
-
-  // SEO용 대표 이미지: 현재 탭의 첫 브랜드 혜택 카드 이미지 사용
-  const seoImage = useMemo(() => {
-    const first = cards[0];
-    if (!first) return undefined;
-    return first.image || undefined;
-  }, [cards]);
-
-  const sanitizePhone = useCallback((value) => {
-    if (!value) return '';
-    const str = String(value).trim();
-    return str.length > 30 ? str.slice(0, 30) : str;
-  }, []);
-
-  const persistContactInfo = useCallback((phoneValue, nameValue) => {
-    const sanitized = sanitizePhone(phoneValue);
-    if (sanitized) {
-      setStoredUserPhone(sanitized);
-    }
-    if (nameValue) {
-      localStorage.setItem('wgl_user_name', nameValue);
-    }
-  }, [sanitizePhone]);
-
-  const handleEventSubmit = useCallback(
-    async ({ name, phone, carModel }) => {
-      setEventSubmitting(true);
-      try {
-        const payload = {
-          name: name || '',
-          phone: sanitizePhone(phone || ''),
-          carModel: carModel || '',
-          consultType: '이벤트상담',
-          source: 'mobile-brand-benefits',
-          entryLabel: 'mobile-brand-benefits > 이벤트 섹션',
-        };
-
-        const result = await sendToKakaoOnly(payload);
-
-        if (result?.success) {
-          persistContactInfo(payload.phone, payload.name);
-          alert('신청이 완료되었습니다.');
-        } else {
-          alert(result?.message || '상담 신청에 실패했습니다. 다시 시도해주세요.');
-        }
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error('[MobileBrandBenefits] 이벤트 상담 신청 실패', error);
-        alert('상담 신청에 실패했습니다. 다시 시도해주세요.');
-      } finally {
-        setEventSubmitting(false);
-      }
-    },
-    [persistContactInfo, sanitizePhone],
+function PromotionCard({ promotion, index }) {
+  const badge = <span className={`m-promo__badge${promotion.imageUrl ? ` ${styles.imageBadge}` : ''}`}>{promotionStatusText(promotion)}</span>;
+  return (
+    <Link
+      className={`m-promo${promotion.ended ? ' is-ended' : ''}`}
+      to={`/m/brand/detail/${promotion.id}`}
+      state={{ promotion: promotion.raw }}
+    >
+      {promotion.imageUrl ? (
+        <div className={`m-promo__tile ${styles.imageTile}`}>
+          {badge}
+          <img src={promotion.imageUrl} alt={promotion.title} loading="lazy" />
+        </div>
+      ) : (
+        <div className={`m-promo__tile m-promo__tile--${TILE_THEMES[index % TILE_THEMES.length]}`}>
+          {badge}
+          <p className="m-promo__headline">{promotion.partner || promotion.brand || promotion.headline}</p>
+          {promotion.description ? <p className="m-promo__benefit">{promotion.description}</p> : null}
+        </div>
+      )}
+      <p className="m-promo__title">{promotion.title}</p>
+      {promotion.period ? <p className="m-promo__period">{promotion.period}</p> : null}
+    </Link>
   );
+}
+
+/** 브랜드별 혜택 (퍼블리싱 pages/m-brand.html). 제휴 어드민 브랜드 기획전을 진행중/종료 탭으로 나눠 보여 준다. */
+function MobileBrandBenefits() {
+  const { openQuote } = useBcsUi();
+  const [tab, setTab] = useState(PROMOTION_TABS[0].value);
+  const current = PROMOTION_TABS.find((item) => item.value === tab) ?? PROMOTION_TABS[0];
+  const { data = [], isLoading } = useQuery(brandPromotionsQuery(current.position));
+
+  const promotions = useMemo(
+    () => (Array.isArray(data) ? data : []).map((item) => ({ ...toPromotionModel(item, current.position), raw: item })),
+    [data, current.position],
+  );
+
+  const emptyText = isLoading
+    ? '브랜드별 혜택을 불러오는 중입니다...'
+    : tab === 'ongoing'
+      ? '현재 진행 중인 기획전이 없습니다.'
+      : '종료된 기획전이 없습니다.';
 
   return (
     <>
-      <SeoHelmet
-        {...getPageSeo('promotion')}
-        image={seoImage}
-      />
-    <div className={styles.page}>
-      <div className={styles.container}>
-        {/* 상단 헤더 영역 */}
-        <section className={styles.topHeroSection}>
-          <div className={styles.topHeroInner}>
-            <img
-              src="/mobile/brand.svg"
-              alt="브랜드별 특가 혜택"
-              className={styles.topHeroImage}
-              loading="lazy"
-            />
-            <h1 className={styles.topHeroTitle}>
-              <span className={styles.topHeroTitleEm}>브랜드별</span>
-              <span>특가 혜택</span>
-            </h1>
-            <p className={styles.topHeroSubtitle}>
-              지금 계약 시, 인기 브랜드별 즉시 출고 혜택을 한눈에 확인해 보세요.
-            </p>
-          </div>
-        </section>
+      <SeoHelmet {...getPageSeo('promotion')} image={promotions[0]?.imageUrl || undefined} />
+      <MobileSubHeader title="브랜드별 혜택" />
 
-        {/* 진행중 / 종료된 기획전 탭 */}
-        <div className={styles.brandTabs}>
-          <button
-            type="button"
-            className={`${styles.brandTab} ${tab === 'active' ? styles.brandTabActive : ''}`}
-            onClick={() => setTab('active')}
-          >
-            진행중 기획전
-          </button>
-          <button
-            type="button"
-            className={`${styles.brandTab} ${tab === 'ended' ? styles.brandTabActive : ''}`}
-            onClick={() => setTab('ended')}
-          >
-            종료된 기획전
-          </button>
+      <main id="main-content">
+        <div className="m-pagehead">
+          <h1>
+            브랜드별 <em>특가 혜택</em>
+          </h1>
+          <p>지금 계약 시 적용되는 브랜드별 즉시 출고 혜택을 한눈에 확인해 보세요.</p>
         </div>
 
-        {/* 브랜드별 혜택 리스트 (세로 카드 리스트) */}
-        <section className={styles.dealSection}>
-          {cards.length === 0 ? (
-            <div className={styles.emptyText}>
-              {tab === 'active' ? '현재 진행 중인 브랜드별 혜택이 없습니다.' : '종료된 기획전이 없습니다.'}
-            </div>
-          ) : (
-            <div className={styles.brandList}>
-              {cards.map((card) => (
-                <button
-                  key={card.id}
-                  type="button"
-                  className={styles.brandRow}
-                  onClick={() => navigate(`/m/brand/detail/${card.id}`, { state: { promotion: card.promotion } })}
-                >
-                  <img
-                    src={card.image}
-                    alt={card.title}
-                    className={styles.brandRowImage}
-                    loading="lazy"
-                  />
-                  <div className={styles.brandRowInfo}>
-                    <div className={styles.brandRowTitle}>{card.title}</div>
-                  
-                  </div>
-                </button>
-              ))}
-            </div>
-          )}
-        </section>
-      </div>
-    </div>
-    <Event
-      styles={mobileMainStyles}
-      onSubmitEvent={handleEventSubmit}
-      isSubmitting={eventSubmitting}
-      variant="yellow"
-    />
+        <div className="m-tabs2" role="tablist" aria-label="기획전 구분">
+          {PROMOTION_TABS.map((item) => (
+            <button
+              key={item.value}
+              type="button"
+              role="tab"
+              aria-selected={tab === item.value}
+              className={tab === item.value ? 'is-active' : undefined}
+              onClick={() => setTab(item.value)}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+
+        {promotions.length > 0 ? (
+          <div className="m-card-stack" style={{ padding: '20px 16px 8px' }}>
+            {promotions.map((promotion, index) => (
+              <PromotionCard key={promotion.id || index} promotion={promotion} index={index} />
+            ))}
+          </div>
+        ) : (
+          <p className="m-empty">{emptyText}</p>
+        )}
+
+        <div className="m-menu-promo">
+          <strong>
+            최대 30곳의 비교 견적으로
+            <br />
+            가장 낮은 조건을 찾아드립니다
+          </strong>
+          <em>블라인드 카스토리 단독 물량 확보</em>
+          <button
+            className="m-callbar__btn"
+            type="button"
+            style={{ marginTop: 14, height: 44, padding: '0 22px' }}
+            onClick={() => openQuote('', 'm-brand')}
+          >
+            실시간 무료견적 받기
+          </button>
+        </div>
+      </main>
     </>
   );
 }
 
 export default MobileBrandBenefits;
-
-

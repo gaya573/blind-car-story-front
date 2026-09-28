@@ -1,89 +1,92 @@
-import React, { useState, useMemo } from 'react';
-import styles from './MobleCarBrandSearch.module.css';
-import { useNavigate } from 'react-router-dom';
-import { ManufacturerSelectButtonMobile, ButtonLarge } from '../../components/Buttons.jsx';
+import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { useCarBrandsQuery } from '../../hooks/queries/carQueries';
+import { MobileSubHeader } from '../../bcs/layout/MobileLayout';
 
-// 국산 브랜드로 분류할 국가 목록
-const DOMESTIC_COUNTRIES = ['한국', '대한민국', 'Korea', 'South Korea'];
+// 퍼블리싱 manufacturers 로고. 차량 API 브랜드 이름으로 찾는다.
+const LOGO_FILES = {
+  현대: 'hyundai.svg',
+  기아: 'kia.svg',
+  제네시스: 'genesis.svg',
+  르노코리아: 'renault-korea.svg',
+  르노삼성: 'renault-korea.svg',
+  KGM: 'kgm.svg',
+  KG모빌리티: 'kgm.svg',
+  쉐보레: 'chevrolet.svg',
+  BMW: 'bmw.svg',
+  벤츠: 'mercedes-benz.svg',
+  아우디: 'audi.svg',
+  폭스바겐: 'volkswagen.svg',
+  볼보: 'volvo.svg',
+  렉서스: 'lexus.svg',
+  토요타: 'toyota.svg',
+  도요타: 'toyota.svg',
+  BYD: 'byd.svg',
+  포드: 'ford.svg',
+  폴스타: 'polestar.svg',
+};
 
-export default function MobleCarBrandSearch() {
-  const [selectedBrand, setSelectedBrand] = useState('');
-  const navigate = useNavigate();
+// 차량 API country 는 국산 KR / 수입 IMPORT 로 온다. 예전 데이터의 국가명 표기도 국산으로 본다.
+const isDomesticCountry = (country) => {
+  const value = String(country ?? '').trim().toLowerCase();
+  return value === 'kr' || ['korea', '한국', '대한민국'].some((token) => value.includes(token));
+};
 
-  // 브랜드 API 호출
-  const { data: brandsData = [] } = useCarBrandsQuery();
+const resultsPath = (origin, brandName) => {
+  const params = new URLSearchParams({ carOrigin: origin, brand: brandName });
+  return `/m/search/results?${params.toString()}`;
+};
 
-  // 브랜드를 국산/수입으로 분류
-  const { domesticBrands, importBrands } = useMemo(() => {
-    const domestic = [];
-    const importBrandsList = [];
-    
-    brandsData.forEach((brand) => {
-      const country = brand.country?.toLowerCase() || '';
-      const isDomestic = DOMESTIC_COUNTRIES.some((c) => country.includes(c.toLowerCase()));
-      
-      if (isDomestic) {
-        domestic.push(brand);
-      } else {
-        importBrandsList.push(brand);
-      }
-    });
-    
-    return { domesticBrands: domestic, importBrands: importBrandsList };
-  }, [brandsData]);
-
-  const onSelectBrand = (brand) => setSelectedBrand(brand);
-  const goNext = () => {
-    if (!selectedBrand) return;
-    navigate(`/m/search/results?brand=${encodeURIComponent(selectedBrand)}`);
-  };
-
+function BrandGroup({ title, origin, brands, last }) {
   return (
-    <div className={styles.page}>
-      <div className={styles.topBar}>
-        <div className={styles.lead}>
-          <div className={styles.leadTitle}>제조사를 선택해주세요.</div>
-          <div className={styles.leadSub}>브랜드를 선택하면 해당 브랜드 차량으로 견적을 제공합니다.</div>
+    <section className="m-brandgroup" style={last ? { paddingBottom: 24 } : undefined}>
+      <h2 className="m-brandgroup__title">{title}</h2>
+      {brands.length > 0 ? (
+        <div className="m-brandgrid">
+          {brands.map((brand) => {
+            const logo = LOGO_FILES[brand.name];
+            return (
+              <Link className="m-brandbtn" key={brand.id ?? brand.name} to={resultsPath(origin, brand.name)}>
+                <span className="m-brandbtn__mark">{logo ? <img src={`/bcs/images/manufacturers/${logo}`} alt="" /> : brand.name}</span>
+                <span className="m-brandbtn__name">{brand.name}</span>
+              </Link>
+            );
+          })}
         </div>
-      </div>
-
-      <section className={styles.section}>
-        <h3 className={styles.sectionTitle}>국내 브랜드</h3>
-        <div className={styles.grid}>
-          {domesticBrands.map((brand) => (
-            <ManufacturerSelectButtonMobile
-              key={brand.id}
-              brandName={brand.name}
-              isSelected={selectedBrand === brand.name}
-              onClick={() => onSelectBrand(brand.name)}
-            />
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.section}>
-        <h3 className={styles.sectionTitle}>수입 브랜드</h3>
-        <div className={styles.grid}>
-          {importBrands.map((brand) => (
-            <ManufacturerSelectButtonMobile
-              key={brand.id}
-              brandName={brand.name}
-              isSelected={selectedBrand === brand.name}
-              onClick={() => onSelectBrand(brand.name)}
-            />
-          ))}
-        </div>
-      </section>
-
-      <div className={styles.nextBar}>
-        <ButtonLarge state={selectedBrand ? 'active' : 'disabled'} onClick={goNext}>
-          다음
-        </ButtonLarge>
-      </div>
-      <div className={styles.tabbarPlaceholder} />
-    </div>
+      ) : null}
+    </section>
   );
 }
 
+/** 제조사 선택 (/m/brand/search). 퍼블리싱 m-search 의 브랜드 그리드로 그리고, 누르면 해당 브랜드 검색결과로 간다. */
+export default function MobleCarBrandSearch() {
+  const { data: brandsData = [], isLoading } = useCarBrandsQuery();
 
+  const { domestic, imported } = useMemo(() => {
+    const list = Array.isArray(brandsData) ? brandsData.filter((brand) => brand?.name) : [];
+    return {
+      domestic: list.filter((brand) => isDomesticCountry(brand.country)),
+      imported: list.filter((brand) => !isDomesticCountry(brand.country)),
+    };
+  }, [brandsData]);
+
+  return (
+    <>
+      <MobileSubHeader title="제조사 선택" />
+      <main id="main-content">
+        <div className="m-pagehead">
+          <h1>
+            제조사를 <em>선택해 주세요</em>
+          </h1>
+          <p>브랜드를 선택하면 해당 브랜드 차량으로 견적을 제공합니다.</p>
+        </div>
+
+        {isLoading ? <p className="m-empty">브랜드를 불러오는 중...</p> : null}
+        {!isLoading && domestic.length + imported.length === 0 ? <p className="m-empty">표시할 브랜드가 없습니다.</p> : null}
+
+        <BrandGroup title="국산차" origin="domestic" brands={domestic} />
+        <BrandGroup title="수입차" origin="imported" brands={imported} last />
+      </main>
+    </>
+  );
+}

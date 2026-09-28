@@ -79,6 +79,8 @@ describe('useConsultForm', () => {
         brand: '기아',
         model: '쏘렌토',
         trim: '',
+        color: '',
+        options: [],
         terms: ['48개월'],
         consultType: '차량견적요청',
         source: 'home-page',
@@ -88,6 +90,55 @@ describe('useConsultForm', () => {
     );
     await waitFor(() => expect(form().getByLabelText('이름')).toHaveValue(''));
     expect(screen.getByRole('status')).toHaveTextContent('견적 신청이 접수되었습니다.');
+  });
+
+  test('상세 화면이 넘긴 트림·색상·옵션·계약조건을 함께 보낸다', async () => {
+    submitConsult.mockResolvedValue({ success: true });
+    function DetailForm() {
+      const { handleSubmit } = useConsultForm({
+        source: 'm-car-detail-bar',
+        entryLabel: '모바일 차량 상세 > 쏘렌토',
+        defaults: {
+          brand: '기아',
+          trim: '프레스티지',
+          color: '스노우 화이트 펄',
+          options: ['색상: 스노우 화이트 펄', '파노라마 선루프'],
+          terms: ['48개월', '선납금 30%'],
+          consultType: '차량라인상세',
+          extra: { vehicleLineId: 995, trimId: 8144 },
+        },
+      });
+      return (
+        <form onSubmit={handleSubmit} noValidate data-testid="form">
+          <input aria-label="연락처" name="phone" />
+          <input aria-label="차종" name="carModel" defaultValue="기아 쏘렌토" />
+          <PrivacyRow id="privacy" />
+          <button type="submit">제출</button>
+        </form>
+      );
+    }
+    render(
+      <BcsUiProvider>
+        <DetailForm />
+      </BcsUiProvider>,
+    );
+    fill('연락처', '01012345678');
+    fireEvent.click(form().getByLabelText('개인정보 이용 동의'));
+    fireEvent.click(form().getByRole('button', { name: '제출' }));
+
+    await waitFor(() => expect(submitConsult).toHaveBeenCalledTimes(1));
+    expect(submitConsult.mock.calls[0][0]).toMatchObject({
+      brand: '기아',
+      model: '기아 쏘렌토',
+      trim: '프레스티지',
+      color: '스노우 화이트 펄',
+      options: ['색상: 스노우 화이트 펄', '파노라마 선루프'],
+      terms: ['48개월', '선납금 30%'],
+      consultType: '차량라인상세',
+      source: 'm-car-detail-bar',
+      entryLabel: '모바일 차량 상세 > 쏘렌토',
+      extra: { vehicleLineId: 995, trimId: 8144 },
+    });
   });
 
   test('백엔드가 success:false 를 돌려주면 성공으로 처리하지 않는다', async () => {

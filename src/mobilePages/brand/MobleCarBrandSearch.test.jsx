@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router-dom';
@@ -24,50 +24,38 @@ describe('MobleCarBrandSearch', () => {
 
   beforeEach(() => {
     mock.onGet('/api/user/cars/brands').reply(200, [
-      { id: 1, name: '현대', country: '대한민국' },
-      { id: 2, name: '기아', country: '대한민국' },
-      { id: 3, name: '벤츠', country: '독일' },
-      { id: 4, name: 'BMW', country: '독일' },
+      { id: 95, name: '현대', country: 'KR' },
+      { id: 84, name: '기아', country: '대한민국' },
+      { id: 88, name: '벤츠', country: 'IMPORT' },
+      { id: 96, name: 'GMC', country: 'IMPORT' },
     ]);
   });
 
   afterEach(() => mock.reset());
   afterAll(() => mock.restore());
 
-  test('renders brand selection page', () => {
+  test('제조사 선택 머리말을 보여 준다', () => {
     renderWithProviders(<MobleCarBrandSearch />);
 
-    expect(screen.getByText(/제조사를 선택해주세요/)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: '제조사를 선택해 주세요' })).toBeInTheDocument();
   });
 
-  test('renders domestic brands', async () => {
+  test('국산차(KR)와 수입차를 나눠 브랜드 검색결과로 연결한다', async () => {
     renderWithProviders(<MobleCarBrandSearch />);
 
-    expect(screen.getByText('국내 브랜드')).toBeInTheDocument();
-    expect(await screen.findByText('현대')).toBeInTheDocument();
-    expect(screen.getByText('기아')).toBeInTheDocument();
-  });
+    const hyundai = await screen.findByRole('link', { name: '현대' });
+    const domestic = screen.getByRole('heading', { name: '국산차' }).closest('section');
+    const imported = screen.getByRole('heading', { name: '수입차' }).closest('section');
 
-  test('renders import brands', async () => {
-    renderWithProviders(<MobleCarBrandSearch />);
+    expect(within(domestic).getByRole('link', { name: '기아' })).toBeInTheDocument();
+    expect(hyundai).toHaveAttribute('href', `/m/search/results?carOrigin=domestic&brand=${encodeURIComponent('현대')}`);
+    expect(within(imported).getByRole('link', { name: '벤츠' })).toHaveAttribute(
+      'href',
+      `/m/search/results?carOrigin=imported&brand=${encodeURIComponent('벤츠')}`,
+    );
 
-    expect(screen.getByText('수입 브랜드')).toBeInTheDocument();
-    expect(await screen.findByText('벤츠')).toBeInTheDocument();
-    expect(screen.getByText('BMW')).toBeInTheDocument();
+    // 퍼블리싱 제조사 로고가 있으면 로고를, 없으면 이름을 표시한다.
+    expect(hyundai.querySelector('img')).toHaveAttribute('src', '/bcs/images/manufacturers/hyundai.svg');
+    expect(within(imported).getByRole('link', { name: /GMC/ }).querySelector('img')).toBeNull();
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -86,7 +86,8 @@ const BOTTOM_ITEMS = [
   {
     to: '/m/search',
     label: '차량검색',
-    match: (path) => path.startsWith('/m/search') || path.startsWith('/m/car-detail'),
+    // 퍼블리싱 m-car-detail 은 하단 탭을 켜지 않는다.
+    match: (path) => path.startsWith('/m/search'),
     icon: (
       <>
         <circle cx="11" cy="11" r="7" />

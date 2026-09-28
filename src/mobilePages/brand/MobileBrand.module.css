@@ -1,0 +1,41 @@
+/* 브랜드별 혜택: 퍼블리싱 mobile.css(.m-promo, .m-bd-*)에 없는 부분만 둔다. */
+
+/* 제휴 어드민 기획전 배너 이미지를 퍼블리싱 타일 자리에 그대로 보여 준다. */
+.imageTile:global(.m-promo__tile) {
+  position: relative;
+  display: block;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--color-bg-soft);
+}
+
+.imageTile img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.imageBadge:global(.m-promo__badge) {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  margin: 0;
+  background: rgb(17 17 17 / 72%);
+  color: #fff;
+}
+
+/* 상세의 기획전 안내 이미지 */
+.detailImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  background: var(--color-bg-soft);
+}
+
+/* 대상 차종 줄은 차량 상세로 이동하는 버튼이다. */
+.modelLink:global(.m-bd-model) {
+  width: 100%;
+  text-align: left;
+}

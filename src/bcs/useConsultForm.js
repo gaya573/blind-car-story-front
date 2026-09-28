@@ -60,10 +60,14 @@ export function useConsultForm({ source, entryLabel = '', defaults = {}, onSucce
             brand,
             model,
             trim: defaults.trim || '',
+            color: defaults.color || '',
+            options: defaults.options || [],
             terms: period ? [`${period}개월`] : defaults.terms || [],
-            consultType: model ? '차량견적요청' : '문의',
+            consultType: defaults.consultType || (model ? '차량견적요청' : '문의'),
             source,
             entryLabel: label,
+            // 상세 화면의 vehicleLineId·trimId 등. consultHelper 가 요청 본문에 펼쳐 넣는다.
+            ...(defaults.extra ? { extra: defaults.extra } : {}),
           },
           { useKakao: false },
         );
@@ -85,7 +89,21 @@ export function useConsultForm({ source, entryLabel = '', defaults = {}, onSucce
         setSubmitting(false);
       }
     },
-    [submitting, showToast, source, entryLabel, defaults.model, defaults.brand, defaults.trim, defaults.terms, onSuccess],
+    [
+      submitting,
+      showToast,
+      source,
+      entryLabel,
+      defaults.model,
+      defaults.brand,
+      defaults.trim,
+      defaults.color,
+      defaults.options,
+      defaults.terms,
+      defaults.consultType,
+      defaults.extra,
+      onSuccess,
+    ],
   );
 
   return { handleSubmit, error, submitting };

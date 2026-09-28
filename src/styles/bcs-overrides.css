@@ -25,6 +25,11 @@ body.mobile-page button {
   color: var(--color-gold);
 }
 
+/* 모바일 유의사항 목록은 문구 앞에 "·" 를 직접 붙이므로 브라우저 글머리표를 끈다(퍼블리싱에서는 두 개가 겹쳐 보였다). */
+body.mobile-page .m-fine ul {
+  list-style: none;
+}
+
 /* 퍼블리싱은 전화 버튼을 <button> 으로 두었지만 SPA에서는 tel: 링크로 연결한다. */
 a.method-btn {
   text-decoration: none;

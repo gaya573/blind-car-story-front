@@ -14,7 +14,7 @@ export function BcsUiProvider({ children }) {
   const [toastVisible, setToastVisible] = useState(false);
   const toastTimer = useRef(null);
   const [privacyOpen, setPrivacyOpen] = useState(false);
-  const [quote, setQuote] = useState({ open: false, carName: '', source: '' });
+  const [quote, setQuote] = useState({ open: false, carName: '', source: '', details: null });
 
   const showToast = useCallback((message) => {
     if (!message) return;
@@ -32,8 +32,12 @@ export function BcsUiProvider({ children }) {
   }, []);
   const closePrivacy = useCallback(() => setPrivacyOpen(false), []);
 
-  const openQuote = useCallback((carName = '', source = 'quote-modal') => {
-    setQuote({ open: true, carName: carName || '', source });
+  /**
+   * details: 상세 화면에서 고른 조건을 상담에 함께 싣는다.
+   * { brand, trim, color, options[], terms[], consultType, entryLabel, extra }
+   */
+  const openQuote = useCallback((carName = '', source = 'quote-modal', details = null) => {
+    setQuote({ open: true, carName: carName || '', source, details });
   }, []);
   const closeQuote = useCallback(() => setQuote((prev) => ({ ...prev, open: false })), []);
 
@@ -54,7 +58,7 @@ export function BcsUiProvider({ children }) {
   return (
     <BcsUiContext.Provider value={value}>
       {children}
-      <QuoteModal open={quote.open} carName={quote.carName} source={quote.source} onClose={closeQuote} />
+      <QuoteModal open={quote.open} carName={quote.carName} source={quote.source} details={quote.details} onClose={closeQuote} />
       <div
         className={`modal-overlay${privacyOpen ? ' is-open' : ''}`}
         aria-hidden={privacyOpen ? 'false' : 'true'}
@@ -89,4 +93,6 @@ const FALLBACK = {
 };
 
 /** Provider 밖(단위 테스트 등)에서도 깨지지 않도록 빈 동작을 돌려준다. */
+// Provider 와 훅을 한 파일에 두는 관례를 따른다(이 파일 수정 시 전체 새로고침될 뿐 동작 문제는 없다).
+// eslint-disable-next-line react-refresh/only-export-components
 export const useBcsUi = () => useContext(BcsUiContext) ?? FALLBACK;

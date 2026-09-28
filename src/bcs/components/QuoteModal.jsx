@@ -12,13 +12,14 @@ const PREVIEW_PARTNERS = [
 ];
 
 /** 실시간 견적 받기 모달 (재고 특가 핫딜 · 출고후기 · 모바일 화면 공용). */
-export default function QuoteModal({ open, carName, source, onClose }) {
+export default function QuoteModal({ open, carName, source, details, onClose }) {
   const formRef = useRef(null);
   const phoneRef = useRef(null);
   const lastFocused = useRef(null);
   const { handleSubmit, error, submitting } = useConsultForm({
     source: source || 'quote-modal',
-    entryLabel: '실시간 견적 모달',
+    entryLabel: details?.entryLabel || '실시간 견적 모달',
+    defaults: details || {},
     onSuccess: onClose,
   });
 
