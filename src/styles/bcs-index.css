@@ -1,0 +1,17 @@
+/*
+ * 블라인드 카스토리 퍼블리싱 스타일 진입점.
+ * src/styles/bcs/*.css 는 scripts/build-publishing-css.mjs 가 생성한다. 순서는 퍼블리싱 <link> 순서와 같다.
+ */
+@import './bcs/tokens.css';
+@import './bcs/reset.css';
+@import './bcs/common.css';
+@import './bcs/style.css';
+@import './bcs/mobile.css';
+@import './bcs/carlist.css';
+@import './bcs/car-detail.css';
+@import './bcs/express.css';
+@import './bcs/promotion.css';
+@import './bcs/promotion-detail.css';
+@import './bcs/review.css';
+@import './bcs/quote-modal.css';
+@import './bcs-overrides.css';

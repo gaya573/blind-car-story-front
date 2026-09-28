@@ -1,0 +1,665 @@
+/* 차량 상세 페이지 전용 스타일 */
+
+.cd-page {
+  padding: 24px 0 72px;
+}
+
+.cd-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  font-size: var(--fs-13);
+  color: var(--color-text-muted);
+}
+
+.cd-breadcrumb a {
+  color: var(--color-text-secondary);
+}
+
+.cd-breadcrumb a:hover {
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
+.cd-breadcrumb strong {
+  color: var(--color-text);
+  font-weight: var(--fw-semibold);
+}
+
+/* 선택 경로 배너 */
+.cd-hierarchy {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  padding: 12px 18px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-bg-soft);
+  font-size: var(--fs-14);
+  color: var(--color-text-secondary);
+}
+
+.cd-hierarchy strong {
+  font-weight: var(--fw-bold);
+  color: var(--color-text);
+}
+
+.cd-hierarchy__terms {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 12px;
+  border: 1px solid var(--color-gold-line);
+  border-radius: var(--radius-pill);
+  background: var(--color-gold-soft);
+  font-size: var(--fs-12);
+  font-weight: var(--fw-semibold);
+  color: #6b5410;
+}
+
+/* 2단 레이아웃 */
+.cd-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 32px;
+  align-items: start;
+}
+
+.cd-left {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+/* 히어로 */
+.cd-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 24px;
+}
+
+.cd-hero__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  padding: 24px;
+  border-radius: var(--radius-banner);
+  background: linear-gradient(135deg, #f7f7f8 0%, #ececee 100%);
+}
+
+.cd-hero__media img {
+  width: 100%;
+  max-height: 240px;
+  object-fit: contain;
+}
+
+.cd-hero__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 20px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-banner);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.cd-brand {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.cd-brand__mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: var(--color-black);
+  color: var(--color-gold);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.04em;
+}
+
+.cd-brand__mark.has-logo {
+  padding: 8px;
+  border: 1px solid var(--color-border);
+  background: #fff;
+}
+
+.cd-brand__mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cd-title {
+  font-size: 28px;
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+}
+
+.cd-brand__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.cd-brand__meta span:first-child {
+  font-size: var(--fs-14);
+  color: var(--color-text-secondary);
+}
+
+.cd-origin {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 10px;
+  border: 1px solid var(--color-gold-line);
+  border-radius: var(--radius-pill);
+  background: var(--color-gold-soft);
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+  color: #6b5410;
+}
+
+.cd-origin.is-imported {
+  border-color: var(--color-border-strong);
+  background: var(--color-black);
+  color: var(--color-white);
+}
+
+/* 가격 박스 */
+.cd-price {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cd-price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cd-price-row__label {
+  font-size: var(--fs-13);
+  color: var(--color-text-secondary);
+}
+
+.cd-price-row__value {
+  font-size: var(--fs-20);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.cd-price-row__value.is-discount {
+  font-size: var(--fs-16);
+  color: var(--color-red);
+}
+
+.cd-price-row--final .cd-price-row__label {
+  font-weight: var(--fw-semibold);
+  color: var(--color-text);
+}
+
+.cd-price-row--final .cd-price-row__value {
+  color: var(--color-gold-strong);
+}
+
+/* 외장색상 */
+.cd-colors {
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+.cd-colors__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: var(--fs-12);
+}
+
+.cd-colors__head span {
+  color: var(--color-text-secondary);
+}
+
+.cd-colors__head strong {
+  font-weight: var(--fw-bold);
+  color: var(--color-text);
+}
+
+.cd-colors__palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cd-swatch {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid rgb(17 17 17 / 18%);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.cd-swatch:hover {
+  transform: translateY(-2px);
+}
+
+.cd-swatch.is-selected {
+  border: 2px solid var(--color-black);
+  box-shadow: 0 0 0 3px var(--color-gold-soft);
+}
+
+/* 선택 카드 (아코디언) */
+.cd-card {
+  padding: 20px 22px 22px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-banner);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.cd-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.cd-card__head h2 {
+  font-size: var(--fs-18);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+}
+
+.cd-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--color-bg-soft);
+  color: var(--color-text-secondary);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-bold);
+}
+
+.cd-card__body {
+  margin-top: 16px;
+}
+
+.cd-card.is-closed .cd-card__body {
+  display: none;
+}
+
+/* 트림 / 옵션 선택 */
+.cd-trims,
+.cd-options {
+  display: flex;
+  flex-direction: column;
+}
+
+.cd-trim,
+.cd-option {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 10px;
+  border: 0;
+  border-radius: var(--radius-button);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.cd-trim:hover,
+.cd-option:hover {
+  background: var(--color-bg-soft);
+}
+
+.cd-radio,
+.cd-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--color-border-strong);
+  background: var(--color-white);
+  color: var(--color-white);
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  line-height: 1;
+}
+
+.cd-radio {
+  border-radius: 50%;
+}
+
+.cd-checkbox {
+  border-radius: 5px;
+}
+
+.cd-trim.is-active .cd-radio,
+.cd-option.is-checked .cd-checkbox {
+  border-color: var(--color-black);
+  background: var(--color-black);
+  color: var(--color-gold);
+}
+
+.cd-trim__name,
+.cd-option__name {
+  font-size: var(--fs-16);
+  color: var(--color-text-secondary);
+}
+
+.cd-trim.is-active .cd-trim__name,
+.cd-option.is-checked .cd-option__name {
+  font-weight: var(--fw-semibold);
+  color: var(--color-text);
+}
+
+.cd-trim__price,
+.cd-option__price {
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.cd-trim.is-active .cd-trim__price {
+  color: var(--color-gold-strong);
+}
+
+/* 계약 조건 */
+.cd-contract {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cd-contract-row__label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: var(--fs-14);
+  font-weight: var(--fw-semibold);
+}
+
+.cd-contract-row__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cd-contract-btn {
+  flex: 1 1 120px;
+  min-height: 46px;
+  padding: 0 14px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-button);
+  background: var(--color-white);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-medium);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition), color var(--transition);
+}
+
+.cd-contract-btn:hover {
+  border-color: var(--color-gold-line);
+}
+
+.cd-contract-btn.is-active {
+  border: 2px solid var(--color-black);
+  background: var(--color-gold-soft);
+  color: var(--color-black);
+  font-weight: var(--fw-bold);
+}
+
+/* 우측 견적서 */
+.cd-right {
+  position: sticky;
+  top: 24px;
+}
+
+.cd-estimate {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-banner);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
+}
+
+.cd-estimate__top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  background: var(--color-black);
+  color: var(--color-gold);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+}
+
+.cd-estimate__body {
+  padding: 20px;
+}
+
+.cd-est-block + .cd-est-block {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--color-border);
+}
+
+.cd-est-block__title {
+  margin-bottom: 8px;
+  font-size: var(--fs-16);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+}
+
+.cd-est-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: var(--fs-13);
+  color: var(--color-text-secondary);
+}
+
+.cd-est-row strong {
+  font-size: var(--fs-16);
+  font-weight: var(--fw-bold);
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.cd-est-options {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 132px;
+  overflow-y: auto;
+}
+
+.cd-est-option {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: var(--fs-13);
+  color: var(--color-text-secondary);
+}
+
+.cd-est-option em {
+  font-style: normal;
+  font-weight: var(--fw-semibold);
+  color: var(--color-text);
+  text-align: right;
+}
+
+.cd-est-block--discount .cd-est-row strong {
+  color: var(--color-red);
+}
+
+.cd-est-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 2px solid var(--color-black);
+}
+
+.cd-est-total span {
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+}
+
+.cd-est-total strong {
+  font-size: var(--fs-24);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.03em;
+  color: var(--color-gold-strong);
+  white-space: nowrap;
+}
+
+.cd-estimate .privacy-row {
+  margin-top: 16px;
+  justify-content: flex-start;
+}
+
+.cd-estimate .form-error:empty {
+  display: none;
+}
+
+.cd-estimate__cta {
+  width: 100%;
+  min-height: var(--btn-height-lg);
+  margin-top: 8px;
+  border: 0;
+  border-radius: var(--radius-button);
+  background: var(--color-black);
+  color: var(--color-white);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-bold);
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.cd-estimate__cta:hover {
+  background: #2a2a2a;
+}
+
+.cd-page .disclaimer {
+  margin-top: 24px;
+  text-align: center;
+}
+
+/* ==========================================================================
+   반응형
+   ========================================================================== */
+
+@media (max-width: 1279px) {
+  .cd-layout {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .cd-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cd-right {
+    position: static;
+  }
+
+  .cd-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cd-hero__media {
+    min-height: 0;
+  }
+
+  .cd-hero__media img {
+    max-height: 200px;
+  }
+}
+
+@media (max-width: 767px) {
+  .cd-page {
+    padding: 16px 0 48px;
+  }
+
+  .cd-hierarchy {
+    font-size: var(--fs-13);
+  }
+
+  .cd-title {
+    font-size: 22px;
+  }
+
+  .cd-card {
+    padding: 18px 16px 20px;
+  }
+
+  .cd-trim,
+  .cd-option {
+    grid-template-columns: 20px minmax(0, 1fr);
+    row-gap: 4px;
+  }
+
+  .cd-trim__price,
+  .cd-option__price {
+    grid-column: 2;
+    font-size: var(--fs-14);
+  }
+
+  .cd-contract-btn {
+    flex: 1 1 calc(50% - 5px);
+    min-height: 44px;
+    font-size: var(--fs-13);
+  }
+
+  .cd-est-total strong {
+    font-size: var(--fs-20);
+  }
+}

@@ -1,0 +1,21 @@
+/*
+ * 퍼블리싱을 SPA에 올리면서 필요한 보정만 둔다. 퍼블리싱 원본은 고치지 않는다.
+ */
+
+/* 원본 Vite 템플릿의 다크 기본값(index.css :root)이 폼 컨트롤을 어둡게 만들지 않게 한다. */
+:root {
+  color-scheme: light;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+/* 레거시 App.css 의 button { transition: all } 이 퍼블리싱 버튼에 애니메이션을 더하지 않게 한다. */
+body.pc-page button,
+body.mobile-page button {
+  transition: none;
+}
+
+/* 퍼블리싱은 전화 버튼을 <button> 으로 두었지만 SPA에서는 tel: 링크로 연결한다. */
+a.method-btn {
+  text-decoration: none;
+}

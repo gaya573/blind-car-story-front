@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko" class="pc-html">
+  <head>
+    <base href="../" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>차량 상세 | 블라인드 카스토리</title>
+    <meta name="description" content="블라인드 카스토리 차량 상세. 트림·옵션·계약조건을 선택하고 견적을 확인해 보세요." />
+    <link rel="icon" href="./assets/images/brand/carstory-logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./assets/css/tokens.css" />
+    <link rel="stylesheet" href="./assets/css/reset.css" />
+    <link rel="stylesheet" href="./assets/css/common.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/car-detail.css?v=20260831f" />
+  </head>
+  <body class="pc-page">
+    <a class="skip-link" href="#main-content">본문 바로가기</a>
+
+    <header class="pc-header">
+      <div class="pc-header__middle">
+        <a class="brand-logo" href="./index.html" aria-label="블라인드 카스토리 홈">
+          <img src="./assets/images/brand/carstory-logo.svg" alt="블라인드 카스토리" width="124" height="124" />
+          <span class="brand-logo__eyebrow">신차장기렌트 · 리스</span>
+        </a>
+        <form class="site-search" role="search" data-demo-search>
+          <label class="visually-hidden" for="pc-search">검색어</label>
+          <input id="pc-search" type="search" placeholder="검색어를 입력해 주세요" />
+          <button type="submit" aria-label="검색">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m20 20-3.5-3.5"></path>
+            </svg>
+          </button>
+        </form>
+      </div>
+      <nav class="pc-nav" aria-label="주요 메뉴">
+        <div class="pc-nav__item">
+          <span class="badge badge-best">BEST</span>
+          <a class="pc-nav__link is-active" href="./pages/carlist.html#domestic">내 차 견적</a>
+        </div>
+        <div class="pc-nav__item">
+          <span class="badge badge-hot">HOT</span>
+          <a class="pc-nav__link" href="./pages/express-deals.html">재고 특가 핫딜</a>
+        </div>
+        <div class="pc-nav__item">
+          <a class="pc-nav__link" href="./pages/promotion.html">브랜드별 혜택</a>
+        </div>
+        <div class="pc-nav__item">
+          <a class="pc-nav__link" href="./pages/carlist.html#imported">수입차 할인</a>
+        </div>
+        <div class="pc-nav__item">
+          <a class="pc-nav__link" href="./pages/review.html">출고후기</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="cd-page">
+        <div class="container">
+          <nav class="cd-breadcrumb" aria-label="현재 위치">
+            <a href="./index.html">홈</a>
+            <span aria-hidden="true">›</span>
+            <a href="./pages/carlist.html">차량 상세</a>
+            <span aria-hidden="true">›</span>
+            <strong data-cd-crumb>차량</strong>
+          </nav>
+
+          <div class="cd-hierarchy" data-cd-hierarchy></div>
+
+          <div class="cd-layout">
+            <div class="cd-left">
+              <!-- 차량 요약 -->
+              <div class="cd-hero">
+                <div class="cd-hero__media">
+                  <img data-cd-image src="./assets/images/cars/car-sedan.svg" alt="차량 이미지" />
+                </div>
+                <div class="cd-hero__info">
+                  <div class="cd-brand">
+                    <span class="cd-brand__mark" data-cd-mark>BCS</span>
+                    <div>
+                      <h1 class="cd-title" data-cd-title>차량명</h1>
+                      <div class="cd-brand__meta">
+                        <span data-cd-brand></span>
+                        <span class="cd-origin" data-cd-origin>국산차</span>
+                      </div>
+                      <div class="cd-price" data-cd-price-box></div>
+                    </div>
+                  </div>
+                  <div class="cd-colors" data-cd-colors hidden>
+                    <div class="cd-colors__head">
+                      <span>외장색상 선택</span>
+                      <strong data-cd-color-name></strong>
+                    </div>
+                    <div class="cd-colors__palette" data-cd-palette></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 세부모델 -->
+              <section class="cd-card">
+                <button class="cd-card__head" type="button" data-cd-toggle aria-expanded="true">
+                  <h2>세부모델 선택</h2>
+                  <span class="cd-card__icon" aria-hidden="true">−</span>
+                </button>
+                <div class="cd-card__body">
+                  <div class="cd-trims" data-cd-trims></div>
+                </div>
+              </section>
+
+              <!-- 추가 옵션 -->
+              <section class="cd-card" data-cd-option-card>
+                <button class="cd-card__head" type="button" data-cd-toggle aria-expanded="true">
+                  <h2>추가 옵션 선택</h2>
+                  <span class="cd-card__icon" aria-hidden="true">−</span>
+                </button>
+                <div class="cd-card__body">
+                  <div class="cd-options" data-cd-options></div>
+                </div>
+              </section>
+
+              <!-- 계약 조건 -->
+              <section class="cd-card">
+                <button class="cd-card__head" type="button" data-cd-toggle aria-expanded="true">
+                  <h2>계약 조건 선택</h2>
+                  <span class="cd-card__icon" aria-hidden="true">−</span>
+                </button>
+                <div class="cd-card__body">
+                  <div class="cd-contract" data-cd-contract></div>
+                </div>
+              </section>
+            </div>
+
+            <!-- 내 차 견적서 -->
+            <aside class="cd-right">
+              <div class="cd-estimate">
+                <div class="cd-estimate__top">내 차 견적서</div>
+                <form class="cd-estimate__body" data-cd-estimate-form>
+                  <div class="cd-est-block">
+                    <p class="cd-est-block__title">기본 차량가격</p>
+                    <div class="cd-est-row">
+                      <span data-cd-est-trim></span>
+                      <strong data-cd-est-trim-price>0원</strong>
+                    </div>
+                  </div>
+
+                  <div class="cd-est-block">
+                    <p class="cd-est-block__title">옵션가격</p>
+                    <div class="cd-est-options" data-cd-est-options></div>
+                  </div>
+
+                  <div class="cd-est-block cd-est-block--discount" data-cd-est-discount hidden>
+                    <p class="cd-est-block__title">즉시할인가</p>
+                    <div class="cd-est-row">
+                      <span>즉시 할인 혜택</span>
+                      <strong data-cd-est-discount-value>0원</strong>
+                    </div>
+                  </div>
+
+                  <div class="cd-est-total">
+                    <span>총 차량가격</span>
+                    <strong data-cd-est-total>0원</strong>
+                  </div>
+
+                  <div class="privacy-row">
+                    <input id="cd-privacy" name="privacyAgree" type="checkbox" checked />
+                    <label for="cd-privacy">[필수] 개인정보 이용 동의</label>
+                    <a href="#" data-open-privacy>[보기]</a>
+                  </div>
+                  <p class="form-error" data-form-error></p>
+                  <button class="cd-estimate__cta" type="submit">실시간 무료견적 받기</button>
+                </form>
+              </div>
+            </aside>
+          </div>
+
+          <p class="disclaimer">* 트림·옵션·가격은 제조사 정책에 따라 변경될 수 있습니다.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="pc-footer">
+      <div class="container">
+        <div>
+          <p>블라인드 카스토리</p>
+          <p>주소 / 대표 / 사업자등록번호 : 정보 준비중</p>
+          <p>전화 : 1577-8319 / 이메일 : 정보 준비중</p>
+        </div>
+        <div>(C) Blind CarStory All Rights Reserved.</div>
+      </div>
+    </footer>
+
+    <aside class="quick-consult is-closed" data-quick-consult data-quick-default="closed">
+      <div class="quick-card">
+        <form class="quick-form" data-consult-form data-source="car-detail-sidebar">
+          <div class="quick-fields">
+            <h3>실시간 견적문의</h3>
+            <div class="quick-row">
+              <label for="quick-name">성함<span class="required">*</span></label>
+              <input id="quick-name" name="name" type="text" placeholder="ex) 홍길동" />
+            </div>
+            <div class="quick-row">
+              <label for="quick-phone">연락처<span class="required">*</span></label>
+              <input id="quick-phone" name="phone" type="tel" placeholder="ex) 01012345678" />
+            </div>
+            <div class="quick-row">
+              <label for="quick-model">차종</label>
+              <input id="quick-model" name="carModel" type="text" placeholder="ex) 쏘렌토" />
+            </div>
+            <div class="privacy-row">
+              <input id="quick-privacy" name="privacyAgree" type="checkbox" checked />
+              <label for="quick-privacy">[필수] 개인정보 이용 동의</label>
+              <a href="#" data-open-privacy>[보기]</a>
+            </div>
+            <p class="form-error" data-form-error></p>
+          </div>
+          <button class="quick-submit" type="submit">실시간 무료견적 받기</button>
+        </form>
+      </div>
+      <div class="quick-methods">
+        <button class="method-btn method-btn--phone" type="button" data-demo-contact>
+          <span class="method-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z" />
+            </svg>
+          </span>
+          <span class="method-text">
+            <small>전문상담원과 간편 전화상담</small>
+            <strong>1577-8319</strong>
+          </span>
+        </button>
+        <span class="method-divider" aria-hidden="true"></span>
+        <button class="method-btn method-btn--kakao" type="button" data-demo-contact>
+          <span class="method-icon method-icon--kakao" aria-hidden="true">TALK</span>
+          <span class="method-text">
+            <small>1분만에 스으윽~~~</small>
+            <strong>카톡 간편 상담 신청</strong>
+          </span>
+        </button>
+      </div>
+      <div class="quick-actions">
+        <button class="quick-pill quick-pill--fold" type="button" data-quick-toggle aria-expanded="true">상담창<br />접어두기</button>
+        <button class="quick-pill quick-pill--top" type="button" data-scroll-top>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15l7-7 7 7" /></svg>
+          TOP
+        </button>
+      </div>
+      <div class="unfold-wrap">
+        <button class="quick-pill quick-pill--fold" type="button" data-quick-toggle aria-expanded="false">상담창<br />펼치기</button>
+        <button class="quick-pill quick-pill--top" type="button" data-scroll-top>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15l7-7 7 7" /></svg>
+          TOP
+        </button>
+      </div>
+    </aside>
+
+    <div class="modal-overlay" id="privacy-modal" aria-hidden="true">
+      <div class="modal-card" role="dialog" aria-labelledby="privacy-title">
+        <h2 id="privacy-title">개인정보 수집·이용 동의</h2>
+        <p>수집 항목 : 성함, 연락처, 관심 차종</p>
+        <p>이용 목적 : 신차 장기렌트·리스 견적 상담 및 결과 안내</p>
+        <p>보유 기간 : 상담 종료 후 3개월 이내 파기하며, 동의를 거부하실 수 있습니다.</p>
+        <button class="btn btn-primary" type="button" data-close-privacy>확인</button>
+      </div>
+    </div>
+    <div class="toast" id="demo-toast" role="status" aria-live="polite"></div>
+
+    <script src="./assets/js/mock-data.js"></script>
+    <script src="./assets/js/carlist-data.js?v=20260831f"></script>
+    <script src="./assets/js/express-data.js?v=20260831f"></script>
+    <script src="./assets/js/car-detail-data.js"></script>
+    <script src="./assets/js/common.js"></script>
+    <script src="./assets/js/car-detail.js?v=20260831f"></script>
+  </body>
+</html>

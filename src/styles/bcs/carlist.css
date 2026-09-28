@@ -1,0 +1,431 @@
+/* 자동 생성: scripts/build-publishing-css.mjs (원본 design/publishing-step2-1/assets/css/carlist.css, 범위 .bcs-page-carlist). 직접 고치지 말고 원본이나 src/styles/bcs-overrides.css 를 고친다. */
+/* 내 차 견적(차량 리스트) 페이지 전용 스타일 */
+
+:where(.bcs-page-carlist) .carlist-page {
+  padding: 24px 0 72px;
+}
+
+:where(.bcs-page-carlist) .breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: var(--fs-13);
+  color: var(--color-text-muted);
+}
+
+:where(.bcs-page-carlist) .breadcrumb a {
+  color: var(--color-text-secondary);
+}
+
+:where(.bcs-page-carlist) .breadcrumb a:hover {
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
+:where(.bcs-page-carlist) .breadcrumb span[data-crumb-current] {
+  color: var(--color-text);
+  font-weight: var(--fw-semibold);
+}
+
+/* 상단 배너 */
+:where(.bcs-page-carlist) .cl-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-large);
+  background: #111;
+  box-shadow: var(--shadow-md);
+  line-height: 0;
+}
+
+:where(.bcs-page-carlist) .cl-hero__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* 국산차 / 수입차 탭 */
+:where(.bcs-page-carlist) .cl-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 32px 0 24px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+:where(.bcs-page-carlist) .cl-tab {
+  padding: 14px 0 16px;
+  background: transparent;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  font-size: var(--fs-18);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-muted);
+  transition: color var(--transition), border-color var(--transition);
+}
+
+:where(.bcs-page-carlist) .cl-tab:hover {
+  color: var(--color-text-secondary);
+}
+
+:where(.bcs-page-carlist) .cl-tab.is-active {
+  color: var(--color-text);
+  font-weight: var(--fw-bold);
+  border-bottom-color: var(--color-gold);
+}
+
+/* 브랜드 필터 */
+:where(.bcs-page-carlist) .cl-brands {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+:where(.bcs-page-carlist) .cl-brands__track {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 4px 2px;
+  scrollbar-width: none;
+}
+
+:where(.bcs-page-carlist) .cl-brands__track::-webkit-scrollbar {
+  display: none;
+}
+
+:where(.bcs-page-carlist) .cl-brand {
+  flex-shrink: 0;
+  width: 88px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+:where(.bcs-page-carlist) .cl-brand__mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-white);
+  font-size: var(--fs-13);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-secondary);
+  letter-spacing: -0.03em;
+  transition: border-color var(--transition), color var(--transition), background var(--transition);
+}
+
+:where(.bcs-page-carlist) .cl-brand__mark img {
+  display: block;
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+}
+
+:where(.bcs-page-carlist) .cl-brand__name {
+  font-size: var(--fs-12);
+  font-weight: var(--fw-medium);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+:where(.bcs-page-carlist) .cl-brand:hover .cl-brand__mark {
+  border-color: var(--color-gold-line);
+}
+
+:where(.bcs-page-carlist) .cl-brand.is-active .cl-brand__mark {
+  border: 2px solid var(--color-black);
+  background: var(--color-gold-soft);
+  color: var(--color-black);
+}
+
+:where(.bcs-page-carlist) .cl-brand.is-active .cl-brand__name {
+  color: var(--color-text);
+  font-weight: var(--fw-bold);
+}
+
+:where(.bcs-page-carlist) .cl-brands__arrow {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 50%;
+  background: var(--color-white);
+  color: var(--color-text-secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+:where(.bcs-page-carlist) .cl-brands__arrow:hover {
+  border-color: var(--color-black);
+  color: var(--color-black);
+}
+
+/* 리스트 헤더 */
+:where(.bcs-page-carlist) .cl-listhead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+:where(.bcs-page-carlist) .cl-listhead__note {
+  font-size: var(--fs-13);
+  color: var(--color-text-muted);
+}
+
+:where(.bcs-page-carlist) .cl-listhead__count {
+  font-size: var(--fs-14);
+  color: var(--color-text-secondary);
+}
+
+:where(.bcs-page-carlist) .cl-listhead__count strong {
+  font-size: var(--fs-18);
+  font-weight: var(--fw-bold);
+  color: var(--color-text);
+}
+
+/* 차량 카드 그리드 */
+:where(.bcs-page-carlist) .cl-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+:where(.bcs-page-carlist) .cl-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  padding: 16px 16px 18px;
+  cursor: pointer;
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+
+:where(.bcs-page-carlist) .cl-card:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+:where(.bcs-page-carlist) .cl-card__head {
+  display: flex;
+  align-items: center;
+  min-height: 28px;
+}
+
+:where(.bcs-page-carlist) .cl-card__brand {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 10px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-12);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-secondary);
+}
+
+:where(.bcs-page-carlist) .cl-card__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 128px;
+  margin: 8px 0 14px;
+}
+
+:where(.bcs-page-carlist) .cl-card__media img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+:where(.bcs-page-carlist) .cl-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+:where(.bcs-page-carlist) .cl-card__name {
+  font-size: var(--fs-16);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+}
+
+:where(.bcs-page-carlist) .cl-card__trim {
+  margin-top: 4px;
+  min-height: 34px;
+  font-size: var(--fs-12);
+  line-height: 1.45;
+  color: var(--color-text-muted);
+}
+
+:where(.bcs-page-carlist) .cl-card__prices {
+  margin: 14px 0 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+:where(.bcs-page-carlist) .cl-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+:where(.bcs-page-carlist) .cl-price-row dt {
+  font-size: var(--fs-12);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+:where(.bcs-page-carlist) .cl-price-base {
+  font-size: var(--fs-13);
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+}
+
+:where(.bcs-page-carlist) .cl-price-discount {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--color-gold);
+  color: var(--color-black);
+  font-size: var(--fs-12);
+  font-weight: var(--fw-bold);
+  white-space: nowrap;
+}
+
+:where(.bcs-page-carlist) .cl-price-row--final {
+  margin-top: 2px;
+}
+
+:where(.bcs-page-carlist) .cl-price-row--final dt {
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-secondary);
+}
+
+:where(.bcs-page-carlist) .cl-price-final {
+  font-size: var(--fs-18);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+:where(.bcs-page-carlist) .cl-card__cta {
+  margin-top: auto;
+  width: 100%;
+  min-height: var(--btn-height);
+  border: 0;
+  border-radius: var(--radius-button);
+  background: var(--color-black);
+  color: var(--color-white);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-bold);
+  transition: background var(--transition);
+}
+
+:where(.bcs-page-carlist) .cl-card__cta:hover {
+  background: #000;
+}
+
+/* 더보기 · 빈 목록 */
+:where(.bcs-page-carlist) .cl-empty {
+  padding: 60px 0;
+  text-align: center;
+  font-size: var(--fs-14);
+  color: var(--color-text-muted);
+}
+
+:where(.bcs-page-carlist) .cl-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+:where(.bcs-page-carlist) .cl-more__btn {
+  min-width: 260px;
+  min-height: var(--btn-height-lg);
+  padding: 0 24px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--color-white);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-bold);
+  color: var(--color-text);
+  transition: border-color var(--transition), background var(--transition);
+}
+
+:where(.bcs-page-carlist) .cl-more__btn:hover {
+  border-color: var(--color-black);
+  background: var(--color-bg-soft);
+}
+
+:where(.bcs-page-carlist) .carlist-page .disclaimer {
+  margin-top: 24px;
+  text-align: center;
+}
+
+/* ==========================================================================
+   반응형 (내 차 견적)
+   ========================================================================== */
+
+@media (max-width: 1279px) {
+  :where(.bcs-page-carlist) .cl-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  :where(.bcs-page-carlist) .cl-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  :where(.bcs-page-carlist) .carlist-page {
+    padding: 16px 0 48px;
+  }
+
+  :where(.bcs-page-carlist) .cl-hero {
+    border-radius: var(--radius-banner);
+  }
+
+  :where(.bcs-page-carlist) .cl-tabs {
+    margin: 24px 0 20px;
+  }
+
+  :where(.bcs-page-carlist) .cl-tab {
+    font-size: var(--fs-16);
+  }
+
+  :where(.bcs-page-carlist) .cl-grid {
+    grid-template-columns: 1fr;
+  }
+
+  :where(.bcs-page-carlist) .cl-card__media {
+    height: 150px;
+  }
+
+  :where(.bcs-page-carlist) .cl-more__btn {
+    min-width: 0;
+    width: 100%;
+  }
+}

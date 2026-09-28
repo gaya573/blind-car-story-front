@@ -48,9 +48,6 @@ a {
   color: #111111;
   text-decoration: inherit;
 }
-a:hover {
-  color: #111111;
-}
 
 body {
   margin: 0;
@@ -66,25 +63,11 @@ h1 {
   letter-spacing: var(--letter-spacing-base);
 }
 
-  
-button:hover {
-  border-color: #111111;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
 
 @media (prefers-color-scheme: light) {
   :root {
     color: #343434;
     background-color: #ffffff;
-  }
-  a:hover {
-    color: #111111;
-  }
-  button {
-    background-color: #f9f9f9;
   }
 }
 

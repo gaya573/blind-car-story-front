@@ -1,0 +1,666 @@
+/* 자동 생성: scripts/build-publishing-css.mjs (원본 design/publishing-step2-1/assets/css/car-detail.css, 범위 .bcs-page-car-detail). 직접 고치지 말고 원본이나 src/styles/bcs-overrides.css 를 고친다. */
+/* 차량 상세 페이지 전용 스타일 */
+
+:where(.bcs-page-car-detail) .cd-page {
+  padding: 24px 0 72px;
+}
+
+:where(.bcs-page-car-detail) .cd-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  font-size: var(--fs-13);
+  color: var(--color-text-muted);
+}
+
+:where(.bcs-page-car-detail) .cd-breadcrumb a {
+  color: var(--color-text-secondary);
+}
+
+:where(.bcs-page-car-detail) .cd-breadcrumb a:hover {
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
+:where(.bcs-page-car-detail) .cd-breadcrumb strong {
+  color: var(--color-text);
+  font-weight: var(--fw-semibold);
+}
+
+/* 선택 경로 배너 */
+:where(.bcs-page-car-detail) .cd-hierarchy {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  padding: 12px 18px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-bg-soft);
+  font-size: var(--fs-14);
+  color: var(--color-text-secondary);
+}
+
+:where(.bcs-page-car-detail) .cd-hierarchy strong {
+  font-weight: var(--fw-bold);
+  color: var(--color-text);
+}
+
+:where(.bcs-page-car-detail) .cd-hierarchy__terms {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 12px;
+  border: 1px solid var(--color-gold-line);
+  border-radius: var(--radius-pill);
+  background: var(--color-gold-soft);
+  font-size: var(--fs-12);
+  font-weight: var(--fw-semibold);
+  color: #6b5410;
+}
+
+/* 2단 레이아웃 */
+:where(.bcs-page-car-detail) .cd-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 32px;
+  align-items: start;
+}
+
+:where(.bcs-page-car-detail) .cd-left {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+/* 히어로 */
+:where(.bcs-page-car-detail) .cd-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 24px;
+}
+
+:where(.bcs-page-car-detail) .cd-hero__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  padding: 24px;
+  border-radius: var(--radius-banner);
+  background: linear-gradient(135deg, #f7f7f8 0%, #ececee 100%);
+}
+
+:where(.bcs-page-car-detail) .cd-hero__media img {
+  width: 100%;
+  max-height: 240px;
+  object-fit: contain;
+}
+
+:where(.bcs-page-car-detail) .cd-hero__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 20px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-banner);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+:where(.bcs-page-car-detail) .cd-brand {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+:where(.bcs-page-car-detail) .cd-brand__mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: var(--color-black);
+  color: var(--color-gold);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.04em;
+}
+
+:where(.bcs-page-car-detail) .cd-brand__mark.has-logo {
+  padding: 8px;
+  border: 1px solid var(--color-border);
+  background: #fff;
+}
+
+:where(.bcs-page-car-detail) .cd-brand__mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+:where(.bcs-page-car-detail) .cd-title {
+  font-size: 28px;
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+}
+
+:where(.bcs-page-car-detail) .cd-brand__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+:where(.bcs-page-car-detail) .cd-brand__meta span:first-child {
+  font-size: var(--fs-14);
+  color: var(--color-text-secondary);
+}
+
+:where(.bcs-page-car-detail) .cd-origin {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 10px;
+  border: 1px solid var(--color-gold-line);
+  border-radius: var(--radius-pill);
+  background: var(--color-gold-soft);
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+  color: #6b5410;
+}
+
+:where(.bcs-page-car-detail) .cd-origin.is-imported {
+  border-color: var(--color-border-strong);
+  background: var(--color-black);
+  color: var(--color-white);
+}
+
+/* 가격 박스 */
+:where(.bcs-page-car-detail) .cd-price {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+:where(.bcs-page-car-detail) .cd-price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+:where(.bcs-page-car-detail) .cd-price-row__label {
+  font-size: var(--fs-13);
+  color: var(--color-text-secondary);
+}
+
+:where(.bcs-page-car-detail) .cd-price-row__value {
+  font-size: var(--fs-20);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+:where(.bcs-page-car-detail) .cd-price-row__value.is-discount {
+  font-size: var(--fs-16);
+  color: var(--color-red);
+}
+
+:where(.bcs-page-car-detail) .cd-price-row--final .cd-price-row__label {
+  font-weight: var(--fw-semibold);
+  color: var(--color-text);
+}
+
+:where(.bcs-page-car-detail) .cd-price-row--final .cd-price-row__value {
+  color: var(--color-gold-strong);
+}
+
+/* 외장색상 */
+:where(.bcs-page-car-detail) .cd-colors {
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+:where(.bcs-page-car-detail) .cd-colors__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: var(--fs-12);
+}
+
+:where(.bcs-page-car-detail) .cd-colors__head span {
+  color: var(--color-text-secondary);
+}
+
+:where(.bcs-page-car-detail) .cd-colors__head strong {
+  font-weight: var(--fw-bold);
+  color: var(--color-text);
+}
+
+:where(.bcs-page-car-detail) .cd-colors__palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+:where(.bcs-page-car-detail) .cd-swatch {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid rgb(17 17 17 / 18%);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+:where(.bcs-page-car-detail) .cd-swatch:hover {
+  transform: translateY(-2px);
+}
+
+:where(.bcs-page-car-detail) .cd-swatch.is-selected {
+  border: 2px solid var(--color-black);
+  box-shadow: 0 0 0 3px var(--color-gold-soft);
+}
+
+/* 선택 카드 (아코디언) */
+:where(.bcs-page-car-detail) .cd-card {
+  padding: 20px 22px 22px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-banner);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+:where(.bcs-page-car-detail) .cd-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+:where(.bcs-page-car-detail) .cd-card__head h2 {
+  font-size: var(--fs-18);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+}
+
+:where(.bcs-page-car-detail) .cd-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--color-bg-soft);
+  color: var(--color-text-secondary);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-bold);
+}
+
+:where(.bcs-page-car-detail) .cd-card__body {
+  margin-top: 16px;
+}
+
+:where(.bcs-page-car-detail) .cd-card.is-closed .cd-card__body {
+  display: none;
+}
+
+/* 트림 / 옵션 선택 */
+:where(.bcs-page-car-detail) .cd-trims,
+:where(.bcs-page-car-detail) .cd-options {
+  display: flex;
+  flex-direction: column;
+}
+
+:where(.bcs-page-car-detail) .cd-trim,
+:where(.bcs-page-car-detail) .cd-option {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 10px;
+  border: 0;
+  border-radius: var(--radius-button);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+:where(.bcs-page-car-detail) .cd-trim:hover,
+:where(.bcs-page-car-detail) .cd-option:hover {
+  background: var(--color-bg-soft);
+}
+
+:where(.bcs-page-car-detail) .cd-radio,
+:where(.bcs-page-car-detail) .cd-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--color-border-strong);
+  background: var(--color-white);
+  color: var(--color-white);
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  line-height: 1;
+}
+
+:where(.bcs-page-car-detail) .cd-radio {
+  border-radius: 50%;
+}
+
+:where(.bcs-page-car-detail) .cd-checkbox {
+  border-radius: 5px;
+}
+
+:where(.bcs-page-car-detail) .cd-trim.is-active .cd-radio,
+:where(.bcs-page-car-detail) .cd-option.is-checked .cd-checkbox {
+  border-color: var(--color-black);
+  background: var(--color-black);
+  color: var(--color-gold);
+}
+
+:where(.bcs-page-car-detail) .cd-trim__name,
+:where(.bcs-page-car-detail) .cd-option__name {
+  font-size: var(--fs-16);
+  color: var(--color-text-secondary);
+}
+
+:where(.bcs-page-car-detail) .cd-trim.is-active .cd-trim__name,
+:where(.bcs-page-car-detail) .cd-option.is-checked .cd-option__name {
+  font-weight: var(--fw-semibold);
+  color: var(--color-text);
+}
+
+:where(.bcs-page-car-detail) .cd-trim__price,
+:where(.bcs-page-car-detail) .cd-option__price {
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+:where(.bcs-page-car-detail) .cd-trim.is-active .cd-trim__price {
+  color: var(--color-gold-strong);
+}
+
+/* 계약 조건 */
+:where(.bcs-page-car-detail) .cd-contract {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+:where(.bcs-page-car-detail) .cd-contract-row__label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: var(--fs-14);
+  font-weight: var(--fw-semibold);
+}
+
+:where(.bcs-page-car-detail) .cd-contract-row__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+:where(.bcs-page-car-detail) .cd-contract-btn {
+  flex: 1 1 120px;
+  min-height: 46px;
+  padding: 0 14px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-button);
+  background: var(--color-white);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-medium);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition), color var(--transition);
+}
+
+:where(.bcs-page-car-detail) .cd-contract-btn:hover {
+  border-color: var(--color-gold-line);
+}
+
+:where(.bcs-page-car-detail) .cd-contract-btn.is-active {
+  border: 2px solid var(--color-black);
+  background: var(--color-gold-soft);
+  color: var(--color-black);
+  font-weight: var(--fw-bold);
+}
+
+/* 우측 견적서 */
+:where(.bcs-page-car-detail) .cd-right {
+  position: sticky;
+  top: 24px;
+}
+
+:where(.bcs-page-car-detail) .cd-estimate {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-banner);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
+}
+
+:where(.bcs-page-car-detail) .cd-estimate__top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  background: var(--color-black);
+  color: var(--color-gold);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+}
+
+:where(.bcs-page-car-detail) .cd-estimate__body {
+  padding: 20px;
+}
+
+:where(.bcs-page-car-detail) .cd-est-block + .cd-est-block {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--color-border);
+}
+
+:where(.bcs-page-car-detail) .cd-est-block__title {
+  margin-bottom: 8px;
+  font-size: var(--fs-16);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+}
+
+:where(.bcs-page-car-detail) .cd-est-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: var(--fs-13);
+  color: var(--color-text-secondary);
+}
+
+:where(.bcs-page-car-detail) .cd-est-row strong {
+  font-size: var(--fs-16);
+  font-weight: var(--fw-bold);
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+:where(.bcs-page-car-detail) .cd-est-options {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 132px;
+  overflow-y: auto;
+}
+
+:where(.bcs-page-car-detail) .cd-est-option {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: var(--fs-13);
+  color: var(--color-text-secondary);
+}
+
+:where(.bcs-page-car-detail) .cd-est-option em {
+  font-style: normal;
+  font-weight: var(--fw-semibold);
+  color: var(--color-text);
+  text-align: right;
+}
+
+:where(.bcs-page-car-detail) .cd-est-block--discount .cd-est-row strong {
+  color: var(--color-red);
+}
+
+:where(.bcs-page-car-detail) .cd-est-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 2px solid var(--color-black);
+}
+
+:where(.bcs-page-car-detail) .cd-est-total span {
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+}
+
+:where(.bcs-page-car-detail) .cd-est-total strong {
+  font-size: var(--fs-24);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.03em;
+  color: var(--color-gold-strong);
+  white-space: nowrap;
+}
+
+:where(.bcs-page-car-detail) .cd-estimate .privacy-row {
+  margin-top: 16px;
+  justify-content: flex-start;
+}
+
+:where(.bcs-page-car-detail) .cd-estimate .form-error:empty {
+  display: none;
+}
+
+:where(.bcs-page-car-detail) .cd-estimate__cta {
+  width: 100%;
+  min-height: var(--btn-height-lg);
+  margin-top: 8px;
+  border: 0;
+  border-radius: var(--radius-button);
+  background: var(--color-black);
+  color: var(--color-white);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-bold);
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+:where(.bcs-page-car-detail) .cd-estimate__cta:hover {
+  background: #2a2a2a;
+}
+
+:where(.bcs-page-car-detail) .cd-page .disclaimer {
+  margin-top: 24px;
+  text-align: center;
+}
+
+/* ==========================================================================
+   반응형
+   ========================================================================== */
+
+@media (max-width: 1279px) {
+  :where(.bcs-page-car-detail) .cd-layout {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 1024px) {
+  :where(.bcs-page-car-detail) .cd-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  :where(.bcs-page-car-detail) .cd-right {
+    position: static;
+  }
+
+  :where(.bcs-page-car-detail) .cd-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  :where(.bcs-page-car-detail) .cd-hero__media {
+    min-height: 0;
+  }
+
+  :where(.bcs-page-car-detail) .cd-hero__media img {
+    max-height: 200px;
+  }
+}
+
+@media (max-width: 767px) {
+  :where(.bcs-page-car-detail) .cd-page {
+    padding: 16px 0 48px;
+  }
+
+  :where(.bcs-page-car-detail) .cd-hierarchy {
+    font-size: var(--fs-13);
+  }
+
+  :where(.bcs-page-car-detail) .cd-title {
+    font-size: 22px;
+  }
+
+  :where(.bcs-page-car-detail) .cd-card {
+    padding: 18px 16px 20px;
+  }
+
+  :where(.bcs-page-car-detail) .cd-trim,
+  :where(.bcs-page-car-detail) .cd-option {
+    grid-template-columns: 20px minmax(0, 1fr);
+    row-gap: 4px;
+  }
+
+  :where(.bcs-page-car-detail) .cd-trim__price,
+  :where(.bcs-page-car-detail) .cd-option__price {
+    grid-column: 2;
+    font-size: var(--fs-14);
+  }
+
+  :where(.bcs-page-car-detail) .cd-contract-btn {
+    flex: 1 1 calc(50% - 5px);
+    min-height: 44px;
+    font-size: var(--fs-13);
+  }
+
+  :where(.bcs-page-car-detail) .cd-est-total strong {
+    font-size: var(--fs-20);
+  }
+}

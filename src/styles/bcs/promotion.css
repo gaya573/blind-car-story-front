@@ -1,0 +1,407 @@
+/* 자동 생성: scripts/build-publishing-css.mjs (원본 design/publishing-step2-1/assets/css/promotion.css, 범위 .bcs-page-promotion). 직접 고치지 말고 원본이나 src/styles/bcs-overrides.css 를 고친다. */
+/* 브랜드별 혜택(기획전) 페이지 전용 스타일 */
+
+:where(.bcs-page-promotion) .promotion-page {
+  padding: 24px 0 72px;
+}
+
+:where(.bcs-page-promotion) .pm-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: var(--fs-13);
+  color: var(--color-text-muted);
+}
+
+:where(.bcs-page-promotion) .pm-breadcrumb a {
+  color: var(--color-text-secondary);
+}
+
+:where(.bcs-page-promotion) .pm-breadcrumb a:hover {
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
+:where(.bcs-page-promotion) .pm-breadcrumb strong {
+  color: var(--color-text);
+  font-weight: var(--fw-semibold);
+}
+
+/* 페이지 헤더 */
+:where(.bcs-page-promotion) .pm-header {
+  padding: 20px 0 28px;
+  text-align: center;
+}
+
+:where(.bcs-page-promotion) .pm-header__title {
+  font-size: 36px;
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.03em;
+  line-height: 1.3;
+}
+
+:where(.bcs-page-promotion) .pm-header__title em {
+  font-style: normal;
+  color: var(--color-gold-strong);
+}
+
+:where(.bcs-page-promotion) .pm-header__sub {
+  margin-top: 12px;
+  font-size: var(--fs-18);
+  color: var(--color-text-secondary);
+}
+
+/* 진행중 / 종료된 기획전 탭 */
+:where(.bcs-page-promotion) .pm-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+:where(.bcs-page-promotion) .pm-tab {
+  padding: 14px 0 16px;
+  margin-bottom: -1px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  font-size: var(--fs-18);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-muted);
+  transition: color var(--transition), border-color var(--transition);
+}
+
+:where(.bcs-page-promotion) .pm-tab:hover {
+  color: var(--color-text-secondary);
+}
+
+:where(.bcs-page-promotion) .pm-tab.is-active {
+  color: var(--color-text);
+  font-weight: var(--fw-bold);
+  border-bottom-color: var(--color-gold);
+}
+
+:where(.bcs-page-promotion) .pm-listhead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 20px 0 20px;
+}
+
+:where(.bcs-page-promotion) .pm-listhead__note {
+  font-size: var(--fs-13);
+  color: var(--color-text-muted);
+}
+
+:where(.bcs-page-promotion) .pm-listhead__count {
+  font-size: var(--fs-14);
+  color: var(--color-text-secondary);
+}
+
+:where(.bcs-page-promotion) .pm-listhead__count strong {
+  font-size: var(--fs-18);
+  font-weight: var(--fw-bold);
+  color: var(--color-text);
+}
+
+/* 기획전 카드 그리드 */
+:where(.bcs-page-promotion) .pm-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px 30px;
+}
+
+:where(.bcs-page-promotion) .pm-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  cursor: pointer;
+}
+
+:where(.bcs-page-promotion) .pm-card__title {
+  font-size: var(--fs-20);
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.025em;
+  line-height: 1.35;
+  color: var(--color-text);
+}
+
+:where(.bcs-page-promotion) .pm-card:hover .pm-card__title {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* 기획전 배너 타일 */
+:where(.bcs-page-promotion) .pm-tile {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  aspect-ratio: 406 / 264;
+  min-height: 286px;
+  padding: 64px 26px 22px;
+  border-radius: var(--radius-banner);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+:where(.bcs-page-promotion) .pm-card:hover .pm-tile {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+:where(.bcs-page-promotion) .pm-tile::before {
+  content: "";
+  position: absolute;
+  right: -60px;
+  top: -110px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(201 162 39 / 26%) 0%, rgb(201 162 39 / 0%) 70%);
+  pointer-events: none;
+}
+
+:where(.bcs-page-promotion) .pm-tile--dark {
+  background: linear-gradient(135deg, #2b2b2b 0%, #111111 65%);
+  color: var(--color-white);
+}
+
+:where(.bcs-page-promotion) .pm-tile--night {
+  background: linear-gradient(135deg, #1b1b1b 0%, #3a3225 100%);
+  color: var(--color-white);
+}
+
+:where(.bcs-page-promotion) .pm-tile--gold {
+  background: linear-gradient(135deg, #f8f2df 0%, #ecdfb4 100%);
+  color: var(--color-black);
+}
+
+:where(.bcs-page-promotion) .pm-tile--gold::before {
+  background: radial-gradient(circle, rgb(255 255 255 / 60%) 0%, rgb(255 255 255 / 0%) 70%);
+}
+
+:where(.bcs-page-promotion) .pm-tile__badge {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-red);
+  color: var(--color-white);
+  font-size: var(--fs-12);
+  font-weight: var(--fw-bold);
+}
+
+:where(.bcs-page-promotion) .pm-tile__brand {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 12px;
+  border: 1px solid rgb(255 255 255 / 32%);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-12);
+  font-weight: var(--fw-semibold);
+  color: rgb(255 255 255 / 88%);
+  max-width: calc(100% - 104px);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+:where(.bcs-page-promotion) .pm-tile--gold .pm-tile__brand {
+  border-color: rgb(17 17 17 / 22%);
+  color: rgb(17 17 17 / 78%);
+}
+
+:where(.bcs-page-promotion) .pm-tile__text {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+:where(.bcs-page-promotion) .pm-tile__partner {
+  font-size: var(--fs-12);
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.01em;
+  color: var(--color-gold);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+:where(.bcs-page-promotion) .pm-tile--gold .pm-tile__partner {
+  color: var(--color-gold-strong);
+}
+
+:where(.bcs-page-promotion) .pm-tile__headline {
+  margin-top: 10px;
+  font-size: 26px;
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  display: -webkit-box;
+  min-height: 65px;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+:where(.bcs-page-promotion) .pm-tile__benefit {
+  margin-top: 8px;
+  font-size: var(--fs-14);
+  color: rgb(255 255 255 / 72%);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+:where(.bcs-page-promotion) .pm-tile--gold .pm-tile__benefit {
+  color: rgb(17 17 17 / 68%);
+}
+
+:where(.bcs-page-promotion) .pm-tile__period {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid rgb(255 255 255 / 16%);
+  font-size: var(--fs-12);
+  color: rgb(255 255 255 / 52%);
+}
+
+:where(.bcs-page-promotion) .pm-tile--gold .pm-tile__period {
+  border-top-color: rgb(17 17 17 / 14%);
+  color: rgb(17 17 17 / 55%);
+}
+
+/* 종료된 기획전 */
+:where(.bcs-page-promotion) .pm-card--ended .pm-tile {
+  filter: grayscale(1);
+  opacity: 0.72;
+}
+
+:where(.bcs-page-promotion) .pm-card--ended .pm-tile__badge {
+  background: #6f6f6f;
+}
+
+:where(.bcs-page-promotion) .pm-card--ended .pm-card__title {
+  color: var(--color-text-secondary);
+}
+
+:where(.bcs-page-promotion) .pm-card--ended:hover .pm-tile {
+  filter: grayscale(0.6);
+  opacity: 0.9;
+}
+
+/* 빈 목록 · 안내 */
+:where(.bcs-page-promotion) .pm-empty {
+  padding: 60px 0;
+  text-align: center;
+  font-size: var(--fs-14);
+  color: var(--color-text-muted);
+}
+
+:where(.bcs-page-promotion) .promotion-page .disclaimer {
+  margin-top: 40px;
+  text-align: center;
+}
+
+/* ==========================================================================
+   반응형 (브랜드별 혜택)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  :where(.bcs-page-promotion) .pm-header {
+    padding: 12px 0 24px;
+  }
+
+  :where(.bcs-page-promotion) .pm-header__title {
+    font-size: 30px;
+  }
+
+  :where(.bcs-page-promotion) .pm-header__sub {
+    font-size: var(--fs-16);
+  }
+
+  :where(.bcs-page-promotion) .pm-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 24px;
+  }
+
+  :where(.bcs-page-promotion) .pm-tile__headline {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 767px) {
+  :where(.bcs-page-promotion) .promotion-page {
+    padding: 16px 0 48px;
+  }
+
+  :where(.bcs-page-promotion) .pm-header__title {
+    font-size: 26px;
+  }
+
+  :where(.bcs-page-promotion) .pm-header__sub {
+    font-size: var(--fs-14);
+  }
+
+  :where(.bcs-page-promotion) .pm-tab {
+    font-size: var(--fs-16);
+    padding: 12px 0 14px;
+  }
+
+  :where(.bcs-page-promotion) .pm-listhead {
+    margin: 16px 0;
+  }
+
+  :where(.bcs-page-promotion) .pm-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  :where(.bcs-page-promotion) .pm-tile {
+    min-height: 270px;
+    padding: 60px 20px 18px;
+  }
+
+  :where(.bcs-page-promotion) .pm-tile__headline {
+    font-size: 20px;
+  }
+
+  :where(.bcs-page-promotion) .pm-card__title {
+    font-size: var(--fs-16);
+  }
+}
+
+/* 목록 카드 : 할인 배지 */
+:where(.bcs-page-promotion) .pm-tile__discount {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  margin-top: 14px;
+  padding: 0 14px;
+  border: 1px solid rgb(201 162 39 / 55%);
+  border-radius: var(--radius-pill);
+  background: rgb(201 162 39 / 14%);
+  font-size: var(--fs-12);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.01em;
+  color: var(--color-gold);
+}
+
+:where(.bcs-page-promotion) .pm-tile--gold .pm-tile__discount {
+  border-color: rgb(17 17 17 / 22%);
+  background: rgb(17 17 17 / 6%);
+  color: var(--color-gold-strong);
+}

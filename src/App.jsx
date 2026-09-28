@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Routes, Route, Navigate, useLocation, useParams, useNavigate } from 'react-router-dom';
-import Header from './components/layout/Header';
-import Footer from './components/layout/Footer';
-import QuickConsult from './components/layout/QuickConsult';
+import { PcHeader, PcFooter, QuickConsultAside } from './bcs/layout/PcLayout';
+import { MobileBottomNav } from './bcs/layout/MobileLayout';
+import { BcsUiProvider } from './bcs/BcsUiContext';
 import Home from './pages/Home/Home';
 import CarList from './pages/Car/CarList';
 import CarLineDetail from './pages/Car/CarLineDetail';
@@ -28,8 +28,8 @@ import MobileMenu from './mobilePages/menu/MobileMenu.jsx';
 
 // 전역 스타일 최소화: 리셋/변수만 유지. 페이지/컴포넌트 스타일은 모두 CSS Modules로 격리
 import './App.css';
-import { MobleBottom }   from './components/MobleBottom.jsx';
-import MobileHeader from './components/MobleHeader.jsx';
+// 퍼블리싱(design/publishing-step2-1) 스타일은 레거시 전역 스타일 뒤에 둔다.
+import './styles/bcs-index.css';
 import MobleCarSearchResult from './mobilePages/main/MobleCarSearchResult.jsx';
 import { useUserTracking } from './hooks/useUserTracking';
 
@@ -47,8 +47,10 @@ function WebApp() {
   const isAuthPage = location.pathname.startsWith('/auth');
   
   return (
-    <div className="app">
-      <Header />
+    <div className="bcs-app">
+      <a className="skip-link" href="#main-content">본문 바로가기</a>
+      <PcHeader />
+      <main id="main-content">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/carlist" element={<Navigate to="/carlist/domestic" replace />} />
@@ -68,22 +70,19 @@ function WebApp() {
         <Route path="/auth/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-      <Footer />
-      {!isAuthPage && <QuickConsult />}
+      </main>
+      <PcFooter />
+      {!isAuthPage && <QuickConsultAside />}
     </div>
   );
 }
 
 function MobileApp() {
-  const location = useLocation();
-  const isMainPage = location.pathname === '/m' || location.pathname === '/m/';
-  const isSearchPage = location.pathname.startsWith('/m/search');
-  const shouldHideHeader = isMainPage || isSearchPage;
-
+  // 모바일 헤더는 페이지마다 다르다(메인: m-header + m-tabs, 하위: m-sub).
+  // 퍼블리싱처럼 헤더가 <main> 밖에 오도록 각 페이지가 헤더와 <main id="main-content"> 를 직접 그린다.
   return (
-    <div className="mobile-app">
-      {!shouldHideHeader && <MobileHeader />}
-      <div className="mobile-app-content">
+    <div className="bcs-mobile-app">
+      <a className="skip-link" href="#main-content">본문 바로가기</a>
         <Routes>
         <Route path="/m" element={<MobleMain />} />
         <Route path="/m/menu" element={<MobileMenu />} />
@@ -105,9 +104,7 @@ function MobileApp() {
         <Route path="/m/auth/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="*" element={<Navigate to="/m" replace />} />
       </Routes>
-      </div>
-      {/* 모바일에서는 항상 하단 네비게이션 노출 (고정 하단) */}
-      <MobleBottom />
+      <MobileBottomNav />
     </div>
   );
 }
@@ -156,7 +153,15 @@ function App() {
   const isMobilePath = location.pathname.startsWith('/m');
   const isMobile = isMobilePath || isMobileViewport;
 
-  return isMobile ? <MobileApp /> : <WebApp />;
+  // 퍼블리싱 CSS는 body.pc-page / body.mobile-page 를 기준으로 PC·모바일 스타일을 나눈다.
+  useLayoutEffect(() => {
+    document.body.classList.toggle('pc-page', !isMobile);
+    document.body.classList.toggle('mobile-page', isMobile);
+    document.documentElement.classList.toggle('pc-html', !isMobile);
+    document.documentElement.classList.toggle('mobile-html', isMobile);
+  }, [isMobile]);
+
+  return <BcsUiProvider>{isMobile ? <MobileApp /> : <WebApp />}</BcsUiProvider>;
 }
 
 export default App; 

@@ -1,986 +1,590 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import HomeStyle from './Home.module.css';
-import { CarCard } from '../../components/CarCard';
-import YoutubeCard from '../../components/YoutubeCard';
-import SpecialOffersSection from '../../components/SpecialOffersSection';
-import PromotionCard from '../../components/PromotionCard';
-import ConsultBanner from '../../components/ConsultBanner';
-import ComparisonSection from '../../components/HOME/ComparisonSection';
-import LumpSumSection from '../../components/HOME/LumpSumSection';
+import React, { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import { useHomeContent } from '../../hooks/queries/useHomeContent';
-import PrivacyConsentCheckbox from '../../components/PrivacyConsentCheckbox.jsx';
-import GlobalBanner from '../../components/GlobalBanner';
+import { coalitionAPI } from '../../services/coalitionApi';
 import { carAPI } from '../../services/carApi';
-import { contentAPI } from '../../services/contentApi';
 import SeoHelmet from '../../components/SeoHelmet.jsx';
 import StructuredData, { getOrganizationSchema, getLocalBusinessSchema } from '../../components/StructuredData.jsx';
 import { getPageSeo } from '../../config/seoConfig';
-import { handleKakaoPopupBlocked, KAKAO_POPUP_BLOCKED_MESSAGE } from '../../utils/kakaoPopup';
-import BrowserContactModal from '../../components/BrowserContactModal.jsx';
-import ConsultSuccessModal from '../../components/ConsultSuccessModal.jsx';
-import {
-  sendToKakaoOnly,
-  fetchPhoneWithKakaoFallback,
-  KAKAO_OAUTH_CANCELLED_MESSAGE,
-  acquireContactViaKakao,
-} from '../../services/consultHelper';
-import {
-  getPhoneValidationMessage,
-  getStoredUserPhone,
-  setStoredUserPhone,
-  sanitizePhoneForStorage as sanitizePhone,
-} from '../../utils/phoneStorage';
-import {
-  buildSpecialOffers,
-  buildTopCarsList,
-  buildClosingSoonCards,
-  findShortestDeadline,
-  buildPromoSourceItems,
-  pickHomeSeoImage,
-} from '../../utils/homeDataMappers';
-import { useCountdown } from '../../hooks/useCountdown';
-import { usePromoPricingMap } from '../../hooks/usePromoPricingMap';
-import { PARTNER_CARDS } from '../../config/partnerCards';
-import { navigateToCarTrimDetail } from '../../utils/navigateToCarDetail';
-const CONTACT_LOADING_MESSAGE =
-  '카카오 상담을 위해 인증창을 열고 있습니다. 인증이 끝나면 자동으로 닫혀요.';
-const CONTACT_PROMPT_DEFAULT =
-  '카카오 상담을 위해 인증창을 열고 있습니다. 창을 닫으면 아래에 연락처를 남겨 주세요.';
+import { useConsultForm } from '../../bcs/useConsultForm';
+import { useVehicleNavigation } from '../../bcs/useVehicleNavigation';
+import { toVehicleCardModel, earliestDeadline } from '../../bcs/vehicle';
+import { PERIOD_OPTIONS, SITE_NAME, YOUTUBE_CHANNEL_URL, YOUTUBE_PROFILE_URL } from '../../bcs/site';
+import VehicleCard from '../../bcs/components/VehicleCard';
+import Countdown from '../../bcs/components/Countdown';
+import PartnerTrack from '../../bcs/components/PartnerTrack';
+import PrivacyRow from '../../bcs/components/PrivacyRow';
+import ConsultBannerForm from '../../bcs/components/ConsultBannerForm';
+import YoutubeCardLink from '../../bcs/components/YoutubeCardLink';
+
+// 제휴 어드민에 메인 배너가 없을 때 보여줄 퍼블리싱 기본 배너.
+const FALLBACK_SLIDES = [
+  { key: 'fallback-main', variant: 'fit', imageUrl: '/bcs/images/banner/hero-main.png' },
+  { key: 'fallback-panel', variant: 'panel', imageUrl: YOUTUBE_PROFILE_URL },
+];
+
+const scrollToComparisonConsult = () => {
+  const target = document.getElementById('comparison-consult');
+  if (!target) return;
+  target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  window.setTimeout(() => target.querySelector('input[name="name"]')?.focus({ preventScroll: true }), 500);
+};
+
+const listOf = (query) => (Array.isArray(query?.data) ? query.data : []);
+const nameOf = (item) => item?.name ?? item?.brandName ?? item?.vehicleLineName ?? item?.title ?? '';
+
+function HeroBanner({ banners }) {
+  const [index, setIndex] = useState(0);
+  const slides = banners.length
+    ? banners.map((banner, i) => ({ key: banner.id ?? i, variant: 'fit', imageUrl: banner.imageUrl, linkUrl: banner.linkUrl, alt: banner.title }))
+    : FALLBACK_SLIDES;
+  const current = Math.min(index, slides.length - 1);
+  const move = (step) => setIndex((current + step + slides.length) % slides.length);
+
+  return (
+    <div className="hero-banner">
+      <div className="hero-track" style={{ transform: `translateX(-${current * 100}%)` }}>
+        {slides.map((slide) => {
+          if (slide.variant === 'panel') {
+            return (
+              <div className="hero-slide hero-slide--panel" key={slide.key}>
+                <img src={slide.imageUrl} alt={SITE_NAME} />
+                <p>
+                  합리적인 신차구매
+                  <br />
+                  함께 할까요?
+                </p>
+              </div>
+            );
+          }
+          const image = <img src={slide.imageUrl} alt={slide.alt || `${SITE_NAME} 배너`} />;
+          return (
+            <div className="hero-slide hero-slide--fit" key={slide.key}>
+              {slide.linkUrl ? (
+                <a href={slide.linkUrl} target={/^https?:/.test(slide.linkUrl) ? '_blank' : undefined} rel="noopener noreferrer">
+                  {image}
+                </a>
+              ) : (
+                image
+              )}
+            </div>
+          );
+        })}
+      </div>
+      <div className="hero-pager">
+        <button type="button" aria-label="이전" onClick={() => move(-1)}>
+          ‹
+        </button>
+        <span>
+          {current + 1}/{slides.length}
+        </span>
+        <button type="button" aria-label="다음" onClick={() => move(1)}>
+          ›
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function HeroQuoteCard() {
+  const { handleSubmit, error, submitting } = useConsultForm({ source: 'home-page', entryLabel: '메인 상단 견적문의' });
+  const [brandId, setBrandId] = useState('');
+  const brandsQuery = useQuery({ queryKey: ['bcs', 'brands'], queryFn: () => carAPI.getBrands(), staleTime: 1000 * 60 * 10 });
+  const linesQuery = useQuery({
+    queryKey: ['bcs', 'vehicle-lines', brandId],
+    queryFn: () => carAPI.getVehicleLines(brandId),
+    enabled: Boolean(brandId),
+    staleTime: 1000 * 60 * 10,
+  });
+  const brands = listOf(brandsQuery);
+  const lines = listOf(linesQuery);
+
+  // 상담에는 id가 아니라 이름이 저장되어야 하므로, 선택한 브랜드 id를 이름으로 바꿔 hidden 필드로 보낸다.
+  const brandName = nameOf(brands.find((brand) => String(brand.id) === brandId));
+
+  return (
+    <aside className="quote-card" id="quote-form">
+      <h2>
+        <span>실시간</span> 견적문의
+      </h2>
+      <form
+        className="quote-form"
+        onSubmit={(event) => {
+          handleSubmit(event);
+        }}
+        onReset={() => setBrandId('')}
+        noValidate
+      >
+        <div className="field">
+          <label htmlFor="pc-name">성함</label>
+          <input id="pc-name" name="name" type="text" placeholder="ex) 홍길동" autoComplete="name" />
+        </div>
+        <div className="field">
+          <label htmlFor="pc-phone">
+            연락처<span className="required">*</span>
+          </label>
+          <input id="pc-phone" name="phone" type="tel" inputMode="numeric" placeholder="ex) 01012345678" />
+        </div>
+        <div className="field">
+          <label className="visually-hidden" htmlFor="pc-brand">
+            브랜드
+          </label>
+          <select id="pc-brand" value={brandId} onChange={(event) => setBrandId(event.target.value)}>
+            <option value="" disabled>
+              브랜드
+            </option>
+            {brands.map((brand) => (
+              <option key={brand.id} value={String(brand.id)}>
+                {nameOf(brand)}
+              </option>
+            ))}
+          </select>
+          <input type="hidden" name="brand" value={brandName} />
+        </div>
+        <div className="form-row-half">
+          <div className="field">
+            <label className="visually-hidden" htmlFor="pc-model">
+              모델
+            </label>
+            <select id="pc-model" name="model" defaultValue="" key={brandId} disabled={!brandId}>
+              <option value="" disabled>
+                모델
+              </option>
+              {lines.map((line) => (
+                <option key={line.id ?? nameOf(line)} value={nameOf(line)}>
+                  {nameOf(line)}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="field">
+            <label className="visually-hidden" htmlFor="pc-period">
+              계약기간
+            </label>
+            <select id="pc-period" name="period" defaultValue="">
+              <option value="" disabled>
+                계약기간
+              </option>
+              {PERIOD_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <PrivacyRow id="pc-privacy" />
+        <p className="form-error">{error}</p>
+        <button className="btn btn-primary btn-block" type="submit" disabled={submitting}>
+          {submitting ? '접수 중…' : '실시간 무료견적 받기'}
+        </button>
+      </form>
+    </aside>
+  );
+}
+
+function TopCarRow({ car }) {
+  const goToDetail = useVehicleNavigation();
+  const meta = [car.subtitle, car.extraInfo].filter(Boolean).join(' | ');
+  const open = () => goToDetail(toVehicleCardModel(car));
+  return (
+    <article
+      className="top-car"
+      data-trim-id={car.trimId ?? ''}
+      role="link"
+      tabIndex={0}
+      onClick={open}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter') open();
+      }}
+    >
+      <img src={car.imageUrl || '/bcs/images/cars/car-suv.svg'} alt={car.title ?? ''} loading="lazy" />
+      <div className="top-car__rank">{car.rank}</div>
+      <div className="top-car__panel">
+        <div className="top-car__name">{car.title}</div>
+        <div className="top-car__meta">{meta}</div>
+        <div className="top-car__desc">{car.description ?? ''}</div>
+      </div>
+    </article>
+  );
+}
+
+const PRODUCT_CHOICES = [
+  ['rental', '장기렌트', '보험·자동차세를 월 대여료에 포함해 이용하는 상품'],
+  ['lease', '리스', '일반 번호판과 개인 보험 경력을 유지하는 금융상품'],
+];
+
+const PRODUCT_ROWS = [
+  ['등록 명의', '렌터카 회사', '리스 회사'],
+  ['자동차 보험', '렌터카 회사 보험 적용', '이용자 명의로 직접 가입'],
+  ['번호판', '하·허·호 렌터카 번호판', '일반 번호판'],
+  ['세금·정비', '자동차세 포함 · 정비 옵션 선택', '자동차세 별도 · 직접 관리'],
+  ['만기 선택', '반납 · 인수 · 계약 연장', '반납 · 인수 · 재리스'],
+];
+
+// 퍼블리싱의 비교 예시 수치. 실제 견적이 아니므로 화면에 "예시"를 함께 표기한다.
+const TOTAL_ROWS = [
+  ['초기 납입', '38,960,000원', '11,688,000원', '0원'],
+  ['48개월 월 납입 합계', '0원', '30,432,000원', '23,274,240원'],
+  ['취득 관련 비용', '2,727,200원', '2,727,200원', '월 대여료 포함'],
+  ['보험·자동차세 4년', '6,000,000원', '6,000,000원', '월 대여료 포함'],
+];
 
 const Home = () => {
-  const navigate = useNavigate();
-  const {
-    heroBanner,
-    closingSoon,
-    topCars,
-    brandPromotions,
-    urgentInventory,
-    hotDeals,
-  } = useHomeContent();
+  const { heroBanner, closingSoon, topCars, hotDeals } = useHomeContent();
+  const youtubeQuery = useQuery({
+    queryKey: ['coalition', 'youtube', 'home'],
+    queryFn: () => coalitionAPI.getYoutubeVideos(3),
+    staleTime: 1000 * 60,
+  });
 
-  const [isQuotePrivacyAgreed, setIsQuotePrivacyAgreed] = useState(true);
-  const [quoteFormMessage, setQuoteFormMessage] = useState('');
-  const [contactModalPayload, setContactModalPayload] = useState(null);
-  const [contactModalMessage, setContactModalMessage] = useState('');
-  const [contactModalInitialPhone, setContactModalInitialPhone] = useState('');
-  const [isContactSubmitting, setIsContactSubmitting] = useState(false);
-  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-  const isContactModalOpen = Boolean(contactModalPayload);
-  const sanitizePhoneForStorage = useCallback((value) => {
-    return sanitizePhone(value);
-  }, []);
-
-  const persistContactInfo = useCallback((phoneValue, nameValue) => {
-    const sanitized = sanitizePhoneForStorage(phoneValue);
-    if (!sanitized) return;
-    setStoredUserPhone(sanitized);
-    if (nameValue) {
-      localStorage.setItem('wgl_user_name', nameValue);
-    }
-  }, [sanitizePhoneForStorage]);
-
-  const openContactModalWithPayload = useCallback(
-    (payload, message = CONTACT_LOADING_MESSAGE, initialPhone = '') => {
-      setContactModalPayload(payload);
-      setContactModalMessage(message);
-      setContactModalInitialPhone(initialPhone || payload?.phone || '');
-    },
-    [],
+  const banners = listOf(heroBanner);
+  const closingItems = useMemo(() => listOf(closingSoon).slice(0, 4), [closingSoon]);
+  const closingCards = useMemo(() => closingItems.map(toVehicleCardModel), [closingItems]);
+  const specialCards = useMemo(() => listOf(hotDeals).slice(0, 8).map(toVehicleCardModel), [hotDeals]);
+  const topCarList = useMemo(
+    () => listOf(topCars).map((car, index) => ({ ...car, rank: car.rank ?? index + 1 })).slice(0, 5),
+    [topCars],
   );
-
-  const handleContactModalClose = useCallback(() => {
-    if (isContactSubmitting) return;
-    setContactModalPayload(null);
-    setContactModalMessage('');
-    setContactModalInitialPhone('');
-  }, [isContactSubmitting]);
-
-  const startKakaoContactFlow = useCallback(
-    async (payload) => {
-      const contactInfo = await acquireContactViaKakao(
-        payload,
-        {
-          openModal: () =>
-            openContactModalWithPayload(
-              payload,
-              CONTACT_LOADING_MESSAGE,
-              payload?.phone || '',
-            ),
-          updateModal: (stage) => {
-            if (stage === 'start') {
-              setContactModalMessage(
-                '카카오 로그인 창이 열렸습니다. 창을 닫으면 아래에 연락처를 남겨 주세요.',
-              );
-            } else if (stage === 'success') {
-              setContactModalMessage('카카오 인증이 완료되었습니다. 상담창을 준비하고 있어요.');
-            } else if (stage === 'fail') {
-              setContactModalMessage(KAKAO_OAUTH_CANCELLED_MESSAGE);
-            }
-          },
-          closeModal: () => handleContactModalClose(),
-        },
-        { requirePhone: false },
-      );
-
-      if (contactInfo?.phoneMissing) {
-        const sanitizedPhone = sanitizePhoneForStorage(contactInfo.data?.phone);
-        openContactModalWithPayload(
-          {
-            ...(contactInfo.data ?? payload),
-            phone: sanitizedPhone,
-          },
-          contactInfo?.kakaoCancelled ? KAKAO_OAUTH_CANCELLED_MESSAGE : CONTACT_PROMPT_DEFAULT,
-          sanitizedPhone || '',
-        );
-        return null;
-      }
-
-      return contactInfo;
-    },
-    [handleContactModalClose, openContactModalWithPayload, sanitizePhoneForStorage],
-  );
-
-  // 배너 슬라이드 상태 (메인 탑 배너만 사용)
-  const [bannerIndex, setBannerIndex] = useState(0);
-  const rawHeroBanners = heroBanner?.data ?? [];
-  const heroBannerArray = Array.isArray(rawHeroBanners)
-    ? rawHeroBanners
-    : (rawHeroBanners ? [rawHeroBanners] : []);
-
-  // position이 TOP 이거나 position이 없는 경우만 메인 히어로 배너로 사용
-  const validBanners = heroBannerArray
-    .filter(Boolean)
-    .filter((banner) => {
-      const pos = banner?.position || banner?.positionType;
-      if (!pos) return true; // 예전 데이터 호환: position 없으면 TOP 취급
-      return pos === 'TOP';
-    });
-
-  // 배너 데이터 변경 시 인덱스 리셋
-  useEffect(() => {
-    setBannerIndex(0);
-  }, [validBanners.length]);
-
-  // 무한 루프를 위해 카드 리스트 2배로 복제
-  const loopPartnerCards = useMemo(
-    () => [...PARTNER_CARDS, ...PARTNER_CARDS],
-    [],
-  );
-
-  // 특가 차량 섹션: 선구매 핫딜(/api/content/pre-purchase) 기준으로 구성
-  const specialOffers = useMemo(
-    () => buildSpecialOffers(hotDeals?.data),
-    [hotDeals?.data],
-  );
-
-  const topCarsList = useMemo(
-    () => buildTopCarsList(topCars?.data),
-    [topCars?.data],
-  );
-
-  const closingSoonCards = useMemo(
-    () => buildClosingSoonCards(closingSoon?.data),
-    [closingSoon?.data],
-  );
-
-  const limitedSpecialOffers = useMemo(
-    () => specialOffers.slice(0, 8),
-    [specialOffers],
-  );
-
-  // 3개 중 가장 짧은 마감 시간 찾기
-  const shortestDeadline = useMemo(
-    () => findShortestDeadline(closingSoonCards),
-    [closingSoonCards],
-  );
-
-  const buildHomeConsultPayload = useCallback(
-    (item) => ({
-      brand: item?.brand ?? '',
-      model: item?.name ?? '',
-      trim: item?.trimId ?? item?.id ?? null,
-      consultType: '카카오상담',
-      source: 'home-page',
-      entryLabel: `홈 > 마감임박 > ${item?.name ?? ''}`,
-    }),
-    [],
-  );
-
-  const handleHomeConsultClick = useCallback(
-    async (item) => {
-      if (!item) return;
-      const payload = buildHomeConsultPayload(item);
-      try {
-        const savedPhone = sanitizePhoneForStorage(getStoredUserPhone());
-        const savedName = localStorage.getItem('wgl_user_name');
-
-        if (savedPhone) {
-          const enriched = { ...payload, phone: savedPhone, name: savedName || '' };
-          const result = await sendToKakaoOnly(enriched);
-          
-          // API 호출이 성공하면 무조건 성공 모달 표시
-          if (result?.success) {
-            persistContactInfo(enriched.phone, enriched.name);
-            setIsSuccessModalOpen(true);
-            return;
-          }
-          
-          if (result?.reason === 'popup_blocked' && enriched.phone) {
-            return;
-          }
-          openContactModalWithPayload(
-            { ...enriched, phone: '' },
-            '카카오톡으로 보내는 데 실패했습니다. 아래에 연락처를 남겨 주세요.',
-            enriched.phone || '',
-          );
-          return;
-        }
-
-        const contactInfo = await startKakaoContactFlow(payload);
-        if (!contactInfo) {
-          return;
-        }
-        const phoneFromContact = sanitizePhoneForStorage(contactInfo?.data?.phone);
-        const enriched = {
-          ...(contactInfo?.data ?? payload),
-          phone: phoneFromContact,
-        };
-        const result = await sendToKakaoOnly(enriched);
-        
-        // API 호출이 성공하면 무조건 성공 모달 표시
-        if (result?.success) {
-          persistContactInfo(enriched.phone, enriched.name);
-          setIsSuccessModalOpen(true);
-        } else if (result?.reason === 'popup_blocked') {
-          if (enriched.phone) {
-            return;
-          }
-          openContactModalWithPayload(
-            { ...enriched, phone: '' },
-            KAKAO_POPUP_BLOCKED_MESSAGE,
-            enriched.phone || '',
-          );
-        } else {
-          openContactModalWithPayload(
-            { ...enriched, phone: '' },
-            '카카오톡으로 보내는 데 실패했습니다. 아래에 연락처를 남겨 주세요.',
-            enriched.phone || '',
-          );
-        }
-      } catch (error) {
-        console.error('[Home] 연락처 확보 실패', error);
-        openContactModalWithPayload(
-          payload,
-          '연락처를 자동으로 확보하지 못했습니다. 아래에 연락처를 남겨 주세요.',
-          '',
-        );
-      }
-    },
-    [buildHomeConsultPayload, openContactModalWithPayload, persistContactInfo, sanitizePhoneForStorage, startKakaoContactFlow],
-  );
-
-  const handleContactModalSubmit = useCallback(
-    async (phoneValue, nameValue) => {
-      if (!contactModalPayload) return;
-      const phoneValidationMessage = getPhoneValidationMessage(phoneValue || '');
-      if (phoneValidationMessage) {
-        setContactModalMessage(phoneValidationMessage);
-        return;
-      }
-
-      const phone = sanitizePhoneForStorage(phoneValue || '');
-      const name = (nameValue || '').trim();
-
-      if (!phone) {
-        setContactModalMessage('연락처를 입력해 주세요.');
-        return;
-      }
-      setIsContactSubmitting(true);
-      try {
-        const payload = {
-          ...contactModalPayload,
-          phone,
-          name,
-        };
-
-        const { submitConsult } = await import('../../services/consultHelper');
-        const result = await submitConsult(payload, {
-          openKakaoOnSuccess: false, // 여기서는 DB 저장만 보장
-          useKakao: false,
-        });
-
-        // API 호출이 성공하면 무조건 성공 모달 표시
-        if (result?.success) {
-          persistContactInfo(phone, name);
-          setContactModalPayload(null);
-          setContactModalMessage('');
-          setContactModalInitialPhone('');
-          setIsSuccessModalOpen(true);
-        } else {
-          setContactModalMessage(
-            result?.message || '연락처 등록에 실패했습니다. 다시 시도해주세요.',
-          );
-        }
-      } catch (error) {
-        console.error('[Home] handleContactModalSubmit: 연락처 등록 실패', error);
-        setContactModalMessage('연락처 등록에 실패했습니다. 다시 시도해주세요.');
-      } finally {
-        setIsContactSubmitting(false);
-      }
-    },
-    [contactModalPayload, persistContactInfo, sanitizePhoneForStorage],
-  );
-
-  const handleConsultBannerSubmit = useCallback(
-    async (e) => {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      const name = formData.get('name') || '';
-      const phoneInput = formData.get('phone') || '';
-      const carModel = formData.get('carModel') || '';
-
-      try {
-        const { submitConsult } = await import('../../services/consultHelper');
-        const { phone, kakaoCancelled, validationMessage } = await fetchPhoneWithKakaoFallback(String(phoneInput || ''));
-
-        if (!phone) {
-          if (validationMessage) {
-            alert(validationMessage);
-            return;
-          }
-          const message = kakaoCancelled ? KAKAO_OAUTH_CANCELLED_MESSAGE : '연락처를 입력해 주세요.';
-          setContactModalMessage(
-            message,
-          );
-          setContactModalPayload(null);
-          openContactModalWithPayload(
-            { name, phone: '', carModel, consultType: '비대면견적', source: 'home-bottom-banner' },
-            message,
-          );
-          return;
-        }
-
-        const payload = {
-          name: name || '',
-          phone,
-          model: carModel,
-          consultType: '비대면견적',
-          source: 'home-bottom-banner',
-          entryLabel: '홈 > 하단 배너 상담',
-        };
-
-        const result = await submitConsult(payload, { openKakaoOnSuccess: true, kakaoOpenTarget: '_blank' });
-
-        const handled = handleKakaoPopupBlocked(result, {
-          onNeedContact: () => {
-            openContactModalWithPayload(payload, KAKAO_POPUP_BLOCKED_MESSAGE);
-          },
-        });
-        if (handled) return;
-
-        if (result?.success) {
-          e.target.reset();
-          persistContactInfo(phone, name);
-        }
-      } catch (error) {
-        console.error('[Home] 하단 배너 상담 신청 실패', error);
-      }
-    },
-    [fetchPhoneWithKakaoFallback, handleKakaoPopupBlocked, openContactModalWithPayload, persistContactInfo, setContactModalMessage, setContactModalPayload],
-  );
-
-  // SEO용 대표 이미지: 히어로 배너 > 마감임박 > 주간 인기차량 순으로 우선 사용
-  const seoImage = useMemo(
-    () => pickHomeSeoImage({ heroBanners: validBanners, closingSoonCards, topCarsList }),
-    [validBanners, closingSoonCards, topCarsList],
-  );
-
-  const handleNavigateToDetail = (car) => {
-    if (!car?.trimId) return;
-    navigateToCarTrimDetail(navigate, car.trimId, {
-      brand: car.brand,
-      model: car.name,
-      terms: car.year ? `${car.year}, ${car.mileage}` : '',
-    });
-  };
-
-  // 가장 짧은 마감 시간을 기준으로 카운트다운 계산
-  const timeLeft = useCountdown(shortestDeadline);
-
-  const promoSourceItems = useMemo(
-    () => buildPromoSourceItems(closingSoonCards, limitedSpecialOffers),
-    [closingSoonCards, limitedSpecialOffers],
-  );
-
-  const promoPriceMap = usePromoPricingMap(promoSourceItems);
+  const videos = listOf(youtubeQuery);
+  const deadline = useMemo(() => earliestDeadline(closingItems), [closingItems]);
+  const [product, setProduct] = useState('rental');
 
   const { title: seoTitle, description: seoDescription, keywords: seoKeywords } = getPageSeo('home');
 
   return (
     <>
-      <SeoHelmet
-        title={seoTitle}
-        description={seoDescription}
-        keywords={seoKeywords}
-        image={seoImage}
-      />
+      <SeoHelmet title={seoTitle} description={seoDescription} keywords={seoKeywords} image={banners[0]?.imageUrl} />
       <StructuredData data={getOrganizationSchema()} />
       <StructuredData data={getLocalBusinessSchema()} />
-      <div>
-        <div className={HomeStyle['home']}>
-          {/* Hero Section을 page-container 밖으로 뺌 */}
-          <section className={HomeStyle['hero-section-full-width']}>
-            <div className={HomeStyle['hero-content-centered']}>
-              <div className={HomeStyle['main-hero-section']}>
-                <section className={HomeStyle['hero-banner-wrapper']}>
-                  {heroBanner?.isLoading && <p className={HomeStyle['section-subtitle']}>히어로 배너 로딩 중...</p>}
-                  {heroBanner?.isError && <p className={HomeStyle['section-subtitle']}>히어로 배너를 불러오지 못했습니다.</p>}
-                  {validBanners.length > 0 && !heroBanner?.isLoading && !heroBanner?.isError && (
-                    <>
-                      <div className={HomeStyle['hero-banner-track']} style={{ transform: `translateX(-${bannerIndex * 860}px)` }}>
-                        {validBanners.map((banner, index) => (
-                          <div
-                            key={banner.id || index}
-                            className={HomeStyle['hero-banner']}
-                            style={banner?.imageUrl ? { backgroundImage: `url("${banner.imageUrl}")` } : undefined}
-                          />
-                        ))}
-                      </div>
-                      {validBanners.length > 1 && (
-                        <div className={HomeStyle['hero-banner-pager']}>
-                          <button
-                            type="button"
-                            className={HomeStyle['hero-banner-arrow']}
-                            onClick={() => setBannerIndex((prev) => (prev - 1 + validBanners.length) % validBanners.length)}
-                            aria-label="이전"
-                          >
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <polyline points="15 18 9 12 15 6" />
-                            </svg>
-                          </button>
-                          <span className={HomeStyle['hero-banner-pager-text']}>
-                            {bannerIndex + 1}/{validBanners.length}
-                          </span>
-                          <button
-                            type="button"
-                            className={HomeStyle['hero-banner-arrow']}
-                            onClick={() => setBannerIndex((prev) => (prev + 1) % validBanners.length)}
-                            aria-label="다음"
-                          >
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <polyline points="9 18 15 12 9 6" />
-                            </svg>
-                          </button>
-                        </div>
-                      )}
-                    </>
-                  )}
-                </section>
 
-                <div className={HomeStyle['quote-form-section']}>
-                  <div className={HomeStyle['quote-form-card']}>
-                    <div className={HomeStyle['form-header']}>
-                      <h3><span>실시간</span> 견적문의</h3>
-                    </div>
+      <section className="hero-section">
+        <div className="container hero-layout">
+          <HeroBanner banners={banners} />
+          <HeroQuoteCard />
+        </div>
+      </section>
 
-                    <form 
-                      className={HomeStyle['quote-form']}
-                      onSubmit={async (e) => {
-                        e.preventDefault();
-                        if (!isQuotePrivacyAgreed) {
-                          setQuoteFormMessage('개인정보 이용 동의에 체크해 주세요.');
-                          return;
-                        }
-                        const formData = new FormData(e.target);
-                        const name = formData.get('name') || '';
-                        const phoneInput = formData.get('phone') || '';
-                        const brand = formData.get('brand') || '';
-                        const model = formData.get('model') || '';
-                        const period = formData.get('period') || '';
-
-                        // 버튼 클릭 / 폼 제출 로깅
-                        // eslint-disable-next-line no-console
-                        console.info('[Home] quote-form submit: button clicked', {
-                          name,
-                          phoneInput,
-                          brand,
-                          model,
-                          period,
-                        });
-                        
-                        try {
-                          setQuoteFormMessage('');
-                          const { submitConsult } = await import('../../services/consultHelper');
-                          const { phone, kakaoCancelled, validationMessage } = await fetchPhoneWithKakaoFallback(String(phoneInput || ''));
-                          // eslint-disable-next-line no-console
-                          console.info('[Home] quote-form submit: phone fallback result', {
-                            typedPhone: phoneInput,
-                            finalPhone: phone,
-                            kakaoCancelled,
-                            validationMessage,
-                          });
-                          if (!phone) {
-                            const message = kakaoCancelled
-                              ? KAKAO_OAUTH_CANCELLED_MESSAGE
-                              : validationMessage || '연락처를 입력해 주세요.';
-                            if (validationMessage) {
-                              alert(validationMessage);
-                            }
-                            setQuoteFormMessage(message);
-                            return;
-                          }
-                          const payload = {
-                            name: name || '',
-                            phone,
-                            brand,
-                            model,
-                            contractPeriod: period,
-                            consultType: '비대면견적',
-            source: 'home-page',
-            entryLabel: '홈 > 실시간 견적문의',
-          };
-          const result = await submitConsult(payload, { openKakaoOnSuccess: true, kakaoOpenTarget: '_blank' });
-          
-          const handled = handleKakaoPopupBlocked(result, {
-                            onNeedContact: () => {
-                              setQuoteFormMessage(KAKAO_POPUP_BLOCKED_MESSAGE);
-                            },
-                          });
-                          if (handled) {
-                            return;
-                          }
-                          
-                          if (result?.success) {
-                            e.target.reset();
-                            setQuoteFormMessage('');
-                            persistContactInfo(phone, name);
-                          } else if (result?.meta?.kakaoCancelled) {
-                            setQuoteFormMessage(KAKAO_OAUTH_CANCELLED_MESSAGE);
-                          }
-                        } catch (error) {
-                          console.error('[Home] 상담 신청 실패', error);
-                          // UX 정책상 알림 팝업 미표시
-                          setQuoteFormMessage(KAKAO_OAUTH_CANCELLED_MESSAGE);
-                        }
-                      }}
-                    >
-                      <div className={HomeStyle['form-group']}>
-                        <label>
-                          성함
-                        </label>
-                        <input type="text" name="name" placeholder="ex) 홍길동" />
-                      </div>
-
-                      <div className={HomeStyle['form-group']}>
-                        <label>
-                          연락처<span className={HomeStyle['required']}>*</span>
-                        </label>
-                        <input type="tel" name="phone" placeholder="ex) 01012345678" required />
-                      </div>
-
-                      <div className={HomeStyle['form-row']}>
-                         <select name="brand" className={HomeStyle['form-select']}>
-                           <option value="" disabled selected>브랜드</option>
-                           <option value="hyundai">현대</option>
-                           <option value="kia">기아</option>
-                           <option value="genesis">제네시스</option>
-                           <option value="bmw">BMW</option>
-                           <option value="benz">Benz</option>
-                         </select>
-                      </div>
-
-                      <div className={HomeStyle['form-row-half']}>
-                        <select name="model" className={HomeStyle['form-select']}>
-                           <option value="" disabled selected>모델</option>
-                           <option value="avante">아반떼</option>
-                           <option value="sonata">쏘나타</option>
-                           <option value="grandeur">그랜저</option>
-                           <option value="sportage">스포티지</option>
-                           <option value="sorento">쏘렌토</option>
-                           <option value="carnival">카니발</option>
-                         </select>
-                        <select name="period" className={HomeStyle['form-select']}>
-                           <option value="" disabled selected>계약기간</option>
-                           <option value="36">36개월</option>
-                           <option value="48">48개월</option>
-                           <option value="60">60개월</option>
-                         </select>
-                      </div>
-
-                      <div className={HomeStyle['checkbox-group']}>
-                        <PrivacyConsentCheckbox
-                          checked={isQuotePrivacyAgreed}
-                          onChange={setIsQuotePrivacyAgreed}
-                          align="right"
-                        />
-                      </div>
-
-                      <button type="submit" className={`${HomeStyle['consult-btn']} ${HomeStyle['blue']}`}>
-                        실시간 무료견적 받기
-                      </button>
-                      {quoteFormMessage && (
-                        <p className={HomeStyle['consult-help']}>{quoteFormMessage}</p>
-                      )}
-                    </form>
-                  </div>
-                </div>
-              </div>
+      {closingCards.length > 0 && (
+        <section className="closing-section" id="closing-soon">
+          <div className="container">
+            <div className="section-header" style={{ textAlign: 'center' }}>
+              <h2 className="section-title section-title--icon">
+                <img className="section-title__icon" src="/bcs/images/banner/hotdeal-timer.svg" alt="" aria-hidden="true" />
+                재고 특가 핫딜
+              </h2>
+              <p className="section-subtitle">현재 인기 차종, 잔여 재고 빠르게 소진 중</p>
             </div>
-          </section>
+            <Countdown deadline={deadline} />
+            <div className="featured-cars" style={{ marginTop: 32 }}>
+              {closingCards.map((vehicle) => (
+                <VehicleCard key={vehicle.id} vehicle={vehicle} showBadge={false} source="home-closing-soon" />
+              ))}
+            </div>
+            <p className="disclaimer">* 특가 혜택은 예고 없이 종료될 수 있습니다.</p>
+          </div>
+        </section>
+      )}
 
-          <div className={HomeStyle['page-container']} style={{ marginTop: 0 }}>
-            <div className={HomeStyle['main-content-wrapper']}>
-              <section className={HomeStyle['closing-soon']}>
-              <div className={HomeStyle['section-header']}>
-                <div className={HomeStyle['header-icon']}>
-                  <img
-                    src="/hotdeal-timer.svg"
-                    alt="마감 임박"
-                    width="58"
-                    height="58"
-                    loading="lazy"
-                  />
-                </div>
-                <h2>재고 특가 핫딜</h2>
-              </div>
-              <p className={HomeStyle['section-subtitle']}>현재 인기 차종, 단 3대 남았습니다</p>
-
-              <div className={HomeStyle['countdown-timer']}>
-                <div className={HomeStyle['timer-item']}>
-                  <div className={HomeStyle['number-box']}>{timeLeft.days}</div>
-                  <span className={HomeStyle['unit']}>일</span>
-                </div>
-                <div className={HomeStyle['timer-item']}>
-                  <div className={HomeStyle['number-box']}>{timeLeft.hours}</div>
-                  <span className={HomeStyle['unit']}>시</span>
-                </div>
-                <div className={HomeStyle['timer-item']}>
-                  <div className={HomeStyle['number-box']}>{timeLeft.minutes}</div>
-                  <span className={HomeStyle['unit']}>분</span>
-                </div>
-                <div className={HomeStyle['timer-item']}>
-                  <div className={HomeStyle['number-box']}>{timeLeft.seconds}</div>
-                  <span className={HomeStyle['unit']}>초</span>
-                </div>
-              </div>
-
-              <div className={HomeStyle['featured-cars']}>
-                {closingSoon?.isLoading && (
-                  <p className={HomeStyle['section-subtitle']}>마감 임박 차량을 불러오는 중입니다...</p>
-                )}
-                {closingSoon?.isError && (
-                  <p className={HomeStyle['section-subtitle']}>마감 임박 차량을 불러오지 못했습니다.</p>
-                )}
-                {!closingSoon?.isLoading && !closingSoon?.isError && closingSoonCards.length === 0 && (
-                  <p className={HomeStyle['section-subtitle']}>현재 마감 임박 차량이 없습니다.</p>
-                )}
-                {!closingSoon?.isLoading &&
-                  !closingSoon?.isError &&
-                  closingSoonCards.map((car) => {
-                    const pricing = car.trimId ? promoPriceMap[String(car.trimId)] : null;
-                    
-                    // 트림 데이터 추출
-                    const trim = car.trim || car.trims?.[0] || {};
-                    
-                    return (
-                    <PromotionCard
-                      key={car.id}
-                      id={car.id}
-                      name={car.name}
-                      desc={car.desc}
-                      img={car.img}
-                      brand={car.brand}
-                      onClick={() => handleHomeConsultClick(car)}
-                      onButtonClick={() => handleHomeConsultClick(car)}
-                      buttonText="실시간 무료견적 받기"
-                      basePrice={pricing?.basePrice}
-                      finalPrice={pricing?.finalPrice}
-                      discountPercent={pricing?.discountPercent}
-                      // 마감임박 영역은 PRE_PURCHASE 월 렌탈 기준 할인 정보를 강조
-                      discountDisplay="monthly"
-                      monthlyRentalFee={pricing?.monthlyRentalFee}
-                      discountedMonthlyFee={pricing?.discountedMonthlyFee}
-                      monthlyDiscountPercent={pricing?.monthlyDiscountPercent}
-                      trim={trim}
-                    />
-                    );
-                  })}
-              </div>
-              <p className={HomeStyle['disclaimer-text']}>* 특가 혜택은 예고 없이 종료될 수 있습니다.</p>
-            </section>
+      {videos.length > 0 && (
+        <section className="youtube-section" id="youtube">
+          <div className="container">
+            <div className="youtube-head">
+              <img src={YOUTUBE_PROFILE_URL} alt={`${SITE_NAME} YouTube`} width="48" height="48" />
+              <h2 className="section-title">{SITE_NAME} YouTube</h2>
+            </div>
+            <div className="youtube-grid">
+              {videos.map((video) => (
+                <YoutubeCardLink key={video.id ?? video.youtubeUrl} video={video} />
+              ))}
+            </div>
+            <div className="youtube-more">
+              <a className="btn btn-primary" href={YOUTUBE_CHANNEL_URL} target="_blank" rel="noopener noreferrer">
+                더 많은 차량 할인 팁 영상 보러가기 →
+              </a>
             </div>
           </div>
+        </section>
+      )}
 
-          <section className={HomeStyle['youtube-section']}>
-            <YoutubeCard />
-          </section>
+      <ConsultBannerForm idPrefix="banner-1" source="home-bottom-banner" entryLabel="메인 상담 배너" />
 
-          <ConsultBanner styles={HomeStyle} onSubmit={handleConsultBannerSubmit} />
+      {topCarList.length > 0 && (
+        <section className="popular-section" id="top-cars">
+          <div className="container">
+            <div className="section-header">
+              <h2 className="section-title">
+                주간 인기차량 <span>TOP 5</span>
+              </h2>
+              <p className="section-subtitle">고객 계약 데이터를 기반으로 선정된 한 주간 가장 인기 있었던 차량입니다.</p>
+            </div>
+            <div className="popular-list">
+              {topCarList.map((car) => (
+                <TopCarRow key={car.id ?? car.rank} car={car} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
-          <section className={HomeStyle['popular-section-full']}>
-            <div className={HomeStyle['page-container']} style={{ marginTop: 0 }}>
-              <div className={HomeStyle['main-content-wrapper']}>
-              <section className={HomeStyle['popular-cars']}>
-              <div className={HomeStyle['section-header']}>
-                <h2>주간 인기차량 <span>TOP 5</span></h2>
-                <p className={HomeStyle['section-subtitle']}>
-                  고객 계약 데이터를 기반으로 선정된 한 주간 가장 인기 있었던 차량입니다.
-                </p>
-              </div>
+      {specialCards.length > 0 && (
+        <section className="special-section" id="special-offers">
+          <div className="container">
+            <div className="special-head">
+              <h2 className="section-title">특가 차량, 지금 아니면 놓칩니다!</h2>
+              <Link to="/express-deals">더 많은 차량 보기 →</Link>
+            </div>
+            <div className="special-grid">
+              {specialCards.map((vehicle) => (
+                <VehicleCard key={vehicle.id} vehicle={vehicle} source="home-special-offers" />
+              ))}
+            </div>
+            <p className="disclaimer">* 계약 순서에 따라 혜택은 조기 종료될 수 있습니다.</p>
+          </div>
+        </section>
+      )}
 
-              <div className={HomeStyle['cars-list']}>
-                {topCars?.isLoading && (
-                  <p className={HomeStyle['section-subtitle']}>인기 차량을 불러오는 중입니다...</p>
-                )}
-                {topCars?.isError && (
-                  <p className={HomeStyle['section-subtitle']}>인기 차량 데이터를 불러오지 못했습니다.</p>
-                )}
-                {!topCars?.isLoading && !topCars?.isError && topCarsList.length === 0 && (
-                  <p className={HomeStyle['section-subtitle']}>주간 인기 차량 데이터가 없습니다.</p>
-                )}
-                {!topCars?.isLoading &&
-                  !topCars?.isError &&
-                  topCarsList.map((car, index) => {
-                    const uniqueKey = car.id || `top-car-${index}`;
-                    return (
-                        <div
-                          key={uniqueKey}
-                          className={car.trimId ? HomeStyle['clickable-car-card'] : ''}
-                          onClick={() => car.trimId && handleNavigateToDetail(car)}
-                        >
-                        <CarCard {...car} />
-                      </div>
-                    );
-                  })}
-              </div>
-            </section>
+      <section className="factory-section trust-section" aria-labelledby="trust-title">
+        <div className="container">
+          <div className="section-header journey-heading">
+            <span className="section-kicker">COMPARE QUOTES</span>
+            <h2 className="section-title" id="trust-title">
+              같은 차량도 견적은 다를 수 있습니다.
+            </h2>
+            <p className="section-subtitle">차량과 계약 조건을 맞춘 뒤 제휴사별 견적을 한 화면에서 비교해 보세요.</p>
+          </div>
+          <div className="quote-compare-card">
+            <aside className="quote-vehicle">
+              <span className="demo-label">동일 조건 비교 예시</span>
+              <img src="/bcs/images/cars/sorento.png" alt="기아 쏘렌토 차량" />
+              <strong>쏘렌토 2026년형 가솔린 터보 2.5</strong>
+              <dl className="quote-conditions">
+                <div>
+                  <dt>초기 조건</dt>
+                  <dd>선납금 30%</dd>
+                </div>
+                <div>
+                  <dt>계약 기간</dt>
+                  <dd>48개월</dd>
+                </div>
+                <div>
+                  <dt>주행 거리</dt>
+                  <dd>연 2만km</dd>
+                </div>
+              </dl>
+            </aside>
+            <div className="quote-options" aria-label="금융사별 견적 비교 예시">
+              <article className="quote-option is-featured">
+                <span className="best-chip">BEST</span>
+                <p>하나캐피탈</p>
+                <strong>월 252,303원</strong>
+                <small>선납금 30% · 48개월</small>
+              </article>
+              <article className="quote-option">
+                <p>KB캐피탈</p>
+                <strong>월 258,800원</strong>
+                <small>선납금 30% · 48개월</small>
+              </article>
+              <article className="quote-option">
+                <p>NH농협캐피탈</p>
+                <strong>월 265,400원</strong>
+                <small>선납금 30% · 48개월</small>
+              </article>
+              <p className="data-note">
+                표시 금액은 동일 조건 비교를 위한 예시이며 차량 옵션, 심사 결과, 계약 시점에 따라 달라질 수 있습니다.
+              </p>
+              <button className="btn btn-primary journey-button" type="button" onClick={scrollToComparisonConsult}>
+                내 조건으로 비교 시작하기
+              </button>
+            </div>
           </div>
         </div>
-        </section>
-      </div>
+      </section>
 
-      <SpecialOffersSection
-        offers={limitedSpecialOffers}
-        isLoading={brandPromotions?.isLoading}
-        onCardClick={(id, item) => handleHomeConsultClick(item ?? { id })}
-        onButtonClick={handleHomeConsultClick}
-        icon={<img src="/특가차량.png" alt="특가 차량" width="60" height="50" loading="lazy" />}
-        pricingMap={promoPriceMap}
+      <ConsultBannerForm
+        idPrefix="banner-2"
+        source="home-zero-fee-banner"
+        entryLabel="메인 비교 상담 배너"
+        id="comparison-consult"
+        variant="journey"
+        description="간단한 정보만 입력하면 내 조건에 맞는 견적을 비교할 수 있습니다."
       />
 
-    
-      {/* 공장 특판 섹션 */}
-      <section className={HomeStyle['factory-deal-section']}>
-        <div className={HomeStyle['factory-deal-container']}>
-          <h2 className={HomeStyle['factory-deal-title']}>
-            <span className={HomeStyle['title-line']}>
-              <span className={HomeStyle['text-with-underline']}>
-                블라인드 카스토리는 <span className={HomeStyle['highlight-yellow']}>중간단계 없이,</span>
-              </span>
-            </span>
-            <br />
-            <span className={HomeStyle['title-line']}>
-              <span className={HomeStyle['text-with-underline']}>공장 특판 혜택을 그대로 제공합니다.</span>
-            </span>
-          </h2>
-
-          <div className={HomeStyle['car-showcase']}>
-            <img 
-              src="/mobileMain/쏘렌토.png" 
-              alt="쏘렌토 2026" 
-              className={HomeStyle['showcase-car-image']}
-            />
-            <div className={HomeStyle['car-info-card']}>
-              <p className={HomeStyle['car-model']}>쏘렌토  2026년형 가솔린 터보 2.5</p>
-              <p className={HomeStyle['car-conditions']}>선납금 30% / 48개월 / 2만km 기준</p>
-            </div>
+      <section className="longterm-section usage-section" aria-labelledby="usage-title">
+        <div className="container">
+          <div className="section-header journey-heading journey-heading--dark">
+            <span className="section-kicker">HOW TO CHOOSE</span>
+            <h2 className="section-title" id="usage-title">
+              차를 이용하는 방법은 하나가 아닙니다.
+            </h2>
+            <p className="section-subtitle">월 납입금뿐 아니라 시작 비용, 관리 방식, 계약 종료 후 선택까지 함께 살펴보세요.</p>
           </div>
+          <ol className="usage-grid">
+            <li className="usage-item">
+              <span>01</span>
+              <strong>초기 비용</strong>
+              <p>선납금과 보증금 등 시작 조건을 내 자금 계획에 맞춰 비교합니다.</p>
+            </li>
+            <li className="usage-item">
+              <span>02</span>
+              <strong>유지 관리</strong>
+              <p>보험과 세금, 차량 관리 범위가 상품과 계약 조건에 따라 달라질 수 있습니다.</p>
+            </li>
+            <li className="usage-item">
+              <span>03</span>
+              <strong>계약 종료</strong>
+              <p>만기 시 반납·인수 등 가능한 선택을 계약 전에 확인합니다.</p>
+            </li>
+          </ol>
+          <button className="btn usage-cta" type="button" onClick={scrollToComparisonConsult}>
+            내 조건에 맞는 방식 확인하기
+          </button>
+        </div>
+      </section>
 
-          <div className={HomeStyle['factory-deal-description']}>
-            <p className={HomeStyle['description-line1']}>
-              블라인드 카스토리는 공장 공급 조건을 기반으로
-            </p>
-            <p className={HomeStyle['description-line2']}>
-              중간 마진을 제거한 <span className={HomeStyle['highlight-yellow-text']}>수수료 0%</span> 견적을 제공합니다.
-            </p>
-            <p className={HomeStyle['description-line3']}>
-              대리점·영업사원 수수료가 포함된 일반 견적과 달리
-            </p>
-            <p className={HomeStyle['description-line4']}>
-              공장 특판 조건을 직접 적용해 더 합리적인 월 렌탈료를 제공합니다.
-            </p>
+      <section className="compare-section product-section" data-selected-product={product} aria-labelledby="product-title">
+        <div className="container">
+          <div className="section-header journey-heading">
+            <span className="section-kicker">PRODUCT GUIDE</span>
+            <h2 className="section-title" id="product-title">
+              장기렌트와 리스, 뭐가 나에게 맞을까요?
+            </h2>
+            <p className="section-subtitle">두 상품의 구조를 먼저 선택하고, 실제 세부 조건은 상담 견적에서 확인하세요.</p>
           </div>
-
-          <div className={HomeStyle['price-comparison-table']}>
-            <div className={HomeStyle['table-header']}>
-              <div className={HomeStyle['table-cell-header-empty']}></div>
-              <div className={HomeStyle['table-cell-header']}>
-                <img src="/card/cc/농협.svg" alt="NH캐피탈" className={HomeStyle['capital-logo']} />
-                <span>NH캐피탈</span>
-              </div>
-              <div className={HomeStyle['table-cell-header']}>
-                <img src="/card/cc/롯데.svg" alt="롯데캐피탈" className={HomeStyle['capital-logo']} />
-                <span>롯데캐피탈</span>
-              </div>
-              <div className={HomeStyle['table-cell-header']}>
-                <img src="/card/cc/신한.svg" alt="신한카드" className={HomeStyle['capital-logo']} />
-                <span>신한카드</span>
-              </div>
-              <div className={HomeStyle['table-cell-header']}>
-                <img src="/card/cc/bnk.svg" alt="캐피탈" className={HomeStyle['capital-logo']} />
-                <span>캐피탈</span>
-              </div>
-              <div className={HomeStyle['table-cell-header']}>
-                <img src="/card/orix.svg" alt="IM캐피탈" className={HomeStyle['capital-logo']} />
-                <span>IM캐피탈</span>
-              </div>
-            </div>
-
-            <div className={HomeStyle['table-row']}>
-              <div className={HomeStyle['table-cell-label']}>
-                <p className={HomeStyle['label-small']}>블라인드 카스토리</p>
-                <p className={HomeStyle['label-fee']}>
-                  수수료 <span className={HomeStyle['fee-highlight']}>0%</span>
-                </p>
-              </div>
-              <div className={HomeStyle['table-cell-price-highlight']}>252,303</div>
-              <div className={HomeStyle['table-cell-price']}>258,800</div>
-              <div className={HomeStyle['table-cell-price']}>265,400</div>
-              <div className={HomeStyle['table-cell-price']}>267160</div>
-              <div className={HomeStyle['table-cell-price']}>280,813</div>
-            </div>
-
-            <div className={HomeStyle['table-row']}>
-              <div className={HomeStyle['table-cell-label']}>
-                <p className={HomeStyle['label-small']}>타 업체</p>
-                <p className={HomeStyle['label-fee']}>수수료 5~7%</p>
-              </div>
-              <div className={HomeStyle['table-cell-price']}>264,918</div>
-              <div className={HomeStyle['table-cell-price']}>271,740</div>
-              <div className={HomeStyle['table-cell-price']}>27,8,670</div>
-              <div className={HomeStyle['table-cell-price']}>280,518</div>
-              <div className={HomeStyle['table-cell-price']}>294,854</div>
-            </div>
-
-            <p className={HomeStyle['table-disclaimer']}>
-              *차종·제휴사 정책에 따라 적용 조건은 달라질 수 있습니다.
-            </p>
+          <div className="product-choices" aria-label="비교할 상품 선택">
+            {PRODUCT_CHOICES.map(([value, label, summary]) => (
+              <button
+                key={value}
+                className={`product-choice${product === value ? ' is-active' : ''}`}
+                type="button"
+                aria-pressed={product === value}
+                onClick={() => setProduct(value)}
+              >
+                <span>{label}</span>
+                <strong>{summary}</strong>
+                <small>{product === value ? '선택됨' : '선택'}</small>
+              </button>
+            ))}
           </div>
+          <div className="comparison-table-wrap">
+            <table className="compare-table product-table">
+              <thead>
+                <tr>
+                  <th>항목</th>
+                  <th>장기렌트</th>
+                  <th>리스</th>
+                </tr>
+              </thead>
+              <tbody>
+                {PRODUCT_ROWS.map(([label, rental, lease]) => (
+                  <tr key={label}>
+                    <td>{label}</td>
+                    <td>{rental}</td>
+                    <td>{lease}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="data-note">보험, 정비, 만기 선택은 금융사와 상품 유형에 따라 달라질 수 있으므로 계약 전 세부 조건을 확인해 주세요.</p>
+          <button className="btn btn-primary journey-button" type="button" onClick={scrollToComparisonConsult}>
+            장기렌트·리스 조건 비교하기
+          </button>
+        </div>
+      </section>
 
-          <div className={HomeStyle['zero-fee-banner']}>
-            <p className={HomeStyle['zero-fee-text-top']}>지금 블라인드 카스토리에서 공장 특판 견적을 받으면</p>
-            <h2 className={HomeStyle['zero-fee-text-main']}> 수수료 0% !!</h2>
-            <div className={HomeStyle['penguin-character']}>
-              <img 
-                src="/home/고해상도_찾아보기 펭귄 5.svg" 
-                alt="블라인드 카스토리 펭귄" 
-              />
-            </div>
+      <section className="partner-section" id="partners">
+        <div className="container">
+          <div className="section-header">
+            <h2 className="section-title">제휴 파트너사</h2>
+            <p className="section-subtitle">국내 주요 캐피탈·카드사와 함께 더 좋은 조건을 비교합니다.</p>
+          </div>
+          <div className="partner-viewport">
+            <PartnerTrack />
           </div>
         </div>
       </section>
 
-      <ConsultBanner styles={HomeStyle} onSubmit={handleConsultBannerSubmit} />
-
-      {/* 장기렌트 비교 섹션 */}
-      <section className={HomeStyle['long-term-rent-section']}>
-        <div className={HomeStyle['long-term-rent-container']}>
-          {/* 타이틀 */}
-          <div className={HomeStyle['title-group']}>
-            <h2 className={HomeStyle['main-title-blue']}>장기렌트,</h2>
-            <h3 className={HomeStyle['main-title-black']}>일시불·할부보다 저렴합니다.</h3>
-          </div>
-
-          {/* 비교 텍스트 */}
-          <div className={HomeStyle['comparison-group']}>
-            <div className={HomeStyle['comparison-row']}>
-              <span className={HomeStyle['comparison-label']}>보증금 100%, 일시불 비교시 장기렌트가 </span>
-              <span className={HomeStyle['comparison-highlight']}>최대 1,100만원 이상 저렴 </span>
+      <section className="lump-section total-section" aria-labelledby="total-title">
+        <div className="container">
+          <div className="lump-hero">
+            <div>
+              <span className="section-kicker">TOTAL COST CHECK</span>
+              <h2 id="total-title">월 납입금만 보면 놓치는 비용이 있습니다.</h2>
+              <p className="section-subtitle">같은 차량과 이용 기간을 기준으로 초기 비용과 유지 항목까지 함께 확인해 보세요.</p>
             </div>
-            <div className={HomeStyle['comparison-row']}>
-              <span className={HomeStyle['comparison-label']}>보증금 0%, 풀할부 비교시 장기렌트가 </span>
-              <span className={HomeStyle['comparison-highlight']}>최대 2~300만원 이상 저렴</span>
+            <div className="total-status">
+              <small>장기렌트 월 납입금 (예시)</small>
+              <strong>월 484,880원</strong>
+              <span>보증금·선납금 0% 기준</span>
             </div>
           </div>
-
-          {/* 정보 박스 (오른쪽 상단) */}
-          <div className={HomeStyle['info-box']}>
-            <p className={HomeStyle['info-box-title']}>장기렌트 보증금 0%시 </p>
-            <p className={HomeStyle['info-box-subtitle']}>(신형 팰리세이드 하이브리드 기준)</p>
+          <div className="total-condition-grid" aria-label="비교 조건">
+            {[
+              ['차량', '기아 더 뉴 쏘렌토'],
+              ['계약 기간', '48개월'],
+              ['주행 거리', '연 2만km'],
+              ['초기 조건', '보증금·선납금 0%'],
+            ].map(([label, value]) => (
+              <div key={label}>
+                <span>{label}</span>
+                <strong>{value}</strong>
+              </div>
+            ))}
           </div>
-
-          {/* 설명 텍스트 */}
-          <p className={HomeStyle['description-text']}>
-            선납금은 장기렌트 렌탈료에서 단순히 1/N으로 나눈값! 
-            보증금기준은 10%당 무려 연 6.6% 의 예금금리와 동일한값
+          <div className="comparison-table-wrap">
+            <table className="lump-table total-table">
+              <thead>
+                <tr>
+                  <th>비용 항목</th>
+                  <th>일시불</th>
+                  <th>할부</th>
+                  <th>장기렌트</th>
+                </tr>
+              </thead>
+              <tbody>
+                {TOTAL_ROWS.map(([label, ...values]) => (
+                  <tr key={label}>
+                    <td>{label}</td>
+                    {values.map((value, index) => (
+                      <td key={index}>{value}</td>
+                    ))}
+                  </tr>
+                ))}
+                <tr>
+                  <td>48개월 납부액</td>
+                  <td>
+                    <strong>47,687,200원</strong>
+                  </td>
+                  <td>
+                    <strong>50,847,200원</strong>
+                  </td>
+                  <td>
+                    <strong>23,274,240원</strong>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="data-note">
+            위 금액은 이해를 돕기 위한 예시입니다. 장기렌트는 만기 반납 기준이며 일시불·할부는 차량 소유 및 잔존가치를 포함하지 않은 납부액
+            비교입니다. 보험료, 금리, 옵션, 심사 결과에 따라 최종 금액은 달라질 수 있습니다.
           </p>
-
-          {/* CTA 텍스트 */}
-          <p className={HomeStyle['cta-text']}>이제 보증금 견적으로 해결하세요!</p>
-
-          {/* 차량 이미지 (오른쪽 하단, absolute) */}
-          <div className={HomeStyle['long-term-rent-image']}>
-            <img 
-              src="/home/자동차옆모습_고하질.svg" 
-              alt="장기렌트 차량"
-            />
-          </div>
         </div>
       </section>
 
-    </div>
-
-    {/* 장기렌트 vs 할부/리스 비교 섹션 */}
-    <ComparisonSection />
-
-    {/* 제휴카드사 섹션 */}
-    <section className={HomeStyle['partner-cards-section']}>
-      <div className={HomeStyle['partner-cards-header']}>
-        <h2 className={HomeStyle['partner-cards-title']}>제휴카드사</h2>
-        <p className={HomeStyle['partner-cards-subtitle']}>
-          국내 30여 개 제휴사 데이터를 비교 분석하여, 고객님께 딱 맞는 최저가 견적만을 제공합니다.
-        </p>
-      </div>
-
-      <div className={HomeStyle['partner-cards-grid']}>
-        {loopPartnerCards.map((card, index) => (
-          <div
-            // 같은 카드가 2번씩 반복되므로 index + name 조합으로 key 지정
-            key={`${card.name}-${index}`}
-            className={HomeStyle['partner-card']}
-          >
-            <div className={HomeStyle['partner-logo']}>
-              <img
-                src={card.image}
-                alt={card.name}
-                onError={(e) => {
-                  // 이미지 로드 실패 시 placeholder 표시
-                  e.target.src = `/placeholder/car.svg)}`;
-                }}
-              />
-            </div>
-            <span className={HomeStyle['partner-name']}>{card.name}</span>
+      <section className="final-cta" aria-labelledby="final-cta-title">
+        <div className="container final-cta__inner">
+          <div>
+            <span className="section-kicker">READY TO COMPARE</span>
+            <h2 id="final-cta-title">어떤 조건이 유리한지 직접 비교해보세요.</h2>
           </div>
-        ))}
-      </div>
-    </section>
-
-    {/* 일시불보다 1000만원 섹션 */}
-    <LumpSumSection />
-
-    <BrowserContactModal
-      open={isContactModalOpen}
-      onClose={handleContactModalClose}
-      onSubmit={handleContactModalSubmit}
-      isSubmitting={isContactSubmitting}
-      description={contactModalMessage || undefined}
-      initialPhone=""
-    />
-    <ConsultSuccessModal
-      isOpen={isSuccessModalOpen}
-      onClose={() => setIsSuccessModalOpen(false)}
-    />
+          <button className="btn final-cta__button" type="button" onClick={scrollToComparisonConsult}>
+            내 차량 견적 받아보기
+          </button>
+        </div>
+      </section>
     </>
   );
 };

@@ -1,0 +1,426 @@
+/* 실시간 견적 받기 모달 (재고 특가 핫딜 카드 클릭 시) */
+
+.qm-overlay {
+  z-index: 10005;
+}
+
+.qm-card {
+  position: relative;
+  width: min(990px, 100%);
+  max-height: 90vh;
+  overflow: auto;
+  padding: 30px 36px 36px;
+  border-radius: var(--radius-large);
+  background: var(--color-white);
+  box-shadow: var(--shadow-float);
+}
+
+.qm-head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.qm-head h2 {
+  font-size: var(--fs-22);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+}
+
+.qm-close {
+  position: absolute;
+  top: 22px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+.qm-close:hover {
+  background: var(--color-bg-soft);
+  color: var(--color-text);
+}
+
+.qm-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: 36px;
+  align-items: start;
+}
+
+/* 좌측 : 입력 폼 */
+.qm-title {
+  font-size: var(--fs-22);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.03em;
+  line-height: 1.35;
+}
+
+.qm-title em {
+  position: relative;
+  z-index: 0;
+  font-style: normal;
+}
+
+.qm-title em::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  bottom: 1px;
+  z-index: -1;
+  height: 10px;
+  border-radius: 2px;
+  background: var(--color-gold);
+  opacity: 0.55;
+}
+
+.qm-desc {
+  margin-top: 10px;
+  font-size: var(--fs-14);
+  color: var(--color-text-secondary);
+}
+
+.qm-fields {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.qm-row {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  padding: 0 6px 0 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 12px;
+  background: var(--color-white);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.qm-row:focus-within {
+  border-color: var(--color-black);
+  box-shadow: 0 0 0 3px rgb(17 17 17 / 6%);
+}
+
+.qm-row label {
+  width: 116px;
+  flex-shrink: 0;
+  padding-left: 18px;
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text);
+}
+
+.qm-row label .required {
+  color: var(--color-red);
+}
+
+.qm-row input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  padding: 0 14px 0 0;
+  font-size: var(--fs-16);
+}
+
+.qm-row input:focus {
+  outline: none;
+}
+
+.qm-row input::placeholder {
+  color: #a5a5a5;
+}
+
+.qm-agree {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 16px;
+  font-size: var(--fs-13);
+  color: var(--color-text-secondary);
+}
+
+.qm-agree input {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--color-black);
+}
+
+.qm-agree a {
+  color: var(--color-gold-strong);
+  font-weight: var(--fw-semibold);
+  text-decoration: underline;
+}
+
+.qm-note {
+  margin-top: 8px;
+  text-align: center;
+  font-size: var(--fs-12);
+  color: var(--color-text-muted);
+}
+
+.qm-card .form-error {
+  margin-top: 6px;
+  text-align: center;
+}
+
+.qm-card .form-error:empty {
+  display: none;
+}
+
+.qm-submit {
+  width: 100%;
+  min-height: 62px;
+  margin-top: 14px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--color-black);
+  color: var(--color-white);
+  font-size: var(--fs-18);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.qm-submit:hover {
+  background: #2a2a2a;
+  transform: translateY(-2px);
+}
+
+/* 우측 : 비교 화면 목업 */
+.qm-preview {
+  padding: 18px 18px 0;
+  border-radius: 28px;
+  background: linear-gradient(135deg, #232323 0%, #111111 70%);
+}
+
+.qm-phone {
+  overflow: hidden;
+  border-radius: 20px 20px 0 0;
+  background: var(--color-white);
+}
+
+.qm-phone__head {
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: center;
+  font-size: var(--fs-14);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+}
+
+.qm-phone__head em {
+  font-style: normal;
+  color: var(--color-gold-strong);
+}
+
+.qm-partner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.qm-partner__mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 28px;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.qm-partner__mark img {
+  display: block;
+  width: 52px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.qm-partner__name {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--fs-14);
+  font-weight: var(--fw-semibold);
+}
+
+.qm-partner__price {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.qm-partner__price strong {
+  font-size: var(--fs-16);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+  color: var(--color-gold-strong);
+}
+
+.qm-partner__price small {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.qm-partner__arrow {
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+  font-size: var(--fs-14);
+}
+
+.qm-preview__note {
+  padding: 12px 4px 14px;
+  text-align: center;
+  font-size: 11px;
+  color: rgb(255 255 255 / 55%);
+}
+
+/* ==========================================================================
+   반응형
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .qm-card {
+    padding: 26px 24px 28px;
+  }
+
+  .qm-body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .qm-preview {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .qm-card {
+    padding: 22px 16px 24px;
+    border-radius: var(--radius-banner);
+  }
+
+  .qm-head h2 {
+    font-size: var(--fs-18);
+  }
+
+  .qm-close {
+    top: 16px;
+    right: 14px;
+  }
+
+  .qm-title {
+    font-size: var(--fs-18);
+  }
+
+  .qm-row {
+    height: 54px;
+  }
+
+  .qm-row label {
+    width: 92px;
+    padding-left: 14px;
+    font-size: var(--fs-14);
+  }
+
+  .qm-row input {
+    font-size: var(--fs-14);
+  }
+
+  .qm-submit {
+    min-height: 56px;
+    font-size: var(--fs-16);
+  }
+}
+
+/* ==========================================================================
+   모바일 화면(.mobile-page)에서는 창 크기와 무관하게 모바일 레이아웃 유지
+   ========================================================================== */
+
+.mobile-page .qm-card {
+  width: min(398px, 100%);
+  padding: 22px 16px 24px;
+  border-radius: var(--radius-banner);
+}
+
+.mobile-page .qm-head {
+  margin-bottom: 18px;
+}
+
+.mobile-page .qm-head h2 {
+  font-size: var(--fs-18);
+}
+
+.mobile-page .qm-close {
+  top: 16px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+}
+
+.mobile-page .qm-body {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+
+.mobile-page .qm-preview {
+  display: none;
+}
+
+.mobile-page .qm-title {
+  font-size: var(--fs-18);
+}
+
+.mobile-page .qm-desc {
+  font-size: var(--fs-13);
+}
+
+.mobile-page .qm-fields {
+  margin-top: 18px;
+}
+
+.mobile-page .qm-row {
+  height: 54px;
+  border-radius: 10px;
+}
+
+.mobile-page .qm-row label {
+  width: 92px;
+  padding-left: 14px;
+  font-size: var(--fs-14);
+}
+
+.mobile-page .qm-row input {
+  font-size: var(--fs-14);
+}
+
+.mobile-page .qm-agree {
+  margin-top: 14px;
+  font-size: var(--fs-12);
+}
+
+.mobile-page .qm-submit {
+  min-height: 56px;
+  margin-top: 12px;
+  font-size: var(--fs-16);
+}

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko" class="pc-html">
+  <head>
+    <base href="../" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>브랜드 혜택 상세 | 블라인드 카스토리</title>
+    <meta name="description" content="블라인드 카스토리 브랜드 혜택 상세. 기획전 혜택과 적용 조건을 확인해 보세요." />
+    <link rel="icon" href="./assets/images/brand/carstory-logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./assets/css/tokens.css" />
+    <link rel="stylesheet" href="./assets/css/reset.css" />
+    <link rel="stylesheet" href="./assets/css/common.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/promotion-detail.css?v=20260831e" />
+    <link rel="stylesheet" href="./assets/css/quote-modal.css?v=20260831e" />
+  </head>
+  <body class="pc-page">
+    <a class="skip-link" href="#main-content">본문 바로가기</a>
+
+    <header class="pc-header">
+      <div class="pc-header__middle">
+        <a class="brand-logo" href="./index.html" aria-label="블라인드 카스토리 홈">
+          <img src="./assets/images/brand/carstory-logo.svg" alt="블라인드 카스토리" width="124" height="124" />
+          <span class="brand-logo__eyebrow">신차장기렌트 · 리스</span>
+        </a>
+        <form class="site-search" role="search" data-demo-search>
+          <label class="visually-hidden" for="pc-search">검색어</label>
+          <input id="pc-search" type="search" placeholder="검색어를 입력해 주세요" />
+          <button type="submit" aria-label="검색">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m20 20-3.5-3.5"></path>
+            </svg>
+          </button>
+        </form>
+      </div>
+      <nav class="pc-nav" aria-label="주요 메뉴">
+        <div class="pc-nav__item">
+          <span class="badge badge-best">BEST</span>
+          <a class="pc-nav__link" href="./pages/carlist.html#domestic">내 차 견적</a>
+        </div>
+        <div class="pc-nav__item">
+          <span class="badge badge-hot">HOT</span>
+          <a class="pc-nav__link" href="./pages/express-deals.html">재고 특가 핫딜</a>
+        </div>
+        <div class="pc-nav__item">
+          <a class="pc-nav__link is-active" href="./pages/promotion.html">브랜드별 혜택</a>
+        </div>
+        <div class="pc-nav__item">
+          <a class="pc-nav__link" href="./pages/carlist.html#imported">수입차 할인</a>
+        </div>
+        <div class="pc-nav__item">
+          <a class="pc-nav__link" href="./pages/review.html">출고후기</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="pd-page">
+        <div class="container">
+          <nav class="pd-breadcrumb" aria-label="현재 위치">
+            <a href="./index.html">홈</a>
+            <span aria-hidden="true">›</span>
+            <a href="./pages/promotion.html">브랜드별 혜택</a>
+            <span aria-hidden="true">›</span>
+            <strong data-pd-crumb>혜택 상세</strong>
+          </nav>
+
+          <!-- 히어로 -->
+          <section class="pd-hero" data-pd-hero aria-labelledby="pd-headline">
+            <div class="pd-hero__main">
+              <div class="pd-badges">
+                <span class="pd-status" data-pd-status>진행중</span>
+                <span class="pd-brandchip" data-pd-brand></span>
+              </div>
+              <p class="pd-partner" data-pd-partner></p>
+              <h1 class="pd-headline" id="pd-headline" data-pd-headline></h1>
+              <p class="pd-benefit" data-pd-benefit></p>
+              <p class="pd-discount" data-pd-discount></p>
+              <div class="pd-actions">
+                <a class="pd-btn pd-btn--gold" href="#quote-modal" data-pd-quote>이 혜택으로 견적받기</a>
+                <a class="pd-btn pd-btn--ghost" href="#quote-modal" data-pd-quote>대상 차종 견적 보기</a>
+              </div>
+            </div>
+
+            <aside class="pd-timer" data-pd-timer>
+              <p class="pd-timer__label">혜택 종료까지</p>
+              <div data-pd-timer-body></div>
+              <p class="pd-timer__period" data-pd-timer-period></p>
+            </aside>
+          </section>
+
+          <!-- 핵심 지표 -->
+          <div class="pd-stats" data-pd-stats></div>
+
+          <!-- 핵심 혜택 -->
+          <section class="pd-section">
+            <div class="pd-section__head">
+              <h2 class="pd-section__title">이 기획전의 <em>핵심 혜택</em></h2>
+              <p class="pd-section__desc">계약 조건에 따라 아래 혜택이 중복으로 적용됩니다.</p>
+            </div>
+            <div class="pd-benefits" data-pd-benefits></div>
+          </section>
+
+          <!-- 대상 차종 -->
+          <section class="pd-section">
+            <div class="pd-section__head">
+              <h2 class="pd-section__title">대상 차종</h2>
+              <p class="pd-section__desc">장기렌트 48개월 · 선납금 30% · 연 20,000km 기준 월 렌탈료입니다.</p>
+            </div>
+            <div class="pd-models" data-pd-models></div>
+          </section>
+
+          <!-- 신청 방법 -->
+          <section class="pd-section">
+            <div class="pd-section__head">
+              <h2 class="pd-section__title">신청은 <em>3단계</em>면 끝납니다</h2>
+              <p class="pd-section__desc">방문 없이 비대면으로 진행되고, 계약 전까지 비용이 발생하지 않습니다.</p>
+            </div>
+            <ol class="pd-steps">
+              <li class="pd-step">
+                <span class="pd-step__no">01</span>
+                <h3>실시간 견적 신청</h3>
+                <p>이름과 연락처만 남기면 접수됩니다. 원하는 차종은 몰라도 괜찮습니다.</p>
+              </li>
+              <li class="pd-step">
+                <span class="pd-step__no">02</span>
+                <h3>제휴사 조건 비교</h3>
+                <p>담당 매니저가 이 기획전 조건을 포함해 제휴사별 월 납입금을 비교해 드립니다.</p>
+              </li>
+              <li class="pd-step">
+                <span class="pd-step__no">03</span>
+                <h3>계약 후 출고</h3>
+                <p>조건을 확정하면 서류는 모바일로 처리되고, 재고 차량은 최단 2일 내 인도됩니다.</p>
+              </li>
+            </ol>
+          </section>
+
+          <!-- 고객 후기 -->
+          <section class="pd-section">
+            <div class="pd-section__head">
+              <h2 class="pd-section__title">이미 이렇게 <em>타고 계십니다</em></h2>
+              <p class="pd-section__desc">블라인드 카스토리로 출고한 고객들의 실제 후기입니다.</p>
+            </div>
+            <div class="pd-reviews" data-pd-reviews></div>
+          </section>
+
+          <!-- 상담 신청 -->
+          <section class="consult-banner" id="pd-apply" aria-label="상담 신청">
+            <img class="consult-banner__car" src="./assets/images/banner/consult-car-gold.png" alt="" aria-hidden="true" />
+            <div class="consult-banner__left">
+              <h3 data-pd-banner-title>혜택, 내 조건으로 계산해 보세요</h3>
+              <div class="consult-banner__phone">쉽고 투명한 신차 견적</div>
+            </div>
+            <form class="consult-banner__form" data-consult-form data-source="promotion-detail-banner">
+              <h4>
+                <img class="consult-banner__kakao" src="./assets/images/banner/kakao-bubble.png" alt="" aria-hidden="true" />
+                <span><em>1분 만에</em> 카카오로 간편 상담</span>
+              </h4>
+              <div class="consult-banner__fields">
+                <label for="pd-banner-name">이름</label>
+                <input class="consult-input" id="pd-banner-name" name="name" type="text" placeholder="ex) 이름" required />
+                <label for="pd-banner-phone">연락처</label>
+                <input class="consult-input" id="pd-banner-phone" name="phone" type="tel" placeholder="ex) 01012345678" required />
+                <label for="pd-banner-car">차종</label>
+                <input class="consult-input" id="pd-banner-car" name="carModel" type="text" placeholder="ex) 쏘렌토" />
+              </div>
+              <button class="consult-banner__submit" type="submit">
+                <img src="./assets/images/banner/cta-gold-button.png" alt="실시간 무료견적 받기" />
+              </button>
+              <p class="form-error" data-form-error></p>
+            </form>
+          </section>
+
+          <!-- 다른 기획전 -->
+          <section class="pd-section">
+            <div class="pd-section__head">
+              <h2 class="pd-section__title">함께 보면 좋은 기획전</h2>
+            </div>
+            <div class="pd-more-grid" data-pd-more></div>
+          </section>
+
+          <div class="pd-back">
+            <a class="pd-back__btn" href="./pages/promotion.html">기획전 목록으로 돌아가기</a>
+          </div>
+
+          <div class="pd-fine">
+            <p class="pd-fine__title">혜택 적용 안내</p>
+            <ul data-pd-notes></ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="pc-footer">
+      <div class="container">
+        <div>
+          <p>블라인드 카스토리</p>
+          <p>주소 / 대표 / 사업자등록번호 : 정보 준비중</p>
+          <p>전화 : 1577-8319 / 이메일 : 정보 준비중</p>
+        </div>
+        <div>(C) Blind CarStory All Rights Reserved.</div>
+      </div>
+    </footer>
+
+    <aside class="quick-consult is-closed" data-quick-consult data-quick-default="closed">
+      <div class="quick-card">
+        <form class="quick-form" data-consult-form data-source="promotion-detail-sidebar">
+          <div class="quick-fields">
+            <h3>실시간 견적문의</h3>
+            <div class="quick-row">
+              <label for="quick-name">성함<span class="required">*</span></label>
+              <input id="quick-name" name="name" type="text" placeholder="ex) 홍길동" />
+            </div>
+            <div class="quick-row">
+              <label for="quick-phone">연락처<span class="required">*</span></label>
+              <input id="quick-phone" name="phone" type="tel" placeholder="ex) 01012345678" />
+            </div>
+            <div class="quick-row">
+              <label for="quick-model">차종</label>
+              <input id="quick-model" name="carModel" type="text" placeholder="ex) 쏘렌토" />
+            </div>
+            <div class="privacy-row">
+              <input id="quick-privacy" name="privacyAgree" type="checkbox" checked />
+              <label for="quick-privacy">[필수] 개인정보 이용 동의</label>
+              <a href="#" data-open-privacy>[보기]</a>
+            </div>
+            <p class="form-error" data-form-error></p>
+          </div>
+          <button class="quick-submit" type="submit">실시간 무료견적 받기</button>
+        </form>
+      </div>
+      <div class="quick-methods">
+        <button class="method-btn method-btn--phone" type="button" data-demo-contact>
+          <span class="method-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z" />
+            </svg>
+          </span>
+          <span class="method-text">
+            <small>전문상담원과 간편 전화상담</small>
+            <strong>1577-8319</strong>
+          </span>
+        </button>
+        <span class="method-divider" aria-hidden="true"></span>
+        <button class="method-btn method-btn--kakao" type="button" data-demo-contact>
+          <span class="method-icon method-icon--kakao" aria-hidden="true">TALK</span>
+          <span class="method-text">
+            <small>1분만에 스으윽~~~</small>
+            <strong>카톡 간편 상담 신청</strong>
+          </span>
+        </button>
+      </div>
+      <div class="quick-actions">
+        <button class="quick-pill quick-pill--fold" type="button" data-quick-toggle aria-expanded="true">상담창<br />접어두기</button>
+        <button class="quick-pill quick-pill--top" type="button" data-scroll-top>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15l7-7 7 7" /></svg>
+          TOP
+        </button>
+      </div>
+      <div class="unfold-wrap">
+        <button class="quick-pill quick-pill--fold" type="button" data-quick-toggle aria-expanded="false">상담창<br />펼치기</button>
+        <button class="quick-pill quick-pill--top" type="button" data-scroll-top>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 15l7-7 7 7" /></svg>
+          TOP
+        </button>
+      </div>
+    </aside>
+
+    <div class="modal-overlay" id="privacy-modal" aria-hidden="true">
+      <div class="modal-card" role="dialog" aria-labelledby="privacy-title">
+        <h2 id="privacy-title">개인정보 수집·이용 동의</h2>
+        <p>수집 항목 : 성함, 연락처, 관심 차종</p>
+        <p>이용 목적 : 신차 장기렌트·리스 견적 상담 및 결과 안내</p>
+        <p>보유 기간 : 상담 종료 후 3개월 이내 파기하며, 동의를 거부하실 수 있습니다.</p>
+        <button class="btn btn-primary" type="button" data-close-privacy>확인</button>
+      </div>
+    </div>
+    <div class="toast" id="demo-toast" role="status" aria-live="polite"></div>
+
+    <script src="./assets/js/mock-data.js"></script>
+    <script src="./assets/js/promotion-data.js?v=20260831d"></script>
+    <script src="./assets/js/review-data.js"></script>
+    <script src="./assets/js/common.js"></script>
+    <script src="./assets/js/quote-modal.js?v=20260831e"></script>
+    <script src="./assets/js/promotion-detail.js?v=20260831e"></script>
+  </body>
+</html>

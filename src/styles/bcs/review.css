@@ -1,0 +1,482 @@
+/* 자동 생성: scripts/build-publishing-css.mjs (원본 design/publishing-step2-1/assets/css/review.css, 범위 .bcs-page-review). 직접 고치지 말고 원본이나 src/styles/bcs-overrides.css 를 고친다. */
+/* 출고후기 페이지 전용 스타일 */
+
+:where(.bcs-page-review) .review-page {
+  padding: 24px 0 72px;
+}
+
+:where(.bcs-page-review) .rv-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: var(--fs-13);
+  color: var(--color-text-muted);
+}
+
+:where(.bcs-page-review) .rv-breadcrumb a {
+  color: var(--color-text-secondary);
+}
+
+:where(.bcs-page-review) .rv-breadcrumb a:hover {
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
+:where(.bcs-page-review) .rv-breadcrumb strong {
+  color: var(--color-text);
+  font-weight: var(--fw-semibold);
+}
+
+/* 페이지 헤더 */
+:where(.bcs-page-review) .rv-header {
+  padding: 20px 0 28px;
+  text-align: center;
+}
+
+:where(.bcs-page-review) .rv-header__title {
+  font-size: 42px;
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+}
+
+:where(.bcs-page-review) .rv-header__title em {
+  font-style: normal;
+  color: var(--color-gold-strong);
+}
+
+:where(.bcs-page-review) .rv-header__sub {
+  margin-top: 12px;
+  font-size: var(--fs-18);
+  color: var(--color-text-secondary);
+}
+
+:where(.bcs-page-review) .rv-listhead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 40px 0 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+:where(.bcs-page-review) .rv-listhead__title {
+  font-size: var(--fs-20);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+}
+
+:where(.bcs-page-review) .rv-listhead__note {
+  font-size: var(--fs-13);
+  color: var(--color-text-muted);
+}
+
+/* 후기 카드 그리드 */
+:where(.bcs-page-review) .rv-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px 30px;
+}
+
+:where(.bcs-page-review) .rv-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-banner);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+:where(.bcs-page-review) .rv-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-md);
+}
+
+:where(.bcs-page-review) .rv-card__media {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 220px;
+  padding: 24px;
+  background: linear-gradient(180deg, #fafafa 0%, #eeeeee 100%);
+}
+
+:where(.bcs-page-review) .rv-card__media img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+:where(.bcs-page-review) .rv-card__badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  background: var(--color-black);
+  color: var(--color-gold);
+  font-size: var(--fs-13);
+  font-weight: var(--fw-bold);
+}
+
+:where(.bcs-page-review) .rv-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 20px;
+}
+
+:where(.bcs-page-review) .rv-card__car {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  height: 24px;
+  padding: 0 10px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-12);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-secondary);
+}
+
+:where(.bcs-page-review) .rv-card__title {
+  margin-top: 12px;
+  font-size: var(--fs-18);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.025em;
+  line-height: 1.35;
+  color: var(--color-text);
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+:where(.bcs-page-review) .rv-card__snippet {
+  margin-top: 10px;
+  min-height: 66px;
+  font-size: var(--fs-14);
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+:where(.bcs-page-review) .rv-stars {
+  display: flex;
+  gap: 2px;
+  margin-top: 16px;
+  font-size: var(--fs-16);
+  line-height: 1;
+}
+
+:where(.bcs-page-review) .rv-star {
+  color: var(--color-border-strong);
+}
+
+:where(.bcs-page-review) .rv-star.is-on {
+  color: var(--color-gold);
+}
+
+:where(.bcs-page-review) .rv-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 16px;
+  font-size: var(--fs-13);
+  color: var(--color-text-muted);
+}
+
+:where(.bcs-page-review) .rv-card__meta span:first-child {
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-secondary);
+}
+
+/* 빈 목록 · 더보기 */
+:where(.bcs-page-review) .rv-empty {
+  padding: 60px 0;
+  text-align: center;
+  font-size: var(--fs-14);
+  color: var(--color-text-muted);
+}
+
+:where(.bcs-page-review) .rv-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+:where(.bcs-page-review) .rv-more__btn {
+  min-width: 260px;
+  min-height: var(--btn-height-lg);
+  padding: 0 24px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--color-white);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-bold);
+  color: var(--color-text);
+  transition: border-color var(--transition), background var(--transition);
+}
+
+:where(.bcs-page-review) .rv-more__btn:hover {
+  border-color: var(--color-black);
+  background: var(--color-bg-soft);
+}
+
+:where(.bcs-page-review) .review-page .consult-banner {
+  width: 100%;
+  max-width: none;
+  margin: 56px 0 0;
+}
+
+:where(.bcs-page-review) .review-page .disclaimer {
+  margin-top: 24px;
+  text-align: center;
+}
+
+/* ==========================================================================
+   반응형 (출고후기)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  :where(.bcs-page-review) .rv-header {
+    padding: 12px 0 24px;
+  }
+
+  :where(.bcs-page-review) .rv-header__title {
+    font-size: 32px;
+  }
+
+  :where(.bcs-page-review) .rv-header__sub {
+    font-size: var(--fs-16);
+  }
+
+  :where(.bcs-page-review) .rv-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  :where(.bcs-page-review) .review-page {
+    padding: 16px 0 48px;
+  }
+
+  :where(.bcs-page-review) .rv-header__title {
+    font-size: 26px;
+  }
+
+  :where(.bcs-page-review) .rv-header__sub {
+    font-size: var(--fs-14);
+  }
+
+  :where(.bcs-page-review) .rv-listhead {
+    margin: 28px 0 16px;
+  }
+
+  :where(.bcs-page-review) .rv-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  :where(.bcs-page-review) .rv-card__media {
+    height: 180px;
+  }
+
+  :where(.bcs-page-review) .rv-more__btn {
+    min-width: 0;
+    width: 100%;
+  }
+
+  :where(.bcs-page-review) .review-page .consult-banner {
+    margin-top: 40px;
+  }
+}
+
+/* ==========================================================================
+   후기 상세 모달
+   ========================================================================== */
+
+:where(.bcs-page-review) .rvm-overlay {
+  z-index: 10005;
+}
+
+:where(.bcs-page-review) .rvm-card {
+  position: relative;
+  width: min(660px, 100%);
+  max-height: 88vh;
+  overflow: auto;
+  padding: 26px 30px 30px;
+  border-radius: var(--radius-large);
+  background: var(--color-white);
+  box-shadow: var(--shadow-float);
+}
+
+:where(.bcs-page-review) .rvm-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+:where(.bcs-page-review) .rvm-head h2 {
+  font-size: var(--fs-20);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+}
+
+:where(.bcs-page-review) .rvm-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+:where(.bcs-page-review) .rvm-close:hover {
+  background: var(--color-bg-soft);
+  color: var(--color-text);
+}
+
+:where(.bcs-page-review) .rvm-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 240px;
+  padding: 22px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #fafafa 0%, #eeeeee 100%);
+}
+
+:where(.bcs-page-review) .rvm-media img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+:where(.bcs-page-review) .rvm-car {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  margin-top: 20px;
+  padding: 0 12px;
+  border: 1px solid var(--color-gold-line);
+  border-radius: var(--radius-pill);
+  background: var(--color-gold-soft);
+  font-size: var(--fs-12);
+  font-weight: var(--fw-semibold);
+  color: #6b5410;
+}
+
+:where(.bcs-page-review) .rvm-title {
+  margin-top: 12px;
+  font-size: var(--fs-22);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.03em;
+  line-height: 1.35;
+}
+
+:where(.bcs-page-review) .rvm-body {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+:where(.bcs-page-review) .rvm-body p {
+  font-size: var(--fs-16);
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+
+:where(.bcs-page-review) .rvm-meta {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 26px;
+  padding-top: 18px;
+  border-top: 1px solid var(--color-border);
+}
+
+:where(.bcs-page-review) .rvm-meta__author {
+  font-size: var(--fs-14);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text);
+}
+
+:where(.bcs-page-review) .rvm-meta .rv-stars {
+  margin-top: 8px;
+}
+
+:where(.bcs-page-review) .rvm-meta__date {
+  font-size: var(--fs-13);
+  color: var(--color-text-muted);
+}
+
+:where(.bcs-page-review) .rvm-cta {
+  width: 100%;
+  min-height: 60px;
+  margin-top: 24px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--color-black);
+  color: var(--color-white);
+  font-size: var(--fs-18);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+}
+
+:where(.bcs-page-review) .rvm-cta:hover {
+  background: #2a2a2a;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 767px) {
+  :where(.bcs-page-review) .rvm-card {
+    padding: 20px 16px 24px;
+    border-radius: var(--radius-banner);
+  }
+
+  :where(.bcs-page-review) .rvm-media {
+    height: 180px;
+  }
+
+  :where(.bcs-page-review) .rvm-title {
+    font-size: var(--fs-18);
+  }
+
+  :where(.bcs-page-review) .rvm-body p {
+    font-size: var(--fs-14);
+  }
+
+  :where(.bcs-page-review) .rvm-cta {
+    min-height: 54px;
+    font-size: var(--fs-16);
+  }
+}
