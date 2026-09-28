@@ -1,0 +1,76 @@
+/* 재고 특가 핫딜 섹션 */
+.inventory-hotdeal-section {
+  padding-top: 50px;
+  background: var(--color-white);
+  margin: 0 auto;
+  max-width: var(--max-width);
+}
+
+.inventory-hotdeal-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: var(--section-spacing-sm);
+}
+
+.inventory-hotdeal-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.inventory-hotdeal-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inventory-hotdeal-title {
+  font-size: var(--font-size-head);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-200);
+  margin: 0;
+  letter-spacing: var(--letter-spacing-base);
+}
+
+.inventory-hotdeal-link {
+  font-size: var(--font-size-title-2);
+  color: var(--color-text-200);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  transition: color var(--transition-fast);
+}
+
+.inventory-hotdeal-link:hover {
+  color: var(--color-main-100);
+}
+
+.inventory-hotdeal-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-2xl);
+  margin-bottom: var(--spacing-xl);
+}
+
+.inventory-hotdeal-footer {
+  text-align: center;
+  margin-top: var(--spacing-xl);
+}
+
+.inventory-hotdeal-disclaimer {
+  text-align: right;
+  font-size: var(--font-size-title-2);
+  color: var(--color-text-secondary);
+  font-weight: 300;
+}
+
+.inventory-hotdeal-placeholder {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--color-text-50);
+  font-size: var(--font-size-body-1);
+  background: var(--color-bg-100);
+  border-radius: var(--radius-md);
+  margin: 2rem 0;
+}
+

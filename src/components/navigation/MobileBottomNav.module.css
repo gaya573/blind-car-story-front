@@ -1,0 +1,90 @@
+.container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 375px;
+  height: 70px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+  z-index: 50;
+}
+
+.inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+}
+
+.item {
+  flex: 1;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: #000000;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 13px 0;
+  transition: opacity 0.2s;
+  line-height: 16px;
+  letter-spacing: -0.025em;
+}
+
+.item:active {
+  opacity: 0.7;
+}
+
+.centerSlot {
+  flex: 1;
+}
+
+.icon {
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2px;
+}
+
+.icon svg,
+.icon img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.label {
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.active {
+  color: #000000;
+}
+
+.homeButton {
+  display: none;
+}
+
+.homeIcon svg,
+.homeIcon img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}

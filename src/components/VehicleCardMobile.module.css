@@ -1,0 +1,318 @@
+.card {
+  width: 100%;
+  height: 143px;
+  border-radius: 16px;
+  border: 1px solid #e3e7ef;
+  background: #F7F7FB;
+  box-shadow: 0 6px 16px rgba(28, 28, 28, 0.06);
+  padding: 15px 14px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  position: relative;
+  gap: 18px;
+}
+
+.card:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 2px;
+}
+
+.left {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1c1c1c;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.badge {
+  min-width: 48px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: #ffd940;
+  color: #ff7a00;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  font-size: 11px;
+  letter-spacing: -0.02em;
+}
+
+.discountPercent {
+  color: #ff7a00;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 0;
+  color: #767676;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fallbackDiscountValue {
+  font-size: 12px;
+  font-weight: 600;
+  color: #2b2b2b;
+}
+
+.priceGroup {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.monthlyRow {
+  display: flex;
+  align-items: flex-start;
+}
+
+.monthlyLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: #767676;
+  white-space: nowrap;
+}
+
+.monthlyValues {
+  display: flex;
+  flex-direction: column;
+}
+
+.monthlyEquation {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.monthlyEquationItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.monthlyEquationLabel {
+  font-size: 10px;
+  color: #a6a6a6;
+  letter-spacing: -0.01em;
+}
+
+.monthlyEquationValue {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1c1c1c;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.monthlyDiscountValue {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ef4444;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.monthlyFinalValue {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111111;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.monthlyFinalUnit {
+  font-size: 12px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.monthlyOperator {
+  font-size: 12px;
+  font-weight: 600;
+  color: #e8d79a;
+  line-height: 1;
+}
+
+.monthlyCurrent {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.priceLine {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  line-height: 1;
+}
+
+.priceLineImported {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.importedPriceStack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.importedRow {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.importedRowLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: #a6a6a6;
+}
+
+.importedBase {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1c1c1c;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.importedDiscount {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ef4444;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.importedFinal {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111111;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.importedDiscountPercent {
+  font-size: 12px;
+  font-weight: 600;
+  color: #a6a6a6;
+}
+
+.priceLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: #767676;
+  min-width: 55px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.priceOriginal {
+  display: inline-block;
+  font-size: 12px;
+  color: #acacac;
+  text-align: right;
+  text-decoration-line: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: #a6a6a6;
+  text-decoration-skip-ink: none;
+}
+
+.priceValueHighlight {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111111;
+  letter-spacing: -0.02em;
+}
+
+.priceUnit {
+  font-size: 12px;
+  font-weight: 700;
+  color: #111111;
+}
+
+.priceValue {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1c1c1c;
+}
+
+.note {
+  margin: 0;
+  font-size: 11px;
+  color: #a6a6a6;
+}
+
+.more {
+  position: absolute;
+  right: 14px;
+  bottom: 12px;
+  background: transparent;
+  border: none;
+  font-size: 12px;
+  font-weight: 600;
+  color: #1b1c1f;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 0;
+  letter-spacing: -0.02em;
+}
+
+.right {
+  position: absolute; 
+  right: 0;
+  width: 150px; 
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right img {
+  max-width: 150px;
+  max-height: 100px;
+  object-fit: contain;
+  display: block;
+}

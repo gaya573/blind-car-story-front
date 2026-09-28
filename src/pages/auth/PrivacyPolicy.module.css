@@ -1,0 +1,323 @@
+.container {
+  min-height: calc(100vh - 200px);
+  background-color: var(--color-white);
+  padding: 40px 20px;
+}
+
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: 48px 40px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+}
+
+.header {
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.title {
+  font-size: var(--font-size-head);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-md);
+  letter-spacing: var(--letter-spacing-base);
+}
+
+.lastUpdated {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  margin: 0;
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+.sectionTitle {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+
+.subSection {
+  margin-bottom: 24px;
+}
+
+.subTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  margin-bottom: 12px;
+}
+
+.paragraph {
+  font-size: var(--font-size-base);
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+  margin-bottom: 16px;
+}
+
+.list {
+  margin: 16px 0;
+  padding-left: 24px;
+}
+
+.list li {
+  font-size: var(--font-size-base);
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+  margin-bottom: 8px;
+}
+
+.list li strong {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.tableWrapper {
+  margin: 20px 0;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--color-border);
+  font-size: var(--font-size-base);
+}
+
+.table thead {
+  background-color: var(--color-bg-100);
+}
+
+.table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.contactBox {
+  background-color: var(--color-bg-100);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-xl);
+  margin-top: var(--spacing-lg);
+  border-left: 4px solid var(--color-primary);
+}
+
+.contactBox p {
+  margin: 8px 0;
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.contactBox p:first-child {
+  margin-top: 0;
+}
+
+.contactBox p:last-child {
+  margin-bottom: 0;
+}
+
+.contactBox strong {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.footer {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  transition: color var(--transition-fast);
+}
+
+.backLink:hover {
+  color: var(--color-primary-dark);
+  text-decoration: underline;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  /* 빠른 견적문의 사이드바(9999) 및 기타 고정 요소보다 위에 오도록 설정 */
+  z-index: 11000;
+}
+
+.modalContainer {
+  width: 100%;
+  max-width: 840px;
+  max-height: 90vh;
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modalHeaderBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.modalTitle {
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.modalCloseButton {
+  border: none;
+  background: transparent;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  padding: 4px 8px;
+  line-height: 1;
+}
+
+.modalCloseButton:hover {
+  color: var(--color-text-primary);
+}
+
+.modalBody {
+  padding: 20px 24px 24px;
+  overflow-y: auto;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .modalOverlay {
+    padding: 0;
+    align-items: stretch;
+    background: var(--color-white);
+  }
+
+  .modalContainer {
+    max-width: 100%;
+    max-height: 100vh;
+    height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .modalBody {
+    padding: 16px;
+  }
+
+  .container {
+    padding: 24px 16px;
+  }
+
+  .content {
+    padding: 32px 24px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .sectionTitle {
+    font-size: var(--font-size-xl);
+  }
+
+  .subTitle {
+    font-size: var(--font-size-lg);
+  }
+
+  .paragraph,
+  .list li {
+    font-size: var(--font-size-sm);
+    line-height: 1.7;
+  }
+
+  .table {
+    font-size: var(--font-size-sm);
+  }
+
+  .table th,
+  .table td {
+    padding: 10px 12px;
+  }
+
+  .contactBox {
+    padding: 16px;
+  }
+
+  .contactBox p {
+    font-size: var(--font-size-sm);
+  }
+}
+
+/* 초소형 화면 대응 (약 300px까지) */
+@media (max-width: 360px) {
+  .modalBody {
+    padding: 12px 12px 16px;
+  }
+
+  .header {
+    margin-bottom: 24px;
+  }
+
+  .section {
+    margin-bottom: 24px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .sectionTitle {
+    font-size: var(--font-size-lg);
+  }
+
+  .subTitle {
+    font-size: var(--font-size-md);
+  }
+
+  .paragraph,
+  .list li {
+    font-size: var(--font-size-xs);
+    line-height: 1.6;
+  }
+}
+

@@ -1,0 +1,107 @@
+.wrapper {
+  width: 100%;
+  border: 1px solid #e7e8ec;
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 16px;
+  padding-bottom: 12px;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  font-size: 12px;
+  color: #888;
+  transition: transform 0.2s ease;
+  transform: rotate(0deg);
+}
+
+.open {
+  transform: rotate(180deg);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 52px;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 0 4px;
+  border-radius: 10px;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+  cursor: pointer;
+  background: #fff;
+  touch-action: manipulation;
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+/* 데스크톱에서 마우스로 올렸을 때 색이 흰색으로 깨져 보이지 않도록
+   hover 전용 스타일은 제거하고, 선택(.active) 상태만 색으로 표시한다. */
+
+
+.item:active {
+  background: #f6efd8;
+  border: 1px solid #e8d79a;
+}
+
+.active {
+  background: #f6efd8;
+  border: 1px solid #e8d79a;
+}
+
+.name {
+  flex: 1;
+  min-width: 0;
+  font-size: 15px;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.price {
+  flex-shrink: 0;
+  margin-left: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111;
+  white-space: nowrap;
+}
+
+.empty {
+  padding: 12px 16px;
+  text-align: center;
+  font-size: 14px;
+  color: #999;
+}
+  

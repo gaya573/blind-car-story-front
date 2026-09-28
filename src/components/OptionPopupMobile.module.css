@@ -1,0 +1,274 @@
+/* ========== 기본 컨테이너 ========== */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  background: rgba(17, 17, 17, 0.4);
+  padding: 0 ;
+  box-sizing: border-box;
+  z-index: 9999;
+}
+
+.popup {
+  width: 100%;
+  max-width: 420px;
+  padding: 0 20px 24px;
+  background: #fff;
+  border-radius: 18px 18px 12px 12px;
+  box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.16);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  max-height: 90vh;
+}
+
+.handle {
+  width: 44px;
+  height: 4px;
+  border-radius: 100px;
+  background: rgba(0, 0, 0, 0.12);
+  margin: 12px auto 14px;
+  cursor: grab;
+  user-select: none;
+}
+
+.homeIndicator {
+  width: 134px;
+  height: 5px;
+  border-radius: 100px;
+  background: #111;
+  margin: 20px auto 0;
+  opacity: 0.9;
+}
+
+/* 소형/대형 구분 */
+.small {
+  height: 298px;
+}
+
+.large {
+  flex: 1;
+}
+
+/* ========== Body ========== */
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 16px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0; /* flexbox에서 스크롤을 위해 필요 */
+}
+
+/* ========== Header ========== */
+.header {
+  height: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  border-bottom: 1px solid #f1f1f5;
+  box-sizing: border-box;
+  cursor: grab;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #555;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+
+/* ========== Sort Section ========== */
+.sortSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sortLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: #222;
+}
+
+.sortList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sortItem {
+  height: 46px;
+  border: 1px solid #e4e6eb;
+  border-radius: 12px;
+  padding: 0 16px;
+  display: flex;
+  font-weight: 300;
+  align-items: center;
+  font-size: 15px;
+  color: #333;
+  box-sizing: border-box;
+  cursor: pointer;
+  background: #fff;
+}
+
+.sortItem:hover {
+  background: #f5f7fb;
+}
+
+/* ========== Model List ========== */
+.modelList {
+  flex: 1;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.modelItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 52px;
+  border-bottom: 1px solid #f1f2f6;
+}
+
+.modelName {
+  font-size: 15px;
+  color: #333;
+}
+
+.modelPrice {
+  font-size: 15px;
+  font-weight: 400;
+  color: #111;
+}
+
+/* ========== Select Section ========== */
+.selectSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.selectSectionFocused {
+  border-radius: 12px;
+  border: 2px solid #111111; /* 파란색 테두리 */
+  padding: 6px 4px;
+  background: rgba(17, 17, 17, 0.03);
+}
+
+.selectGroups {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px 0 8px;
+}
+
+/* Large 상단 드롭박스(예: 가솔린 1.0) */
+.selectHeader {
+  height: 44px;
+  border: 1px solid #e4e6eb;
+  border-radius: 12px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+}
+.selectHeaderText { font-size: 14px; color: #111; }
+.selectHeaderCaret { color: #767676; display: inline-flex; }
+
+/* ========== Buttons ========== */
+.bottomButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 16px;
+  box-sizing: border-box;
+}
+
+.btn {
+  width: 100%;
+  height: 52px;
+  border-radius: 12px;
+  border: none;
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.primary {
+  background: #111111;
+}
+
+.secondary {
+  background: #f9c200;
+  color: #111;
+}
+
+/* ========== Animation ========== */
+/* overlay transitions */
+.overlayEnter { animation: overlay-fade-in 0.18s ease-out; }
+.overlayExit { animation: overlay-fade-out 0.18s ease-in forwards; }
+
+/* sheet transitions */
+.sheetEnter { animation: sheet-in 0.28s ease-out; }
+.sheetExit { animation: sheet-out 0.22s ease-in forwards; }
+
+/* 선택 강조 */
+.selectedItem {
+  border-color: #111111;
+  background: rgba(17, 17, 17, 0.06);
+  color: #111111;
+  font-weight: 400;
+}
+
+@keyframes overlay-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes overlay-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes sheet-in {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0%); }
+}
+@keyframes sheet-out {
+  from { transform: translateY(0%); }
+  to { transform: translateY(100%); }
+}

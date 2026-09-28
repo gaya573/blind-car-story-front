@@ -1,0 +1,76 @@
+/* 특가차량 섹션 */
+.special-offers-section {
+  padding-top: 100px ;
+  background: var(--color-white);
+  margin: 0 auto;
+  max-width: var(--max-width);
+}
+
+.special-offers-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: var(--section-spacing-sm);
+}
+
+.special-offers-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.special-offers-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.special-offers-title {
+  font-size: var(--font-size-head);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-200);
+  margin: 0;
+  letter-spacing: var(--letter-spacing-base);
+}
+
+.special-offers-link {
+  font-size: var(--font-size-title-2);
+  color: var(--color-text-200);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  transition: color var(--transition-fast);
+}
+
+.special-offers-link:hover {
+  color: var(--color-main-100);
+}
+
+.special-offers-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-xl);
+  margin-bottom: 10px;
+}
+
+
+.special-offers-footer {
+  text-align: center;
+  margin-top: var(--spacing-xl);
+}
+
+.special-offers-disclaimer {
+  text-align: right;
+  font-size: var(--font-size-title-2);
+  color: var(--color-text-secondary);
+  font-weight: 300;
+}
+
+.special-offers-placeholder {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--color-text-50);
+  font-size: var(--font-size-body-1);
+  background: var(--color-bg-100);
+  border-radius: var(--radius-md);
+  margin: 2rem 0;
+}

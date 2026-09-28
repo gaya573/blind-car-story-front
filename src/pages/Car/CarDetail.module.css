@@ -1,0 +1,1127 @@
+/* Car Detail Page Styles */
+ 
+.car-detail-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: fff;
+  font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* 클릭 시 기본 검정 포커스/탭 하이라이트 제거 (이 페이지 한정) */
+.car-detail-page button:focus,
+.car-detail-page button:focus-visible { outline: none; box-shadow: none; }
+.car-detail-page * { -webkit-tap-highlight-color: transparent; }
+
+.car-detail-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+}
+
+.hierarchy-banner {
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-bg-hover);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.hierarchy-text {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+/* 레이아웃 */
+.car-detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 32px;
+  margin-top: var(--spacing-xl);
+  align-items: start;
+}
+
+/* ========== 왼쪽 영역 ========== */
+.car-detail-left {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ========== 히어로 섹션 (이미지 + 정보 Flex) ========== */
+.car-hero-section {
+  display: flex;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.car-hero-image {
+  flex: 0 0 480px;
+  width: 480px;
+  height: 300px;
+  display: block;
+  object-fit: contain;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.car-info-badge {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  background: var(--color-white);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+/* 브랜드 로고 */
+.brand-logo-square {
+  width: 48px;
+  height: 48px;
+  background-color: #000000;
+  color: var(--color-white);
+  border-radius: 8px;
+  border: 1px solid rgba(28, 28, 28, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: var(--font-weight-bold);
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+  transition: background-color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.brand-summary {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+
+.brand-logo-square img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.car-brand-name {
+  font-size: 14px;
+  color: #767676;
+  font-weight: var(--font-weight-medium);
+}
+
+/* 브랜드 메타 정보 (브랜드명 + 국산/수입 배지) */
+.brand-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.brand-origin-pill {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  border: 1px solid transparent;
+}
+
+.brand-origin-domestic {
+  background-color: #f6efd8;
+  color: #000000;
+  border-color: #e8d79a;
+}
+
+.brand-origin-import {
+  background-color: #fff7ed;
+  color: #c2410c;
+  border-color: #fed7aa;
+}
+
+/* 차량 타이틀 */
+.car-hero-title {
+  font-size: 28px;
+  font-weight: var(--font-weight-bold);
+  color: #1c1c1c;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+}
+
+/* 색상 정보 섹션 */
+.color-info-section {
+  width: 100%;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.color-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.color-label-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+.selected-color-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+/* 색상 팔레트 */
+.color-palette {
+  display: flex;
+  gap: 8px 6px;
+  flex-wrap: wrap;
+}
+
+.color-swatch {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.color-swatch:hover {
+  transform: scale(1.1);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.color-swatch.selected {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+}
+
+.color-swatch:focus { 
+  outline: none; 
+}
+
+/* ========== 옵션 카드 공통 스타일 ========== */
+.option-card {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  border: none;
+  margin-bottom: 40px;
+}
+
+/* 카드 헤더 */
+.option-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0;
+  border-bottom: none;
+  margin-bottom: 20px;
+}
+
+.option-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111111;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-left: 8px;
+  font-size: 14px;
+  color: #80838a;
+  transition: transform 0.2s ease;
+  transform: rotate(0deg);
+}
+
+/* 카드 컨텐츠 영역 */
+.option-card-content {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========== 트림 선택 ========== */
+.trim-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.trim-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  margin-bottom: 24px;
+}
+
+.trim-group:last-child {
+  margin-bottom: 0;
+}
+
+.trim-group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  background: none;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+  color: #111111;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.trim-group-header:focus,
+.trim-group-header:focus-visible,
+.trim-option:focus,
+.trim-option:focus-visible,
+.option-card-header:focus,
+.option-card-header:focus-visible,
+.additional-option:focus,
+.additional-option:focus-visible,
+.trim-group-header:active,
+.trim-option:active,
+.option-card-header:active,
+.additional-option:active {
+  outline: none;
+  outline-color: transparent;
+  box-shadow: none !important;
+  border-color: inherit;
+}
+
+/* 모바일/크롬 탭 하이라이트 제거 */
+.trim-option,
+.additional-option,
+.trim-group-header,
+.option-card-header {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.group-toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+  font-size: 13px;
+  color: #7a7d84;
+  transition: transform 0.2s ease;
+  transform: rotate(0deg);
+}
+
+.expanded {
+  transform: rotate(180deg);
+}
+
+.trim-group + .trim-group {
+  border-top: none;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.trim-group-title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+}
+
+.trim-group-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-left: 32px;
+}
+
+.trim-empty {
+  padding: 16px;
+  border-radius: 8px;
+  background: var(--color-bg-hover);
+  color: var(--color-text-tertiary);
+  text-align: center;
+  font-size: var(--font-size-sm);
+}
+
+.trim-option {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  transition: all 0.2s ease;
+  background-color: transparent;
+  border-radius: 0;
+}
+
+.trim-option:hover {
+  background-color: transparent;
+}
+
+.trim-option.active {
+  background-color: transparent;
+  border: none;
+}
+
+.trim-radio {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #d6d6d6;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.trim-option.active .trim-radio {
+  border-color: #111111;
+  background-color: #111111;
+}
+
+.trim-check { 
+  color: #fff; 
+  font-size: 13px; 
+  line-height: 1;
+  font-weight: bold;
+}
+
+.trim-option:focus { 
+  outline: none; 
+}
+
+.trim-info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.trim-name {
+  font-size: 16px;
+  color: #333333;
+  text-align: left;
+  letter-spacing: -0.2px;
+}
+
+.assist-taxi-trim-name {
+  font-size: 16px;
+}
+
+.trim-price {
+  font-size: 16px;
+  color: #000000;
+  font-weight: 600;
+  text-align: right;
+  letter-spacing: -0.3px;
+}
+
+@media (max-width: 768px) {
+  .assist-taxi-trim-name {
+    font-size: 14px;
+    line-height: 1.2;
+  }
+}
+
+/* ========== 히어로 영역 가격/할인 표시 ========== */
+.hero-price-box {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.hero-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.hero-price-label {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+.hero-price-current {
+  font-size: 20px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.hero-price-original {
+  font-size: 16px;
+  color: #a6a6a6;
+  text-decoration: line-through;
+}
+
+.hero-discount-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.hero-discount-label {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+.hero-discount-rate {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.hero-discount-amount {
+  font-size: 16px;
+  color: #ef4444;
+  font-weight: 700;
+}
+
+.hero-final-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.hero-final-label {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.hero-final-price {
+  font-size: 22px;
+  font-weight: var(--font-weight-bold);
+  color: #111111;
+}
+
+/* ========== 추가 옵션 ========== */
+.additional-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: transparent;
+}
+
+.additional-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: transparent;
+  border-radius: 0;
+  border: none;
+}
+
+.additional-option:hover {
+  background-color: transparent;
+}
+
+.additional-option.active {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.option-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #d6d6d6;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 12px;
+  color: #ffffff;
+  transition: all 0.2s ease;
+  background-color: #ffffff;
+  font-weight: bold;
+}
+
+.additional-option.active .option-checkbox {
+  background-color: #111111;
+  border-color: #111111;
+}
+
+.option-details {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  align-items: center;
+}
+
+.option-name {
+  font-size: 16px;
+  color: #333333;
+  letter-spacing: -0.2px;
+}
+
+.option-price {
+  font-size: 16px;
+  color: #000000;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+/* ========== 계약 조건 선택 ========== */
+.contract-conditions {
+  background-color: var(--color-white);
+}
+
+.contract-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.contract-row:last-child {
+  margin-bottom: 0;
+}
+
+.contract-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111111;
+  letter-spacing: -0.3px;
+  margin-bottom: 4px;
+}
+
+.contract-label-small {
+  font-size: var(--font-size-md);
+}
+
+.contract-options,
+.contract-options-grid {
+  display: flex;
+  gap: var(--spacing-md);
+  flex-wrap: nowrap;
+}
+
+.contract-btn {
+  flex: 1;
+  padding: 14px 16px;
+  background-color: var(--color-white);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: #767676;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.contract-btn-small {
+  font-size: 12px;
+  padding: 12px 10px;
+}
+
+.contract-mileage-label {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
+}
+
+.contract-mileage-number {
+ 
+  font-weight: 700;
+  font-size: 8px;
+  line-height: 1.1;
+}
+
+.contract-mileage-km {
+  font-size: 6px;
+  line-height: 1;
+  color: #767676;
+  font-weight: 600;
+  transform: translateY(1px);
+  opacity: 0.9;
+}
+
+.contract-btn-active {
+  background-color: #ffffff;
+  border-color: #111111;
+  border-width: 1px;
+  color: #111111;
+  font-weight: 700;
+}
+
+.contract-btn:hover {
+  border-color: #111111;
+  background-color: #ffffff;
+  color: #111111;
+}
+
+.contract-note {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+}
+
+/* ========== 오른쪽 영역 ========== */
+.car-detail-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 20px;
+  align-self: flex-start;
+}
+
+.summary-card {
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-xl);
+  position: sticky;
+  top: 96px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.summary-card h3 {
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.summary-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-sm);
+}
+
+.summary-content dl {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+}
+
+.summary-content dt {
+  font-weight: var(--font-weight-medium);
+}
+
+.summary-content dd {
+  margin: 0;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.summary-total dt {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+}
+
+.summary-total dd {
+  font-size: var(--font-size-2xl);
+  color: var(--color-primary);
+}
+
+.estimate-btn {
+  width: 100%;
+  padding: var(--spacing-md);
+  background: var(--gradient-primary);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.estimate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+}
+
+.loading-state,
+.error-state {
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-2xl);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  margin-top: var(--spacing-2xl);
+}
+
+.error-state button {
+  margin-left: var(--spacing-sm);
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  cursor: pointer;
+  font-weight: var(--font-weight-semibold);
+}
+
+/* 시니어 퍼블리셔 풍 간편상담/견적 카드 */
+.estimate-card {
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  position: sticky;
+  top: 96px; /* 스크롤 시 상단에서 고정 */
+}
+
+  .estimate-topbar {
+    background: var(  --gradient-primary);
+  color: var(--color-white);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+}
+
+.estimate-topbar-title { font-size: var(--font-size-xl); }
+.estimate-topbar-arrow { opacity: 0.9; }
+
+.estimate-body { padding: var(--spacing-xl); }
+
+.estimate-block { margin-bottom: var(--spacing-lg); }
+.estimate-block-title { font-weight: var(--font-weight-bold); color: var(--color-text-secondary); margin-bottom: var(--spacing-sm); }
+.estimate-row { display: flex; justify-content: space-between; align-items: center; }
+.estimate-sub { color: var(--color-text-tertiary); font-size: var(--font-size-md); }
+.estimate-value { color: var(--color-text-primary); font-weight: var(--font-weight-bold); }
+
+.estimate-divider { height: 1px; background: var(--color-border-light); margin: var(--spacing-md) 0; }
+
+.estimate-options-scroll {
+  max-height: 160px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.option-row { display: flex; justify-content: space-between; padding: 6px 0; color: #333; }
+
+.estimate-total { display: flex; justify-content: space-between; align-items: center; margin: 10px 0 18px; }
+.estimate-total-title { font-weight: var(--font-weight-bold); font-size: var(--font-size-xl); }
+.estimate-total-value { font-weight: 800; font-size: var(--font-size-2xl); color: var(--color-primary-dark); }
+
+.estimate-cta {
+  width: 100%;
+  padding: var(--spacing-lg);
+  background: var(  --gradient-primary);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s ease;
+}
+.estimate-cta:hover { 
+  background: var(  --gradient-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.consult-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.consult-input {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: var(--font-size-lg);
+  border: 2px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.consult-input:focus {
+  outline: none;
+}
+
+.consult-textarea {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: var(--font-size-lg);
+  border: 2px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 100px;
+}
+
+.consult-textarea:focus {
+  outline: none;
+}
+
+.consult-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #666;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.consult-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--color-primary);
+}
+
+
+
+/* 비용 카드 */
+.cost-card {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+}
+
+.cost-title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-white);
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.cost-details {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.cost-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.cost-row:last-child {
+  margin-bottom: 0;
+}
+
+.cost-label {
+  font-size: var(--font-size-md);
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+.cost-value {
+  font-size: var(--font-size-xl);
+  color: var(--color-white);
+  font-weight: var(--font-weight-bold);
+}
+
+.cost-divider {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.3);
+  margin: 16px 0;
+}
+
+.cost-total {
+  margin-top: 12px;
+}
+
+.cost-total .cost-label {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.cost-total .cost-value {
+  font-size: var(--font-size-2xl);
+}
+
+.cost-monthly {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 16px;
+  gap: 8px;
+}
+
+.cost-monthly span:first-child {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+.monthly-amount {
+  font-size: 28px;
+  color: var(--color-white);
+  font-weight: 800;
+}
+
+.cost-quote-btn {
+  width: 100%;
+  padding: 16px;
+  background-color: var(--color-white);
+  color: var(--color-primary);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 20px;
+}
+
+.cost-quote-btn:hover {
+  background-color: var(--color-bg-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.cost-quote-btn:active {
+  transform: translateY(0);
+}
+
+.contact-info {
+  text-align: center;
+}
+
+.phone-contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.phone-icon {
+  font-size: 18px;
+}
+
+.phone-number {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--color-white);
+  letter-spacing: 1px;
+}
+
+.contact-text {
+  font-size: var(--font-size-base);
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+.consult-note {
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--color-bg-hover);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--color-border-light);
+}
+
+.consult-note-text {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* 블라인드 카스토리 챗봇 플로팅 버튼 */
+.chatbot-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #000000;
+  border: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.chatbot-button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+  background: #000000;
+}
+
+.chatbot-button:active {
+  transform: scale(0.96);
+}
+
+.chatbot-icon {
+  font-size: 30px;
+  line-height: 1;
+  filter: brightness(0) invert(1);
+}

@@ -1,0 +1,716 @@
+/* ========================================
+   일시불보다 1000만원 섹션 - Pixso 디자인 (1280x2738)
+   ======================================== */
+.lump-sum-section {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #111111;
+  overflow: hidden;
+}
+
+.lump-sum-absolute-container {
+  width: 1280px;
+  height: 2860px;
+  position: relative;
+  margin: 0 auto;
+}
+
+/* ========== 상단 히어로 섹션 (top: 90px) ========== */
+.lump-sum-hero-group {
+  width: 1187.14px;
+  height: 628px;
+  position: absolute;
+  left: 50%;
+  top: 90px;
+  transform: translateX(calc(-50% + 33.57px));
+}
+
+.lump-sum-hero-text {
+  width: 1023px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lump-sum-hero-title {
+  font-size: 64px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 140%;
+  color: #FFD940;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.lump-sum-hero-subtitle {
+  font-size: 28px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 140%;
+  color: #fff;
+  margin: 0;
+}
+
+.lump-sum-hero-car {
+  width: 655.14px;
+  height: 321px;
+  position: absolute;
+  left: 532px;
+  top: 307px;
+}
+
+.lump-sum-hero-car img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.lump-sum-hero-price-group {
+  position: absolute;
+  left: 6px;
+  top: 330px;
+}
+
+.lump-sum-hero-price-text {
+  font-size: 44px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 140%;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+.lump-sum-hero-price-underline {
+  width: 306.04px;
+  height: 16px;
+  background-color: #FFD940;
+  position: absolute;
+  left: -0.02px;
+  top: 59.5px;
+}
+
+/* ========== 개인 장기렌트 비교 섹션 (top: 728px) ========== */
+.lump-sum-personal-group {
+  width: 1196px;
+  height: 709px;
+  position: absolute;
+  left: 50%;
+  top: 728px;
+  transform: translateX(-50%);
+}
+
+/* 펭귄 (왼쪽 상단) - Pixso 스펙: 359x370, left:2, top:0 */
+.lump-sum-personal-penguin {
+  width: 359px;
+  height: 370px;
+  position: absolute;
+  left: 2px;
+  top: 0;
+  z-index: 0; /* 표 뒤로 보냄 */
+}
+
+.lump-sum-personal-penguin img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* 말풍선 이미지 - Pixso 스펙: 512x120, top:43 */
+.lump-sum-personal-speech {
+  width: 512px;
+  height: 120px;
+  position: absolute;
+  left: 50%;
+  top: 43px;
+  transform: translateX(calc(-50% - 34px));
+  z-index: 1;
+}
+
+.lump-sum-personal-speech img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* 중앙 컨텐츠 (테이블 + 실제 견적) */
+.lump-sum-personal-center {
+  width: 1196px;
+  height: 468px; /* 수정: 468px */
+  position: absolute;
+  left: 50%;
+  top: 268px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: flex-start;
+  z-index: 2; /* 펭귄 위로 올림 */
+}
+
+/* 비교표 */
+.lump-sum-personal-table {
+  width: 708px;
+  height: 468px; /* 수정: 468px */
+  flex-shrink: 0;
+}
+
+.lump-sum-table-personal {
+  width: 100%;
+  height: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.lump-sum-table-personal th {
+  background-color: #000000;
+  color: #fff;
+  font-size: 17px; /* 18px -> 17px */
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  padding: 12px 16px; /* 15px 20px -> 12px 16px */
+  text-align: left;
+  letter-spacing: 0;
+  line-height: 140%;
+  border: none;
+  height: 54px; /* 60px -> 54px */
+}
+
+.lump-sum-table-personal th:first-child {
+  width: 200px; /* 170px -> 200px (항목 칸 늘림) */
+  border-radius: 20px 0 0 0;
+  text-align: center;
+}
+
+.lump-sum-table-personal th:nth-child(2) {
+  width: 254px; /* 269px -> 254px */
+}
+
+.lump-sum-table-personal th:last-child {
+  width: 254px; /* 269px -> 254px */
+  border-radius: 0 20px 0 0;
+}
+
+.lump-sum-table-personal th.th-highlight {
+  font-weight: 700;
+}
+
+.lump-sum-table-personal td {
+  background-color: #fff;
+  color: #131313;
+  font-size: 15px; /* 16px -> 15px */
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  padding: 12px 16px; /* 16px 20px -> 12px 16px */
+  text-align: left;
+  letter-spacing: 0;
+  line-height: 135%; /* 140% -> 135% */
+  border-bottom: 1px solid #D5D5D5;
+  border-right: 1px solid #D5D5D5;
+  height: 62px; /* 68px -> 62px */
+  vertical-align: middle;
+}
+
+.lump-sum-table-personal td:first-child {
+  font-weight: 400;
+  border-left: none;
+  width: 200px; /* 항목 칸 늘림 */
+}
+
+.lump-sum-table-personal td:last-child {
+  border-right: none;
+}
+
+.lump-sum-table-personal tr:last-child td {
+  border-bottom: none;
+}
+
+.lump-sum-table-personal td.td-highlight {
+  background-color: #f6efd8;
+  font-weight: 700;
+}
+
+.lump-sum-table-personal .tr-total td {
+  font-weight: 700;
+}
+
+.lump-sum-table-personal .tr-total td:first-child {
+  border-radius: 0 0 0 20px;
+}
+
+.lump-sum-table-personal .tr-total td:last-child {
+  border-radius: 0 0 20px 0;
+}
+
+/* 실제 견적 기준 박스 */
+.lump-sum-personal-estimate-box {
+  width: 468px;
+  height: 468px; /* 441px -> 468px */
+  flex-shrink: 0;
+  position: relative;
+}
+
+.estimate-box-bg {
+  width: 468px;
+  height: 468px; /* 441px -> 468px */
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25) inset, -2px -2px 4px 0px rgba(211, 211, 211, 1) inset;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.estimate-box-label {
+  width: 110px;
+  position: absolute;
+  left: 50%;
+  top: 18px;
+  transform: translateX(calc(-50% - 1px));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
+  border-bottom: 1px solid #666;
+  z-index: 2;
+}
+
+.estimate-box-label span {
+  font-size: 18px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 140%;
+  color: #131313;
+}
+
+.estimate-box-carousel {
+  width: 447px;
+  height: 350px;
+  position: absolute;
+  left: 10px;
+  top: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.estimate-box-carousel img {
+  width: 379.65px;
+  height: 350px;
+  object-fit: cover;
+}
+
+.estimate-carousel-btn {
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: #666;
+  cursor: pointer;
+  position: absolute;
+  z-index: 3;
+  transform: rotate(-90deg);
+}
+
+.estimate-carousel-btn:first-child {
+  left: calc(50% - 178.5px);
+}
+
+.estimate-carousel-btn:last-child {
+  right: calc(50% - 178.5px);
+}
+
+/* 차종 표시 */
+.lump-sum-personal-subtitle {
+  font-size: 18px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 140%;
+  color: #fff;
+  position: absolute;
+  left: 513px;
+  top: 233px;
+  white-space: nowrap;
+}
+
+/* ========== 사업자 장기렌트 비교 섹션 (top: 1497px) ========== */
+.lump-sum-business-group {
+  width: 1196px;
+  height: 627px;
+  position: absolute;
+  left: 50%;
+  top: 1497px;
+  margin-top: 122px;
+  transform: translateX(-50%);
+}
+
+/* 말풍선 이미지 (오른쪽 상단) */
+.lump-sum-business-speech {
+  width: 512px;
+  height: 120px;
+  position: absolute;
+  right: 30%;
+  top: 0;
+  z-index: 1;
+}
+
+.lump-sum-business-speech img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* 펭귄 (오른쪽 상단) */
+.lump-sum-business-penguin {
+  width: 319px;
+  height: 439px;
+  position: absolute;
+  right: 0;
+  top:-60px;
+  z-index: 2;
+}
+
+.lump-sum-business-penguin img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* 비교표 */
+.lump-sum-business-table {
+  width: 1196px;
+  position: absolute;
+  left: 50%;
+  top: 268px;
+  z-index: 3;
+  transform: translateX(-50%);
+}
+
+.lump-sum-table-business {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.lump-sum-table-business th {
+  background-color: #000000;
+  color: #fff;
+  font-size: 20px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  padding: 15px 32px;
+  text-align: left;
+  letter-spacing: 0;
+  line-height: 140%;
+  border: none;
+  height: 57px;
+}
+
+.lump-sum-table-business th:first-child {
+  width: 300px;
+  border-radius: 20px 0 0 0;
+  text-align: center;
+}
+
+.lump-sum-table-business th:nth-child(2) {
+  width: 348px;
+}
+
+.lump-sum-table-business th:last-child {
+  width: 548px;
+  border-radius: 0 20px 0 0;
+}
+
+.lump-sum-table-business th.th-highlight {
+  font-weight: 700;
+}
+
+.lump-sum-table-business td {
+  background-color: #fff;
+  color: #131313;
+  font-size: 18px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  padding: 20px 32px;
+  text-align: left;
+  letter-spacing: 0;
+  line-height: 140%;
+  border-bottom: 1px solid #D5D5D5;
+  border-right: 1px solid #D5D5D5;
+  height: 64px;
+  vertical-align: middle;
+}
+
+.lump-sum-table-business td:first-child {
+  font-weight: 400;
+  border-left: none;
+}
+
+.lump-sum-table-business td:last-child {
+  border-right: none;
+}
+
+.lump-sum-table-business tr:last-child td {
+  border-bottom: none;
+}
+
+.lump-sum-table-business td.td-highlight {
+  background-color: #f6efd8;
+  font-weight: 700;
+}
+
+.lump-sum-table-business .tr-total td {
+  font-weight: 700;
+}
+
+.lump-sum-table-business .tr-total td:first-child {
+  border-radius: 0 0 0 20px;
+}
+
+.lump-sum-table-business .tr-total td:last-child {
+  border-radius: 0 0 20px 0;
+}
+
+/* ========== YouTube 댓글 섹션 (top: 2348px) ========== */
+.lump-sum-youtube-section {
+  width: 1196px;
+  height: 300px;
+  position: absolute;
+  left: 50%;
+  top: 2348px;
+  transform: translateX(-50%);
+  margin-top: 122px;
+  background-color: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.youtube-carousel-group {
+  width: 1155px;
+  height: 30px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% - 0.5px)) translateY(-50%);
+}
+
+.youtube-carousel-btn {
+  width: 30px;
+  height: 26.45px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: #666;
+  cursor: pointer;
+  position: absolute;
+  transform: rotate(-90deg);
+}
+
+.youtube-carousel-btn:first-child {
+  left: calc(50% - 537.83px);
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+}
+
+.youtube-carousel-btn:last-child {
+  left: calc(50% + 564.28px);
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+}
+
+.youtube-comment-image {
+  width: 958px;
+  height: 142px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% - 51px)) translateY(calc(-50% + 27px));
+}
+
+.youtube-comment-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.youtube-section-title {
+  font-size: 30px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 140%;
+  color: #131313;
+  position: absolute;
+  left: 50%;
+  top: 30px;
+  transform: translateX(calc(-50% - 1px));
+  white-space: nowrap;
+}
+
+/* ========== 반응형 ========== */
+@media (max-width: 1280px) {
+  .lump-sum-absolute-container {
+    width: 100%;
+    height: auto;
+    padding: 60px 20px;
+  }
+
+  .lump-sum-hero-group,
+  .lump-sum-personal-group,
+  .lump-sum-business-group,
+  .lump-sum-youtube-section {
+    position: relative;
+    left: 0;
+    top: auto;
+    transform: none;
+    width: 100%;
+    height: auto;
+    margin-bottom: 80px;
+  }
+
+  .lump-sum-hero-text {
+    width: 100%;
+    position: relative;
+  }
+
+  .lump-sum-hero-title {
+    font-size: 48px;
+  }
+
+  .lump-sum-hero-subtitle {
+    font-size: 22px;
+  }
+
+  .lump-sum-hero-car {
+    position: relative;
+    width: 100%;
+    height: auto;
+    left: 0;
+    top: 20px;
+  }
+
+  .lump-sum-hero-price-group {
+    position: relative;
+    left: 0;
+    top: 20px;
+  }
+
+  .lump-sum-personal-contract,
+  .lump-sum-personal-penguin,
+  .lump-sum-personal-speech,
+  .lump-sum-personal-center,
+  .lump-sum-business-speech,
+  .lump-sum-business-penguin,
+  .lump-sum-business-table {
+    position: relative;
+    left: 0;
+    right: 0;
+    top: ;
+    transform: none;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .lump-sum-personal-center {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .lump-sum-personal-table,
+  .lump-sum-personal-estimate-box {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .lump-sum-personal-subtitle {
+    position: relative;
+    left: 0;
+    top: 0;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .lump-sum-section {
+    padding: 40px 0;
+  }
+
+  .lump-sum-hero-title {
+    font-size: 32px;
+  }
+
+  .lump-sum-hero-subtitle {
+    font-size: 16px;
+  }
+
+  .lump-sum-hero-price-text {
+    font-size: 28px;
+  }
+
+  .lump-sum-speech-text {
+    font-size: 20px;
+  }
+
+  .lump-sum-table-personal th,
+  .lump-sum-table-business th {
+    font-size: 14px;
+    padding: 12px 16px;
+    height: auto;
+  }
+
+  .lump-sum-table-personal td,
+  .lump-sum-table-business td {
+    font-size: 13px;
+    padding: 12px 16px;
+    height: auto;
+  }
+
+  .estimate-box-label span {
+    font-size: 16px;
+  }
+
+  .lump-sum-personal-estimate-box {
+    height: auto;
+  }
+
+  .estimate-box-carousel {
+    height: 250px;
+  }
+
+  .estimate-box-carousel img {
+    width: 100%;
+    height: auto;
+    max-width: 280px;
+  }
+
+  .youtube-section-title {
+    font-size: 24px;
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: none;
+    margin-bottom: 20px;
+  }
+}
+

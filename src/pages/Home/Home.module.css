@@ -1,0 +1,1803 @@
+  /* design-system variables are defined in src/index.css */
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .home {
+    font-family: 'Pretendard', 'Malgun Gothic', '맑은 고딕', sans-serif;
+    background-color: var(--color-white);
+    min-height: 100vh;
+    margin: 0 auto;
+  }
+
+  .page-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .hero-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+
+  /* 메인 콘텐츠 영역 */
+  .main-content {
+    flex: 1;
+    padding: var(--section-spacing-sm);
+    background-color: var(--color-white);
+  }
+
+  /* 메인 콘텐츠 래퍼 */
+  .main-content-wrapper {
+    max-width: 1600px;
+    margin: 0; /* 부모 컨테이너에서 가운데 정렬 */
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    align-items: stretch;
+    gap: 2rem;
+    width: 100%;
+  }
+
+  /* 메인 히어로 섹션 래퍼 (배경색 적용) */
+  .hero-section-full-width {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #F7F7FB;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* 수직 가운데 정렬 추가 */
+    margin-bottom: 110px;     /* 외부 여백 제거 */
+    height: 505px;    /* 배경 최소 높이 확보 (컨텐츠 425px + 패딩 120px + 알파) */
+    
+  }
+
+  /* 메인 히어로 섹션 컨테이너 (중앙 정렬) */
+  .hero-content-centered {
+    width: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* 내부 아이템 수직 중앙 정렬 */
+  }
+
+  /* 메인 히어로 섹션 - 가로 배치 */
+  .main-hero-section {
+    margin-top: 0; /* 불필요한 마진 제거 */
+    display: flex;
+    width: 100%;
+    height: auto;
+    align-items: center; /* 배너와 폼 수직 중앙 정렬 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    gap: 20px; /* 배너와 폼 사이 간격 명시 */
+  }
+
+  /* 히어로 배너 */
+  .hero-banner-wrapper {
+    position: relative;
+    width: 860px; /* 840px -> 860px (시안 비율 고려 미세 조정) */
+    min-height: 425px; /* 높이를 폼과 동일하게 맞춤 (450 -> 425) */
+    height: 425px;
+    overflow: hidden;
+    border-radius: 16px; /* 폼과 동일하게 16px */
+    flex-shrink: 0;
+  }
+
+  .hero-banner-track {
+    display: flex;
+    width: 9999px;
+    height: 100%;
+    transition: transform 300ms ease;
+  }
+
+  .hero-banner {
+    background: var(--color-stroke-100);
+    border-radius: 16px;
+    min-height: 425px;
+    height: 100%;
+    width: 860px; /* Wrapper와 동일하게 */
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover; /* 꽉 차게 변경 */
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+  }
+
+  .hero-banner-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem;
+    color: var(--color-white);
+    z-index: 1;
+    position: relative;
+  }
+
+  .hero-banner-badge {
+    background: rgba(255, 107, 53, 0.9);
+    color: var(--color-white);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: var(--font-size-body-4);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: 1rem;
+    letter-spacing: var(--letter-spacing-base);
+  }
+
+  .hero-banner-content h2 {
+    font-size: var(--font-size-head);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 8px;
+    line-height: var(--line-height-base);
+    color: var(--color-white);
+  }
+
+  .hero-banner-content p {
+    font-size: var(--font-size-title-2);
+    margin: 0 0 1.5rem 0;
+    opacity: 0.95;
+    line-height: var(--line-height-base);
+  }
+
+  .hero-banner-button {
+    background: #111111;
+    color: var(--color-white);
+    border: none;
+    padding: 0.875rem 1.75rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-body-1);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+  }
+
+  .hero-banner-button:hover {
+    background: #000000; /* 0062FF보다 약간 진한 색 */
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-2px);
+  }
+
+  /* 배너 페이지네이션 (모바일 스타일 참고) */
+  .hero-banner-pager {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    width: 96px;
+    height: 36px;
+    border-radius: 18px;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px;
+    color: rgba(255, 255, 255, 0.9);
+    z-index: 2;
+  }
+
+  .hero-banner-arrow {
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.92);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: opacity 0.2s;
+  }
+
+  .hero-banner-arrow:hover {
+    opacity: 0.8;
+  }
+
+  .hero-banner-pager-text {
+    flex: 1;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+  }
+
+  .hero-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-box {
+    width: 200px;
+    height: 200px;
+    background: var(--color-text-100);
+    border-radius: var(--radius-sm);
+  }
+
+
+  .hero-text h1 {
+    font-size: var(--font-size-head);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 0.5rem;
+    line-height: var(--line-height-base);
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-title-2);
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+  }
+
+  .hero-btn {
+    background: #111111;
+    color: var(--color-white);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-body-1);
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+
+
+
+
+
+  /* 당일 견적확인 폼 */
+  .quote-form-section {
+    width: 420px;
+    height: 425px;
+    flex-shrink: 0;
+  }
+
+  .quote-form-card {
+    background: #fff;
+    padding: 30px 30px 0 30px; /* 패딩 30px로 변경 */
+    margin-left: 0; /* 마진 제거 (gap으로 처리) */
+    border-radius: 16px;
+    width: 420px;
+    height: 425px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 0;
+    border: 1px solid #eee;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .form-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1px;
+    margin-bottom: 24px;
+  }
+
+  .flame-icon {
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .form-header h3 {
+    font-size: 22px;
+    color: #111;
+    font-weight: 300; /* Regular -> Light (300) */
+    margin: 0;
+  }
+
+  .form-header h3 span {
+    font-weight: 700; /* Bold */
+  }
+
+  .quote-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .form-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #E5E5EC;
+    border-radius: 4px;
+    height: 46px;
+    padding: 0 14px;
+    background: #fff;
+  }
+
+  .form-group label {
+    font-size: 14px;
+    color: #111;
+    font-weight: 500;
+    min-width: 60px;
+    display: flex;
+    align-items: center;
+  }
+
+  .required {
+    color: #FF4D4F;
+    margin-left: 2px;
+  }
+
+  .form-group input {
+    flex: 1;
+    border: none;
+    height: 100%;
+    padding: 0;
+    color: #111;
+    font-size: 14px;
+    background: transparent;
+    text-align: left;
+  }
+  
+  .form-group input::placeholder {
+      color: #999;
+      font-size: 14px;
+  }
+
+  .form-group input:focus {
+    outline: none;
+  }
+  
+  .form-row {
+      display: flex;
+      width: 100%;
+  }
+  
+  .form-select {
+      width: 100%;
+      height: 46px;
+      border: 1px solid #E5E5EC;
+      border-radius: 4px;
+      padding: 0 14px;
+      font-size: 14px;
+      color: #111;
+      background: #fff url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e") no-repeat right 14px center;
+      background-size: 12px 8px;
+      appearance: none;
+      -webkit-appearance: none;
+  }
+  
+  .form-select:invalid {
+      color: #999;
+  }
+  
+  .form-select:focus {
+      outline: none;
+      border-color: #111111;
+  }
+  
+  .form-row-half {
+      display: flex;
+      gap: 10px;
+  }
+  
+  .form-row-half .form-select {
+      flex: 1;
+      min-width: 0; /* flex item shrink issue fix */
+  }
+
+  .checkbox-group {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
+    margin-bottom: 20px;
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 12px;
+    color: #666;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .checkbox-label input[type="checkbox"] {
+    display: none;
+  }
+
+  .checkmark {
+    width: 14px;
+    height: 14px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .checkbox-label input[type="checkbox"]:checked + .checkmark {
+    background: #111111;
+    border-color: #111111;
+  }
+
+  .checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+    content: "✓";
+    color: #fff;
+    font-size: 10px;
+  }
+
+  .link {
+    color: #666;
+    text-decoration: underline;
+  }
+
+  /* 통합된 버튼 스타일 */
+  .consult-btn {
+    width: calc(100% + 60px); /* 좌우 패딩 30px씩 상쇄 (30*2 = 60) */
+    margin-left: -30px; /* 좌측 패딩 30px 상쇄 */
+    margin-bottom: 0;
+    margin-top: auto; /* 폼 하단으로 밀기 */
+    height: 68px; /* 52px -> 68px */
+    padding: 0;
+    border: none;
+    border-radius: 0 0 16px 16px; /* 하단 16px */
+    font-size: 18px;
+    font-weight: 600; /* SemiBold */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .consult-btn.blue {
+    background: #111111;
+    color: #fff;
+  }
+
+  .consult-btn.blue:hover {
+    background: #000000;
+  }
+
+  .consult-help {
+    margin: 0.6rem 0 0;
+    font-size: 0.9rem;
+    color: #ff4d4f;
+    text-align: center;
+    position: absolute;
+    bottom: 80px; /* 버튼 위로 띄움 */
+    width: 100%;
+    left: 0;
+  }
+
+
+
+
+  /* 마감임박 섹션 */
+  .closing-soon {
+    background: var(--color-white);
+    text-align: center;
+    margin-bottom: 80px;
+    max-width: 1200px;
+  }
+
+  /* 마감임박 헤더 가운데 정렬 보강 */
+  .closing-soon .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+  }
+
+
+  /* 시안 common.css의 .section-title--icon / .section-title__icon 기준 */
+  .header-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  height: 58px;
+  width: 58px;
+  flex-shrink: 0;
+}
+
+.closing-soon .header-icon img {
+  display: block;
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+  }
+
+  .section-header h2 {
+    font-size: 32px;
+    color: #111;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+
+  /* 시안 .section-subtitle: 본문보다 작고 회색 */
+  .section-subtitle {
+    color: #555555;
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+
+  /* Placeholder 스타일 */
+  .special-offers-placeholder,
+  .express-deals-placeholder {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--color-text-50);
+    font-size: var(--font-size-body-1);
+    background: var(--color-bg-100);
+    border-radius: var(--radius-md);
+    margin: 2rem 0;
+  }
+
+  /* 시안 common.css의 .countdown 기준: 검정 박스에 흰 숫자 */
+  .countdown-timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .timer-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .number-box {
+    background: #111111;
+    border: none;
+    border-radius: 8px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #FFFFFF;
+    min-width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .unit {
+    font-size: 12px;
+    color: #555555;
+    font-weight: 500;
+    margin-bottom: 0;
+  }
+
+
+  .featured-car-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-stroke-100);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    width: 320px;
+    height: 350px;
+    
+  }
+
+
+.featured-cars {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  max-width: 1280px; /* 1150px -> 1280px (더 넓게) */
+  width: 100%;
+  margin: 0 auto;
+}
+
+.disclaimer-text {
+  max-width: 1280px;
+  width: 100%;
+  margin: 10px auto 0;
+  text-align: right;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #555555; /* #767676 -> #555555 */
+  line-height: 1.5;
+}
+
+  
+  /* 차량 이미지 */
+  .featured-car-card-top {
+    width: 320px;
+    height: 150px;
+    overflow: hidden;
+    margin-top: 24px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+  }
+
+  /* 차량 이미지 */
+  .featured-car-card-img{
+    width: 319px;
+    height: 150px;
+   
+  }
+
+
+  /* 차량 정보 영역 */
+  .featured-car-card-bottom {
+    width: 320px;
+    display: flex;
+    margin-left: 20px;
+    margin-right: 20px;
+    flex-direction: column;
+    margin-top: 24px;
+  }
+
+  .car-desc {
+    text-align: left;
+  }
+
+  .car-desc h4 {
+    font-size: var(--font-size-title-3);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    margin: 0 0 4px 0;
+    line-height: var(--line-height-base);
+  }
+
+  .car-desc p {
+    font-size: var(--font-size-body-3);
+    color: var(--color-text-100);
+    margin: 0;
+    line-height: var(--line-height-base);
+  }
+
+  /* 버튼 */
+  .quote-btn {
+    background: var(--gradient-main-50);
+    margin-top: var(--spacing-xl);
+    margin-bottom: 28px;
+    color: var(--color-white);
+    border: none; 
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-body-3);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    width: 280px;
+    height: 50px;
+
+    padding: 0px;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+  }
+
+  .quote-btn:hover {
+    background: var(--gradient-primary-hover);
+    box-shadow: var(--shadow-xl);
+  }
+    
+  
+
+/* 상담 배너 섹션 */
+.consult-banner {
+  width: 1280px;
+  height: 290px;
+  background-color: #111111;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 50px;
+  margin: 50px auto;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(17, 17, 17, 0.2);
+}
+
+.consult-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* 간격 넓힘 */
+  height: 100%;
+}
+
+.consult-phone-img {
+  width: 282px; /* 242px -> 282px */
+  height: 279px; /* 239px -> 279px */
+  margin-top: 50px;
+  object-fit: contain;
+}
+
+.consult-text-group {
+  color: #fff;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.consult-text-title {
+  font-size: 22px; /* 20px -> 22px */
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #FFD940;
+  letter-spacing: -0.5px;
+}
+
+.consult-number {
+  font-size: 64px; /* 56px -> 64px */
+  font-weight: 800;
+  margin-bottom: 12px;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.consult-subtext {
+  font-size: 15px;
+  font-weight: 400;
+  opacity: 0.9;
+  align-self: flex-end; /* 오른쪽 배치 */
+}
+
+/* Right Content (Form) */
+.consult-banner-right {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  position: relative;
+  padding-right: 49px;
+}
+
+.consult-form-title {
+  font-size: 24px; /* 18px -> 24px */
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-align: left;
+  padding-left: 60px; /* 라벨 너비 + 갭 만큼 들여쓰기 */
+}
+
+.consult-form-container {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.consult-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* 10px -> 8px */
+}
+
+.consult-input-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.consult-label {
+  font-size: 16px;
+  font-weight: 600;
+  width: 45px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.consult-input {
+  width: 277px; /* 270px -> 277px */
+  height: 48px; /* 50px -> 48px */
+  border-radius: 8px;
+  border: none;
+  padding: 0 15px;
+  font-size: 15px;
+  color: #333;
+  background-color: #fff;
+}
+
+.consult-input::placeholder {
+  color: #999;
+}
+
+.consult-submit-btn {
+  width: 140px;
+  height: 160px; /* 170px -> 160px (인풋 3개 높이 + 갭 고려) */
+  background-color: #FFD940;
+  border: none;
+  border-radius: 12px;
+  color: #111;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
+  margin-top: 0; /* 정렬 맞춤 */
+}
+
+.consult-submit-btn:hover {
+  background-color: #ffca2c;
+  transform: translateY(-2px);
+}
+
+.consult-hand-img {
+  position: absolute;
+  bottom: -60px; /* -20px -> -60px */
+  right: -30px;
+  width: 183.5px;
+  height: 160px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+  /* 주간 인기차량 */
+  /* 주간 인기차량 전체 배경 밴드 */
+  .popular-section-full {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #F7F7FB;
+    padding: 32px 0 60px; /* 위 32px, 아래 60px로 간격 축소 */
+  }
+
+  .popular-cars {
+    border-radius: 16px;
+    margin-bottom: 0;
+    width: 100%;
+    background: transparent;
+  }
+
+  .popular-cars .section-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    text-align: left;
+    gap: 4px; /* 제목과 설명 사이 간격 축소 */
+    margin-bottom: 20px;
+  }
+
+  .popular-cars .section-header::after {
+    display: none;
+  }
+
+  .popular-cars .section-header h2 {
+    font-size: 40px;
+    font-weight: 300;
+    color: #111;
+    letter-spacing: -1px;
+    margin: 0; /* 하단 마진 제거 */
+  }
+
+  .popular-cars .section-header h2 span {
+    font-weight: 600;
+    margin-left: 6px;
+  }
+
+  .popular-cars .section-subtitle {
+    font-size: 20px;
+    font-weight: 400;
+    color: #555;
+    margin: 0;
+  }
+
+  .cars-list {
+    display: flex;
+    flex-direction: column;
+    width: var(--max-width);
+    gap: 0;
+    background: #F7F7FB;
+    border-radius: var(--radius-md);
+  }
+
+  /* 마지막 카드의 border 제거 */
+  .cars-list > div:last-child {
+    border-bottom: none;
+  }
+
+  /* 클릭 가능한 카드 스타일 */
+  .clickable-car-card {
+    cursor: pointer;
+    transition: all var(--transition-base);
+  }
+
+  .clickable-car-card:hover {
+    opacity: 0.8;
+    transform: translateX(4px);
+  }
+
+  /* 유튜브 섹션 */
+  .youtube-section {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 608px;
+    background: var(--color-bg-100);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 80px;
+  }
+
+.youtube-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.youtube-title {
+  font-size: 42px;
+  margin: 0 0 8px;
+  color: var(--color-text-200);
+}
+
+.youtube-sub {
+  font-size: 18px;
+  color: var(--color-text-100);
+  margin: 0;
+}
+
+
+
+  /* ==========================================
+    특가 차량 섹션
+    ========================================== */
+  .special-offers {
+    padding: 0; /* 홈 밖 배치로 섹션 패딩 제거 */
+    border-radius: 16px;
+    margin: 0 auto 3rem;
+    max-width: 100%;
+  }
+
+  /* 헤더 */
+  .special-offers-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .special-offers-title-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .special-offers-title {
+    font-size: var(--font-size-head);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-200);
+    margin: 0;
+    letter-spacing: var(--letter-spacing-base);
+    line-height: var(--line-height-base);
+  }
+
+  .special-offers-subtitle {
+    font-size: var(--font-size-title-2);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-tertiary);
+    margin: 0;
+    letter-spacing: var(--letter-spacing-base);
+    line-height: var(--line-height-base);
+  }
+
+    /* 캐러셀 전체 컨테이너 - 3컬럼 구조 */
+  .special-cars-carousel {
+    display: grid;
+    grid-template-columns: 100px minmax(0, 1100px) 100px;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 2.5rem auto 3rem;
+    max-width: 1400px;
+    position: relative;
+  }
+
+  /* 캐러셀 버튼 */
+  .special-carousel-btn {
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    border: none;
+    background: transparent;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-base);
+    outline: none;
+    padding: 0;
+  }
+
+  .special-carousel-btn:hover {
+    background: transparent;
+    color: #111111;
+    transform: scale(1.1);
+  }
+
+  .special-carousel-btn:active {
+    transform: scale(1.0);
+  }
+
+  .special-carousel-btn:focus {
+    outline: none;
+    border: none;
+  }
+
+  .special-carousel-btn svg {
+    width: 54px;
+    height: 54px;
+  }
+
+  /* 차량 카드 리스트 래퍼 */
+  .special-cars-list-wrapper {
+    overflow: hidden;
+    width: 100%;  
+    max-width: 1100px;
+    padding: 4px;
+    margin: 0 auto;
+  }
+
+  /* 차량 카드 리스트 */
+  .special-cars-list {
+    display: flex;
+    gap: 1.25rem;
+    will-change: transform;
+  }
+
+
+  /* 차량 카드 (마감임박 스타일) */
+  .special-car-card {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 252px;
+    min-height: 316px;
+    max-height: 316px;
+    background: var(--color-white);
+    border: 1px solid var(--color-stroke-100);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-xl) var(--spacing-lg);
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-base);
+    cursor: pointer;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .special-car-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-xl);
+  }
+
+  /* 차량 이미지 */
+  .special-car-image {
+    width: 100%;
+    height: 156px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+  }
+
+  .special-car-image img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform var(--transition-base);
+  }
+
+  .special-car-card:hover .special-car-image img {
+    transform: scale(1.08);
+  }
+
+  /* 차량 정보 */
+  .special-car-info {
+    margin-bottom: 1rem;
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .special-car-info h4 {
+    font-size: var(--font-size-title-3);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    margin: 0 0 0.5rem 0;
+    line-height: var(--line-height-base);
+    letter-spacing: var(--letter-spacing-base);
+    word-break: keep-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    min-height: 44px;
+  }
+
+  .special-car-info p {
+    font-size: var(--font-size-body-3);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-100);
+    margin: 0;
+    line-height: var(--line-height-base);
+    letter-spacing: var(--letter-spacing-base);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    min-height: 20px;
+  }
+
+  /* 견적 신청 버튼 */
+  .special-car-btn {
+    width: 100%;
+    background: var(--gradient-main-50);
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0.875rem 1rem;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+    letter-spacing: var(--letter-spacing-base);
+  }
+
+  .special-car-btn:hover {
+    background: var(--gradient-primary-hover);
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-2px);
+  }
+
+  .special-car-btn:active {
+    transform: translateY(0);
+  }
+
+  /* 더 많은 차량 보기 버튼 */
+  .more-cars-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0 auto;
+    background: #111111;
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0.875rem 1.75rem;
+    font-size: var(--font-size-body-3);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+    letter-spacing: var(--letter-spacing-base);
+  }
+
+  .more-cars-btn svg {
+    width: 28px;
+    height: 28px;
+    transition: transform var(--transition-base);
+  }
+
+  .more-cars-btn:hover {
+    background: #000000; /* 0062FF보다 약간 진한 색 */
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-2px);
+  }
+
+  .more-cars-btn:hover svg {
+    transform: translateX(4px);
+  }
+
+  .more-cars-btn:active {
+    transform: translateY(0);
+  }
+
+/* ==========================================
+   공장 특판 섹션
+   ========================================== */
+.factory-deal-section {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  height: 2250px;
+  transform: translateX(-50%);
+  background-color: #111111;
+  padding: 80px 0 0;
+  margin: 100px 0;
+  overflow: hidden;
+}
+
+.factory-deal-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+  color: #fff;
+}
+
+.factory-deal-title {
+  font-size: 60px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.2;
+  margin-bottom: 80px;
+  color: #fff;
+}
+
+.title-line {
+  display: inline-block;
+}
+
+.text-with-underline {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 8px;
+}
+
+.text-with-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 16px;
+  background-color: #FFD940;
+  z-index: -1;
+}
+
+.highlight-yellow {
+  background-color: #FFD940;
+  color: #111;
+  padding: 0 4px;
+  display: inline;
+  font-weight: 700;
+}
+
+.highlight-yellow-text {
+  background-color: #FFD940;
+  color: #111;
+  padding: 2px 8px;
+  font-weight: 700;
+  display: inline;
+}
+
+.car-showcase {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px;
+  position: relative;
+  min-height: 450px;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.showcase-car-image {
+  max-width: 738px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+.car-info-card {
+  position: absolute;
+  right: 90px;
+  bottom: 120px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 16px 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  width: 337px;
+  text-align: left;
+  z-index: 2;
+}
+
+.car-model {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 8px 0;
+}
+
+.car-conditions {
+  font-size: 20px;
+  font-weight: 400;
+  color: #111;
+  margin: 0;
+}
+
+.factory-deal-description {
+  text-align: center;
+  margin-bottom: 60px;
+  line-height: 1.4;
+}
+
+.description-line1,
+.description-line2,
+.description-line3,
+.description-line4 {
+  font-size: 30px;
+  color: #fff;
+  margin: 0 0 12px 0;
+}
+
+.description-line1 {
+  font-weight: 700;
+}
+
+.description-line2 {
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.description-line3 {
+  font-weight: 400;
+}
+
+.description-line4 {
+  font-weight: 700;
+}
+
+.price-comparison-table {
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+  padding: 0;
+  margin: 0 auto 80px;
+  max-width: 1140px;
+  overflow: hidden;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 190px repeat(5, 1fr);
+  background: #fff;
+  border-bottom: 1px solid #CCCCCC;
+}
+
+.table-cell-header-empty {
+  background: #fff;
+  border-right: 1px solid #CCCCCC;
+  border-top-left-radius: 20px;
+}
+
+.table-cell-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 20px 10px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #111;
+  border-left: 1px solid #CCCCCC;
+  background: #fff;
+}
+
+.table-cell-header:first-child {
+  border-left: none;
+}
+
+.capital-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 190px repeat(5, 1fr);
+  border-bottom: 1px solid #CCCCCC;
+}
+
+.table-row:last-of-type {
+  border-bottom: none;
+}
+
+.table-cell-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 10px;
+  background: #fff;
+  border-right: 1px solid #CCCCCC;
+}
+
+.label-small {
+  font-size: 12px;
+  font-weight: 400;
+  color: #000;
+  margin: 0 0 4px 0;
+}
+
+.label-fee {
+  font-size: 20px;
+  font-weight: 800;
+  color: #000;
+  margin: 0;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.fee-highlight {
+  font-size: 30px;
+  color: #111111;
+  font-weight: 800;
+}
+
+.table-cell-price,
+.table-cell-price-highlight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 10px;
+  font-size: 30px;
+  font-weight: 500;
+  color: #333;
+  background: #fff;
+  border-left: 1px solid #CCCCCC;
+}
+
+.table-cell-price-highlight {
+  font-weight: 700;
+  color: #111111;
+}
+
+.table-disclaimer {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111111;
+  text-align: right;
+  padding: 10px 20px;
+  margin: 0;
+  background: #111111;
+}
+
+.zero-fee-banner {
+  text-align: center;
+  position: relative;
+  padding: 60px 20px 0;
+  overflow: visible;
+}
+
+.zero-fee-text-top {
+  font-size: 40px;
+  font-weight: 500;
+  color: #fff;
+  margin: 0 0 20px 0;
+}
+
+.zero-fee-text-main {
+  font-size: 90px;
+  font-weight: 900;
+  color: #FFD940;
+  margin: 0 0 60px 0;
+  line-height: 1.2;
+}
+
+.penguin-character {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.penguin-character img {
+  width: 419px;
+  height: 588px;
+  object-fit: contain;
+  display: block;
+}
+
+/* ==========================================
+   장기렌트 비교 섹션
+   ========================================== */
+.long-term-rent-section {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  padding: 90px 0 120px;
+  margin: 100px 0 0;
+}
+
+.long-term-rent-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0;
+  position: relative;
+  height: 982px;
+}
+
+.long-term-rent-content {
+  position: absolute;
+  left: 0;
+  top: 90px;
+  width: 603px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 208px;
+}
+
+.main-title-blue {
+  font-size: 60px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 900;
+  color: #111111;
+  margin: 0;
+  line-height: 140%;
+  letter-spacing: 0;
+}
+
+.main-title-black {
+  font-size: 54px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  color: #131313;
+  margin: 0;
+  line-height: 140%;
+  letter-spacing: 0;
+}
+
+.comparison-group {
+  position: absolute;
+  left: 0;
+  top: 298px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.comparison-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
+  line-height: 44px;
+  height: 44px;
+}
+
+.comparison-label {
+  font-size: 30px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  color: #333333;
+  letter-spacing: 0;
+  line-height: 44px;
+}
+
+.comparison-highlight {
+  font-size: 30px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  color: #FFFFFF;
+  background-color: #111111;
+  padding: 2px 8px;
+  letter-spacing: 0;
+  white-space: nowrap;
+  line-height: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.info-box {
+  position: absolute;
+  right: 0;
+  top: 64px;
+  width: 412px;
+  height: 710px;
+  background-color: rgba(248, 251, 255, 1);
+  border-radius: 32px;
+  padding: 28px 32px;
+  text-align: center;
+}
+
+.info-box-title {
+  font-size: 30px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  color: #131313;
+  margin: 0 0 8px 0;
+  line-height: 140%;
+  letter-spacing: 0;
+}
+
+.info-box-subtitle {
+  font-size: 20px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  color: #666666;
+  margin: 0;
+  line-height: 140%;
+  letter-spacing: 0;
+}
+
+.description-text {
+  position: absolute;
+  left: 0;
+  top: 430px;
+  font-size: 26px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  color: #131313;
+  line-height: 140%;
+  letter-spacing: 0;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.cta-text {
+  position: absolute;
+  left: 0;
+  top: 603px;
+  font-size: 24px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  color: #666666;
+  margin: 0;
+  line-height: 140%;
+  letter-spacing: 0;
+}
+
+.long-term-rent-image {
+  position: absolute;
+  right: 0;
+  top: 444px;
+  width: 830px;
+  height: 432px;
+}
+
+.long-term-rent-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+
+/* 제휴카드사 섹션 */
+.partner-cards-section {
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--color-bg-100);
+  max-width: 100vw;
+  overflow: hidden; /* 가로 무한 스크롤을 위해 바깥에서 오버플로우 숨김 */
+}
+
+.partner-cards-header {
+  padding-top:100px;
+  text-align: left;
+  margin-bottom: var(--section-spacing-sm);
+}
+
+.partner-cards-title {
+  font-size: var(--font-size-head);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-200);
+  margin: 0 0 var(--spacing-xl) 0;
+  letter-spacing: var(--letter-spacing-base);
+}
+
+.partner-cards-subtitle {
+  font-size: var(--font-size-title-2);
+  color: var(--color-text-100);
+  margin: 0;
+  line-height: var(--line-height-base);
+  font-weight: var(--font-weight-regular);
+}
+
+.partner-cards-grid {
+  display: flex;
+  padding-bottom: 100px;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: nowrap;
+  /* 자동/수동 스크롤 대신 트랙 자체를 애니메이션 */
+  animation: partner-cards-scroll 12s linear infinite;
+}
+
+.partner-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.partner-logo {
+  width: 140px;
+  height: 140px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-base);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.partner-logo:hover {
+  transform: translateY(-4px);
+}
+
+.partner-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.partner-name {
+  font-size: var(--font-size-title-2);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+/* 제휴카드사 가로 무한 스크롤 애니메이션
+   카드 리스트를 2배로 복제해 두었기 때문에
+   전체 폭의 -50% 만큼만 이동시키고 다시 0으로 돌아와도
+   자연스럽게 오른쪽 방향으로만 계속 흐르는 것처럼 보임 */
+@keyframes partner-cards-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

@@ -1,0 +1,226 @@
+/* Quick Consult Card Styles */
+
+.quick-consult-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  border: 1px solid #111111; /* Border color from design */
+}
+
+.estimate-topbar {
+  background: #111111;
+  color: #ffffff;
+  padding: 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.estimate-topbar-title { 
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.estimate-topbar-arrow { 
+  display: none;
+}
+
+.estimate-body { 
+  padding: 24px 20px 30px; 
+}
+
+.estimate-block { 
+  margin-bottom: 24px; 
+}
+
+.estimate-block-title { 
+  font-weight: 700; 
+  color: #111111;
+  margin-bottom: 12px;
+  font-size: 20px;
+  letter-spacing: 0;
+}
+
+.estimate-row { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+  padding: 0;
+  gap: 10px;
+}
+
+.estimate-sub { 
+  color: #555555; 
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+  flex: 1;
+  min-width: 0;
+}
+
+.estimate-value { 
+  color: #555555; 
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.estimate-divider { 
+  display: none; /* Removed based on design visual, or used differently */
+}
+
+.estimate-options-scroll {
+  max-height: none; /* Remove scroll constraint for full list view */
+  overflow-y: visible;
+  padding-right: 0;
+}
+
+.option-row { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: flex-start;
+  padding: 5px 0; 
+  color: #555555;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+  gap: 10px;
+}
+
+.option-row > span:first-child {
+  flex: 1;
+  min-width: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.option-price { 
+  color: #555555; 
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0;
+  flex-shrink: 0;
+  white-space: nowrap;
+  text-align: right;
+  min-width: 100px;
+}
+
+.estimate-total { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  margin-top: 30px;
+  margin-bottom: 10px;
+  padding: 0;
+  border-top: 1px solid #E5E5EC; /* Separator if needed, or visual separation */
+  padding-top: 20px;
+}
+
+.estimate-total-title { 
+  font-weight: 600; 
+  font-size: 20px;
+  color: #111111;
+  letter-spacing: 0;
+}
+
+.estimate-total-value { 
+  font-weight: 700; 
+  font-size: 24px; 
+  color: #111111;
+  letter-spacing: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.estimate-total-value-unit {
+  font-size: 20px;
+  color: #111111;
+  font-weight: 600;
+}
+
+.privacy-wrapper {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-end; /* Right align */
+}
+
+.estimate-cta {
+  width: 100%;
+  padding: 15px 0;
+  background: #111111;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: none;
+  transition: all 0.2s ease;
+  letter-spacing: 0;
+}
+
+.estimate-cta:hover { 
+  background: #000000;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(17, 17, 17, 0.2);
+}
+
+/* 추가 상담 버튼들 */
+.consult-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.consult-btn-phone,
+.consult-btn-kakao {
+  width: 100%;
+  padding: 14px 20px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all var(--transition-base);
+  text-decoration: none;
+}
+
+.consult-btn-phone {
+  background: linear-gradient(135deg, #FDB022 0%, #F59E0B 100%);
+  color: var(--color-white);
+  box-shadow: 0 2px 8px rgba(253, 176, 34, 0.3);
+}
+
+.consult-btn-phone:hover {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(253, 176, 34, 0.4);
+}
+
+.consult-btn-kakao {
+  background: linear-gradient(135deg, #FEE500 0%, #FFD700 100%);
+  color: #3c1e1e;
+  box-shadow: 0 2px 8px rgba(254, 229, 0, 0.3);
+}
+
+.consult-btn-kakao:hover {
+  background: linear-gradient(135deg, #FFD700 0%, #FFC700 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(254, 229, 0, 0.4);
+}
+
+.phone-icon,
+.kakao-icon {
+  font-size: 20px;
+  line-height: 1;
+}

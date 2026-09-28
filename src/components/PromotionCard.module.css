@@ -1,0 +1,365 @@
+/* 프로모션 카드 - Pixso 디자인 기준 */
+.promo-card {
+  width: 100%;
+  min-height: 437px;
+  background: #fff;
+  border: 1px solid #CCCCCC;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.04);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.promo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* 1. 브랜드 로고 영역 - Pixso: 40x40px */
+.brand-row {
+  position: absolute;
+  top: 14px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  z-index: 10;
+}
+
+.brand-logo {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  display: block;
+}
+
+.brand-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* 2. 차량 이미지 영역 - Pixso: 164.22px 높이 */
+.hero-wrapper {
+  width: 100%;
+  height: 164px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 40px 20px 0;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.hero-wrapper img {
+  width: 100%;
+  height: 124px;
+  object-fit: contain;
+}
+
+/* 뱃지/리본 스타일 (필요시 사용) */
+.badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  z-index: 10;
+  white-space: nowrap;
+}
+
+.badge-yellow {
+  background: #FFD940;
+  color: #111;
+  display: none; /* 노란색 뱃지(D-day 등) 숨김 */
+}
+
+.badge-red {
+  background: #FF3D26;
+  color: #fff;
+}
+
+.ribbon {
+  position: absolute;
+  top: 12px;
+  right: -32px;
+  width: 120px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.7);
+  transform: rotate(45deg);
+  padding: 4px 0;
+}
+
+/* 3. 컨텐츠 영역 - Pixso: padding 20px, spacing 16px */
+.card-content {
+  flex: 1;
+  padding: 16px 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+}
+
+.title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  flex-shrink: 0;
+}
+
+.title-block h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #212121;
+  margin: 0;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+}
+
+.title-block p {
+  font-size: 15px;
+  font-weight: 400;
+  color: #212121;
+  margin: 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+  min-height: 42px;
+}
+
+/* 가격 정보 섹션 - Pixso: spacing */
+.price-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* 공통 행 스타일 */
+.price-row, .monthly-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label {
+  font-size: 18px;
+  font-weight: 500;
+  color: #212121;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  flex-shrink: 0;
+}
+
+/* 차량가격 우측 */
+.price-values {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.price-current {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111111;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.price-prev-inline {
+  position: relative;
+  display: block;
+  text-align: right;
+  font-size: 13px;
+  font-weight: 400;
+  color: #555555;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  text-decoration: none;
+  margin-bottom: 0;
+}
+
+.price-prev-inline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: #a6a6a6;
+  top: 60%;
+}
+
+/* 월 렌탈료 래퍼 */
+.monthly-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* 월렌탈료 섹션 - 3가지 타입 */
+.monthly-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* 월 렌탈료 행 - Pixso: 라벨 왼쪽, 가격 오른쪽 */
+.monthly-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 선납금 30% 강조 - Pixso: 14px Medium, #FF3D26, 배경 #FFD940 */
+.label-highlighted {
+  font-size: 14px;
+  font-weight: 500;
+  color: #FF3D26;
+  background: #FFD940;
+  padding: 4px 10px;
+  border-radius: 4px;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.monthly-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0;
+}
+
+.monthly-prev {
+  position: relative;
+  font-size: 13px;
+  font-weight: 400;
+  color: #555555;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  text-decoration: none;
+  text-align: right;
+  margin-bottom: 0;
+}
+
+.monthly-prev::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: #a6a6a6;
+  top: 60%;
+}
+
+.monthly-current-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+/* 할인 뱃지 - Pixso: 14px, padding 2px 4px */
+.discount-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 4px;
+  border-radius: 4px;
+  background: #FFD940;
+  color: #FF3D26;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+/* 월 렌탈료 - Pixso 디자인 기준 */
+.monthly-current {
+  display: flex;
+  align-items: center;
+  line-height: 1.2;
+}
+
+/* PC 버전 - Pixso 스펙에 맞춤 */
+/* 숫자 부분 - 18px Bold #111111 */
+.monthly-amount {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111111;
+  letter-spacing: -0.025em;
+}
+
+/* "원" 텍스트 - 18px Regular #111111 */
+.monthly-suffix {
+  font-size: 18px;
+  font-weight: 400;
+  color: #111111;
+  letter-spacing: -0.025em;
+}
+
+/* 하단 버튼 - Pixso: 265px x 44px, 17px */
+.promo-card-btn {
+  width: calc(100% - 40px);
+  height: 44px;
+  margin: 0 20px 20px;
+  margin-top: 20px;
+  background: #111111;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.promo-card-btn:hover {
+  background: #000000;
+}
+
+/* 유틸리티 클래스 */
+.monthly-note {
+  font-size: 11px;
+  font-weight: 400;
+  color: #555555;
+  margin: 0;
+  text-align: right;
+  margin-top: 4px;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+/* 종료된 카드 */
+.promo-card.ended {
+  filter: grayscale(1);
+  opacity: 0.8;
+  pointer-events: none;
+}
+.promo-card.ended .promo-card-btn {
+  background: #ccc;
+}

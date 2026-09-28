@@ -1,0 +1,369 @@
+/* ReviewDetailModal 컴포넌트 스타일 */
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 40px;
+  backdrop-filter: blur(4px);
+}
+
+.modalContent {
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 640px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+
+/* 모달 헤더 */
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 36px;
+  border-bottom: none;
+  background: #ffffff;
+}
+
+.modalTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111111;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 32px;
+  color: #999999;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  color: #333333;
+  background-color: #f5f5f5;
+}
+
+/* 모달 본문 */
+.modalBody {
+  padding: 0 36px 32px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* 이미지 영역 */
+.imageContainer {
+  width: 100%;
+  max-width: 100%;
+  height: 320px;
+  overflow: hidden;
+  border-radius: 16px;
+  margin: 0 auto;
+  background: #f5f5f5;
+  box-shadow: none;
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #ced4da;
+  border-radius: 12px;
+}
+
+.placeholderText {
+  color: #757575;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.reviewImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 폼 스타일 */
+.reviewForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.formLabel {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+  letter-spacing: -0.01em;
+}
+
+.formInput,
+.formTextarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #333;
+  background-color: #ffffff;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.formInput:focus,
+.formTextarea:focus {
+  outline: none;
+  border-color: #111111;
+  box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.1);
+}
+
+.formTextarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+/* 별점 입력 */
+.ratingInput {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.star {
+  font-size: 18px;
+  line-height: 1;
+  transition: all 0.2s ease;
+}
+
+.interactiveStar {
+  cursor: pointer;
+}
+
+.interactiveStar:hover {
+  transform: scale(1.1);
+}
+
+.filledStar {
+  color: #FFD600;
+  text-shadow: 0 2px 4px rgba(255, 214, 0, 0.3);
+}
+
+.emptyStar {
+  color: #eeeeee;
+}
+
+.ratingText {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+/* 폼 액션 버튼 */
+.formActions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.cancelButton,
+.submitButton {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  letter-spacing: -0.01em;
+}
+
+.cancelButton {
+  background-color: #757575;
+  color: #ffffff;
+}
+
+.cancelButton:hover {
+  background-color: #5a6268;
+  transform: translateY(-1px);
+}
+
+.submitButton {
+  background: linear-gradient(135deg, #111111 0%, #000000 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(17, 17, 17, 0.25);
+}
+
+.submitButton:hover {
+  background: linear-gradient(135deg, #000000 0%, #000000 100%);
+  box-shadow: 0 6px 20px rgba(17, 17, 17, 0.4);
+  transform: translateY(-1px);
+}
+
+.reviewDetail {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+.reviewHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-bottom: 0;
+  font-size:24px;
+  font-weight: 600;
+  border-bottom: none;
+}
+
+.productName {
+  font-size: 26px;
+  font-weight: 700;
+  color: #111111;
+  margin: 0 0 20px 0;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.rating {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.reviewTextContainer {
+  min-height: 100px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 0;
+  background: transparent;
+  border: none;
+  margin-bottom: 8px;
+}
+
+.reviewText {
+  font-size: 16px;
+  color: #333333;
+  line-height: 1.75;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  letter-spacing: -0.01em;
+}
+
+.metaInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #666666;
+  padding: 0;
+  border-top: none;
+  margin-top: 0;
+}
+
+.authorInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.author {
+  font-weight: 400;
+  color: #666666;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+
+.authorDetail {
+  font-weight: 400;
+  color: #666666;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+
+.date {
+  font-style: normal;
+  color: #999999;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+
+/* 모달 푸터 */
+.modalFooter {
+  padding: 28px 36px;
+  border-top: none;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+}
+
+.estimateButton {
+  width: 100%;
+  max-width: 100%;
+  height: 56px;
+  background: #111111;
+  color: #ffffff;
+  border: none;
+  border-radius: 14px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: -0.01em;
+  box-shadow: 0 2px 8px rgba(17, 17, 17, 0.2);
+}
+
+.estimateButton:hover {
+  background: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(17, 17, 17, 0.35);
+}
+
+.estimateButton:active {
+  transform: translateY(0);
+}

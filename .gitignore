@@ -1,0 +1,12 @@
+node_modules
+dist
+dist-ssr
+.env
+.env.local
+.env.*.local
+*.local
+.DS_Store
+npm-debug.log*
+
+# Playwright 캡처 등 로컬 작업 산출물
+tmp/

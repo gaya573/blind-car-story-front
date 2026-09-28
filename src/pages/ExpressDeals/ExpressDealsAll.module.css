@@ -1,0 +1,250 @@
+.page-wrapper {
+  background-color: #fff;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+.content-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* Top Banner */
+.top-banner-wrapper {
+  width: 100%;
+  background-color: #000000; /* Darker blue based on image */
+  height: 240px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.top-banner-content {
+  width: 1280px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.top-banner-text h2 {
+  font-size: 42px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.top-banner-text p {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+  margin: 0;
+  text-align: left;
+}
+
+.kakao-banner-btn {
+  background-color: #FFD940;
+  color: #111;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 16px 32px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s;
+}
+
+.kakao-banner-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Section Header */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.siren-icon {
+  font-size: 28px;
+}
+
+.section-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111;
+  margin: 0;
+}
+
+/* Grid */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 80px;
+}
+
+.loading {
+  text-align: center;
+  padding: 100px 0;
+  font-size: 18px;
+  color: #666;
+}
+
+/* Bottom Consult Banner (Copied & Scoped from Home.module.css) */
+.consult-banner {
+  width: 1280px;
+  height: 290px;
+  background-color: #111111;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 35px;
+  margin: 60px auto;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(17, 17, 17, 0.2);
+}
+
+.consult-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 100%;
+}
+
+.consult-phone-img {
+  width: 282px;
+  height: 279px;
+  margin-top: 50px;
+  object-fit: contain;
+}
+
+.consult-text-group {
+  color: #fff;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.consult-text-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #FFD940;
+  letter-spacing: -0.5px;
+}
+
+.consult-number {
+  font-size: 64px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.consult-subtext {
+  font-size: 15px;
+  font-weight: 400;
+  opacity: 0.9;
+  align-self: flex-end;
+}
+
+/* Right Content (Form) */
+.consult-banner-right {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  position: relative;
+  padding-right: 49px;
+}
+
+.consult-form-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-align: left;
+  padding-left: 60px;
+}
+
+.consult-form-container {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.consult-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.consult-input-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.consult-label {
+  font-size: 16px;
+  font-weight: 600;
+  width: 45px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.consult-input {
+  width: 277px;
+  height: 48px;
+  border-radius: 8px;
+  border: none;
+  padding: 0 15px;
+  font-size: 15px;
+  color: #333;
+  background-color: #fff;
+}
+
+.consult-input::placeholder {
+  color: #999;
+}
+
+.consult-submit-btn {
+  width: 140px;
+  height: 160px;
+  background-color: #FFD940;
+  border: none;
+  border-radius: 12px;
+  color: #111;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
+  margin-top: 0;
+}
+
+.consult-submit-btn:hover {
+  background-color: #ffca2c;
+  transform: translateY(-2px);
+}
+
+.consult-hand-img {
+  position: absolute;
+  bottom: -60px;
+  right: -30px;
+  width: 183.5px;
+  height: 160px;
+  pointer-events: none;
+  z-index: 10;
+}
+

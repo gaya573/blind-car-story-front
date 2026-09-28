@@ -1,0 +1,75 @@
+/* 모바일 SearchBar 전용 스타일 */
+.search-bar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.mobile {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.input-wrap {
+  position: relative;
+  flex: 1 1 auto;
+}
+
+.search-bar-input {
+  width: 100%;
+  height: 46px;
+  border-radius: 23px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  padding: 15px 48px 15px 20px;
+  font-size: 14px;
+  line-height: 16px;
+  color: #1c1c1c;
+  outline: none;
+}
+
+.search-bar-input::placeholder {
+  color: #a6a6a6;
+}
+
+.back-btn {
+  width: 24px;
+  height: 24px;
+  margin-left: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #1c1c1c;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.back-btn svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.clear-btn {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #a6a6a6;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.clear-btn:hover {
+  color: #767676;
+}

@@ -1,0 +1,312 @@
+/* ===========================
+   전역 설정
+   =========================== */
+   *,
+   *::before,
+   *::after {
+     box-sizing: border-box; /* Zeplin 프레임 기준 일치 */
+   }
+   
+   button, div {
+     font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+     transition: all 0.2s ease;
+   }
+   
+   /* ===========================
+      견적받기 버튼 (모바일)
+      =========================== */
+   .estimate-button-mobile {
+     width: 90px;
+     height: 34px;
+     padding: 9px 24px 8px 24px; /* Zeplin 수치 유지 */
+     font-size: 10px;
+     line-height: 1;
+     font-weight: var(--font-weight-semibold);
+     color: var(--color-white);
+     background: var(--color-main-50);
+     border: none;
+     border-radius: 4px;
+     cursor: pointer;
+     display: inline-flex;
+     align-items: center;
+     justify-content: center;
+     transition: all var(--transition-fast);
+   }
+   
+   .estimate-button-mobile:hover {
+     background: var(--color-main-100);
+     transform: translateY(-1px);
+     box-shadow: var(--shadow-md);
+   }
+   
+   .estimate-button-mobile:active {
+     transform: translateY(0);
+   }
+   
+   /* ===========================
+      실시간 무료견적 받기 버튼 (모바일)
+      =========================== */
+   .quick-consult-button-mobile {
+     width: 146px;
+     height: 34px;
+     padding: 10px 38px 10px 44px;
+     font-size: 10px;
+     line-height: 1;
+     font-weight: var(--font-weight-semibold);
+     color: var(--color-white);
+     background: var(--gradient-main-50);
+     border: none;
+     border-radius: 4px;
+     cursor: pointer;
+     display: inline-flex;
+     align-items: center;
+     justify-content: center;
+     transition: all var(--transition-fast);
+   }
+   
+   .quick-consult-button-mobile:hover {
+     background: var(--gradient-primary-hover);
+     transform: translateY(-1px);
+     box-shadow: var(--shadow-md);
+   }
+   
+   .quick-consult-button-mobile:active {
+     transform: translateY(0);
+   }
+   
+   /* ===========================
+      세부모델 드롭다운 (모바일)
+      =========================== */
+   .detailed-model-select-mobile {
+     width: 82px;
+     height: 34px;
+     padding: 9px 0px 9px 10.5px;
+     font-size: var(--font-size-subtitle-2);
+     line-height: 16px;
+     color: var(--color-text-200);
+     background: var(--color-white);
+     border: 1px solid var(--color-stroke-100);
+     border-radius: 4px;
+     cursor: pointer;
+     appearance: none;
+     background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%23111827' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+     background-repeat: no-repeat;
+     background-position: right 4px center;
+     padding-right: 20px;
+   }
+   
+   .detailed-model-select-mobile:hover {
+     border-color: var(--color-text-50);
+   }
+   
+   .detailed-model-select-mobile:focus {
+     outline: none;
+     border-color: var(--color-main-50);
+     box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.1);
+   }
+   
+   .detailed-model-select-mobile option {
+     padding: 8px;
+   }
+   
+   /* ===========================
+      제조사 선택 버튼 (모바일)
+      =========================== */
+   .manufacturer-select-button-mobile {
+     width: 76px;
+     height: 76px;
+     padding: 8px 7.5px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     gap: 4px;
+     background: var(--color-white);
+     border: 1px solid var(--color-stroke-100);
+     border-radius: var(--radius-sm);
+     cursor: pointer;
+     transition: all var(--transition-fast);
+   }
+   
+   .manufacturer-select-button-mobile:hover {
+     border-color: var(--color-main-50);
+     background: var(--color-bg-100);
+   }
+   
+   .manufacturer-select-button-mobile.selected-mobile {
+     border: 2px solid var(--color-main-50);
+     background: var(--color-bg-100);
+   }
+   
+   .manufacturer-select-button-mobile:active {
+     transform: scale(0.95);
+   }
+   
+   .logo-mobile {
+     width: 40px;
+     height: 40px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+   }
+   
+   .logo-mobile svg, .logo-mobile img {
+     width: 100%;
+     height: 100%;
+     object-fit: contain;
+   }
+   
+   .brand-name-mobile {
+     font-size: var(--font-size-subtitle-2);
+     line-height: 20px;
+     color: var(--color-text-200);
+     text-align: center;
+     height: 20px;
+     font-weight: var(--font-weight-medium);
+   }
+   
+   /* ===========================
+      카드_중소
+      =========================== */
+   .card-small {
+     width: 111px;
+     height: 40px;
+     background: var(--color-white);
+     border-radius: 4px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     text-align: center;
+     padding: 12px 0 11px 0; /* 상12 하11 */
+     border: 1px solid var(--color-main-50);
+     cursor: pointer;
+     font-size: var(--font-size-body-3);
+     font-weight: var(--font-weight-medium);
+     color: var(--color-text-200);
+   }
+   .card-small:hover {
+     background: var(--color-bg-100);
+     box-shadow: var(--shadow-sm);
+   }
+   
+   /* ===========================
+      버튼_중
+      =========================== */
+   .button-medium {
+     width: 168px;
+     height: 50px;
+     border-radius: var(--radius-sm);
+     border: none;
+     cursor: pointer;
+     font-size: var(--font-size-title-3);
+     font-weight: var(--font-weight-semibold);
+     text-align: center;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     padding: 15px 70px;
+     background: var(--color-white);
+     border: 1px solid var(--color-text-50);
+   }
+   
+   .button-medium-primary {
+     background: var(--color-text-50);
+     border: 1px solid var(--color-stroke-50);
+   }
+   
+   .button-medium-secondary {
+     background: var(--color-main-50);
+     color: var(--color-white);
+   }
+   
+   .button-medium:hover {
+     transform: translateY(-2px);
+     box-shadow: var(--shadow-md);
+   }
+   
+   /* ===========================
+      버튼_중중
+      =========================== */
+   .button-mediumlarge {
+     width: 210px;
+     height: 40px;
+     border-radius: 6px;
+     border: none;
+     font-size: 15px;
+     font-weight: 500;
+     padding: 18px 12px;
+     cursor: pointer;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+   }
+   .button-mediumlarge + .button-mediumlarge {
+     margin-top: 18px; /* 스택 간격 */
+   }
+   .button-mediumlarge-yellow {
+     background: var(--color-sub-1-y);
+     color: var(--color-text-200);
+   }
+   .button-mediumlarge-blue {
+     background: var(--color-main-50);
+     color: var(--color-white);
+   }
+   .button-mediumlarge-gray {
+     background: var(--color-stroke-50);
+     color: var(--color-text-200);
+   }
+   
+   /* ===========================
+      버튼_대
+      =========================== */
+   .button-large {
+     width: 343px;
+     height: 50px;
+     border-radius: var(--radius-sm);
+     border: none;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 8px; /* 아이콘-텍스트 간격 */
+     padding: 13px 98px; /* 상24 좌우15 */
+     font-size: var(--font-size-title-2);
+     font-weight: var(--font-weight-semibold);
+     cursor: pointer;
+     text-align: center;
+   }
+   .button-large-icon {
+     width: 24px;
+     height: 24px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+   }
+   .button-large-active {
+     background: var(--color-main-50);
+     color: var(--color-white);
+   }
+   .button-large-disabled {
+     background: var(--color-stroke-50);
+     color: var(--color-text-50);
+     cursor: not-allowed;
+   }
+
+
+   .button-large-active-gray {
+    background: var(--color-stroke-50);
+    color: var(--color-text-200);
+  }
+
+
+   .button-large-highlight {
+     background: var(--color-sub-1-y);
+     color: var(--color-text-200);
+   }
+   .button-large:hover:not(.button-large-disabled) {
+     transform: translateY(-2px);
+     box-shadow: var(--shadow-lg);
+   }
+   .button-large + .button-large {
+     margin-top: 50px;
+   }
+   

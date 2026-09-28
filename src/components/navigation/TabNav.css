@@ -1,0 +1,36 @@
+/* Tab Navigation Styles */
+
+.tab-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-3xl);
+  margin-bottom: var(--spacing-xl);
+  width: 100%;
+}
+
+.tab-nav-item {
+  position: relative;
+  padding: var(--spacing-md) 0;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  transition: all var(--transition-fast);
+}
+
+.tab-nav-item:hover {
+  color: var(--color-primary);
+}
+
+.tab-nav-item.active {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
+  text-decoration: underline;
+  text-underline-offset: 8px;
+  text-decoration-thickness: 2px;
+}
+

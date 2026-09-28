@@ -1,0 +1,234 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modalContent {
+  position: relative;
+  background-color: white;
+  border-radius: 20px;
+  padding: 40px 35px 30px;
+  max-width: 520px;
+  width: 90%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.4s ease-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.topSection {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  gap: 24px;
+  min-height: 260px;
+  padding-left: 260px;
+}
+
+.speechBubble {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 240px;
+  min-height: 170px;
+  padding: 34px 34px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 14px 0;
+  line-height: 1.35;
+}
+
+.description {
+  font-size: 17px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 10px 0;
+  line-height: 1.5;
+}
+
+.subDescription {
+  font-size: 13px;
+  font-weight: 500;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.penguinContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.penguin {
+  width: 200px;
+  height: auto;
+}
+
+.confirmButton {
+  width: 100%;
+  max-width: 100%;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, #111111 0%, #000000 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(17, 17, 17, 0.3);
+}
+
+.confirmButton:hover {
+  background: linear-gradient(135deg, #000000 0%, #000000 100%);
+  box-shadow: 0 6px 16px rgba(17, 17, 17, 0.4);
+  transform: translateY(-2px);
+}
+
+.confirmButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(17, 17, 17, 0.3);
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .modalContent {
+    padding: 30px 20px 25px;
+    max-width: 420px;
+    gap: 20px;
+  }
+
+  .topSection {
+    gap: 16px;
+    min-height: 230px;
+    padding-left: 0;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .speechBubble {
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: 360px;
+    min-height: 150px;
+    padding: 26px 24px 22px;
+  }
+
+  .title {
+    font-size: 19px;
+    margin-bottom: 10px;
+  }
+
+  .description {
+    font-size: 16px;
+  }
+
+  .subDescription {
+    font-size: 14px;
+  }
+
+  .penguin {
+    width: 160px;
+  }
+
+  .confirmButton {
+    font-size: 15px;
+    padding: 14px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modalContent {
+    padding: 25px 18px 20px;
+    max-width: 360px;
+    gap: 18px;
+  }
+
+  .topSection {
+    flex-direction: column;
+    gap: 14px;
+    min-height: auto;
+  }
+
+  .messageContent {
+    text-align: center;
+  }
+
+  .speechBubble {
+    width: 100%;
+    max-width: 320px;
+    min-height: 140px;
+    padding: 22px 18px 18px;
+  }
+
+  .title {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .description {
+    font-size: 15px;
+  }
+
+  .subDescription {
+    font-size: 13px;
+  }
+
+  .penguin {
+    width: 140px;
+  }
+
+  .confirmButton {
+    font-size: 14px;
+    padding: 13px 18px;
+  }
+}
+
+
+
+

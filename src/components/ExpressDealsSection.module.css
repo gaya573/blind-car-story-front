@@ -1,0 +1,76 @@
+/* 즉시출고차량 섹션 */
+.express-deals-section {
+  padding-top: 50px ;
+  background: var(--color-white);
+  margin: 0 auto;
+  max-width: var(--max-width);
+}
+
+.express-deals-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: var(--section-spacing-sm);
+}
+
+.express-deals-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.express-deals-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.express-deals-title {
+  font-size: var(--font-size-head);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-200);
+  margin: 0;
+  letter-spacing: var(--letter-spacing-base);
+}
+
+.express-deals-link {
+  font-size: var(--font-size-title-2);
+  color: var(--color-text-200);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  transition: color var(--transition-fast);
+}
+
+.express-deals-link:hover {
+  color: var(--color-main-100);
+}
+
+.express-deals-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-2xl);
+  margin-bottom: var(--spacing-xl);
+}
+
+
+.express-deals-footer {
+  text-align: center;
+  margin-top: var(--spacing-xl);
+}
+
+.express-deals-disclaimer {
+    text-align: right;
+    font-size: var(--font-size-title-2);
+    color: var(--color-text-secondary);
+    font-weight: 300;
+}
+
+.express-deals-placeholder {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--color-text-50);
+  font-size: var(--font-size-body-1);
+  background: var(--color-bg-100);
+  border-radius: var(--radius-md);
+  margin: 2rem 0;
+}

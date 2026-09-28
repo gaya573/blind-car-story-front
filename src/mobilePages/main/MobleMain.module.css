@@ -1,0 +1,2604 @@
+/* 모바일 메인 페이지 - Pixso 디자인 정확히 재현 (PX 단위) */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.page {
+  width: 100%;
+  max-width: 375px;
+  margin: 0 auto;
+  background: #FFFFFF;
+  min-height: 100vh;
+}
+
+/* ===== 헤더 (50px) ===== */
+.header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  max-width: 375px;
+  margin: 0 auto;
+  height: 50px;
+  background-color: #F7F7FB;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 20;
+}
+
+.menuBtn,
+.phoneBtn {
+  width: 28px;
+  height: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.menuBtn img,
+.phoneBtn img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.logo {
+  font-size: 23px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #111111;
+  margin: 0;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* ===== 탭 메뉴 (56px) ===== */
+.tabsContainer {
+  position: sticky;
+  top: 50px;
+  width: 100%;
+  max-width: 375px;
+  margin: 0 auto;
+  height: 56px;
+  background-color: rgb(17, 17, 17);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
+  padding: 0 16px;
+  z-index: 10;
+}
+
+.tab {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 18px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 21.48px;
+  color: #111111;
+  white-space: nowrap;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.tab:hover {
+  opacity: 0.8;
+}
+
+.tabActive {
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+/* ===== 메인 콘텐츠 ===== */
+.mainContent {
+  width: 100%;
+  background: #FFFFFF;
+  min-height: calc(100vh - 106px); /* 50px + 56px = 106px */
+}
+
+/* 펭귄 섹션 (비디오) */
+/* 배너는 원본 비율대로 보여준다.
+   고정 높이 + object-fit:cover 로 두면 가로로 긴 배너의 좌우가 잘려 문구가 사라진다. */
+.penguinSection {
+  width: 100%;
+  max-width: 375px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  overflow: hidden;
+}
+
+.penguinVideo {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.mobileMainBannerScroller {
+  width: 100%;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.mobileMainBannerScroller::-webkit-scrollbar {
+  display: none;
+}
+
+.mobileMainBannerSlide {
+  flex: 0 0 100%;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  scroll-snap-align: start;
+}
+
+.mobileMainBannerImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ===== 서랍식 메뉴 ===== */
+.drawerOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1999;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+}
+  to {
+    opacity: 1;
+  }
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 280px;
+  max-width: 80%;
+  background: white;
+  z-index: 2000;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.drawerContent {
+  padding: 20px 0;
+}
+
+.drawerItem {
+  width: 100%;
+  padding: 16px 24px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 16px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.drawerItem:hover {
+  background: #f5f5f5;
+}
+
+.drawerItem:active {
+  background: #e8e8e8;
+}
+
+/* ===== 견적 신청 폼 ===== */
+.quoteFormSection {
+  width: 100%;
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 20px 16px;
+  background: #FFFFFF;
+}
+
+/* 시안에서 골드는 배지·칩 같은 작은 강조에만 쓴다.
+   견적 폼처럼 넓은 면은 밝은 중립색으로 둔다. */
+.quoteFormCard {
+  width: 100%;
+  padding: 20px 10px;
+  background: #F7F7F8;
+  border: 1px solid #E5E5EC;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 타이틀 */
+.formTitle {
+  font-size: 18px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: #111111;
+  text-align: center;
+  margin: 0;
+}
+
+.titleHighlight {
+  font-weight: 500;
+}
+
+/* 통계 카드 */
+.statsCard {
+  width: 100%;
+  height: 70px;
+  background: #FFFFFF;
+  border: 1px solid #F1F1F5;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 0 16px;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.statNumber {
+  font-size: 16px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: #111111;
+}
+
+.statNumberBlue {
+  color: #111111;
+}
+
+.statLabel {
+  font-size: 13px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: #111111;
+}
+
+.statLabelBlue {
+  color: #111111;
+}
+
+.statDivider {
+  width: 1px;
+  height: 46px;
+  background: #E5E5EC;
+}
+
+/* 라디오 버튼 */
+.radioGroup {
+  display: flex;
+  gap: 30px;
+}
+
+.radioButton {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  position: relative;
+}
+
+.radioButton input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  cursor: pointer;
+  border: 2px solid #CCCCCC;
+  border-radius: 50%;
+  background: #FFFFFF;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.radioButton input[type="radio"]:checked {
+  border-color: #111111;
+  background: #111111;
+}
+
+.radioButton input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #FFFFFF;
+}
+
+.radioLabel {
+  font-size: 14px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: #111111;
+  cursor: pointer;
+}
+
+/* 입력 필드 */
+.formFields {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.inputWrapper {
+  width: 100%;
+  height: 46px;
+  background: #FFFFFF;
+  border: 1px solid #F1F1F5;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  position: relative;
+}
+
+.inputLabel {
+  font-size: 14px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: #111111;
+  white-space: nowrap;
+  margin-right: 8px;
+}
+
+.required {
+  color: #FF0000;
+}
+
+.input {
+  flex: 1;
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 14px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: #111111;
+}
+
+.input::placeholder {
+  color: #999999;
+}
+
+/* 개인정보 동의 */
+.privacyCheck {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  cursor: pointer;
+  accent-color: #111111;
+}
+
+.checkboxText {
+  font-size: 11px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: #555555;
+}
+
+.viewLink {
+  color: #111111;
+}
+
+/* 제출 버튼 */
+.submitBtn {
+  width: 100%;
+  height: 46px;
+  background: #111111;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.submitBtn:hover {
+  background: #000000;
+}
+
+.submitBtn:active {
+  background: #000000;
+}
+
+/* ===== 검색 버튼 섹션 ===== */
+.searchSection {
+  width: 100%;
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 20px 16px;
+  background: #FFFFFF;
+}
+
+.searchTitle {
+  font-size: 20px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #111111;
+  margin: 0 0 10px 0;
+}
+
+.searchButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 국산차 버튼 */
+.domesticCarBtn {
+  width: 100%;
+  height: 90px;
+  background: #e8d79a;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 21px 0 21px 20px;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.domesticCarBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #000000 0%, #e8d79a 100%);
+  border-radius: 8px;
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: 0.15s;
+  z-index: 0;
+}
+
+.domesticCarBtn.animate::before {
+  width: 100%;
+}
+
+.domesticCarBtn:hover {
+  opacity: 0.95;
+}
+
+.domesticCarBtn:active {
+  opacity: 0.9;
+}
+
+.domesticCarBtn .btnContent {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.domesticCarBtn .btnTextGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.domesticCarBtn .btnTitle {
+  font-size: 20px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.domesticCarBtn .btnSubtitle {
+  font-size: 15px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 300;
+  line-height: 1.2;
+  color: #FFFFFF;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.domesticCarBtn .btnCarImageWrapper {
+  width: 134px;
+  height: 63px;
+  position: relative;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.domesticCarBtn .btnCarImage {
+  width: 134px;
+  height: 63px;
+  object-fit: contain;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translateX(200px);
+  opacity: 0;
+  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease-out;
+  transition-delay: 0.15s;
+}
+
+.domesticCarBtn.animate .btnCarImage {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* 수입차 버튼 */
+.importCarBtn {
+  width: 100%;
+  height: 90px;
+  background: #000000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 21px 0 21px 20px;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.importCarBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #e8d79a 0%, #000000 100%);
+  border-radius: 8px;
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: 0.15s;
+  z-index: 0;
+}
+
+.importCarBtn.animate::before {
+  width: 100%;
+}
+
+.importCarBtn:hover {
+  opacity: 0.95;
+}
+
+.importCarBtn:active {
+  opacity: 0.9;
+}
+
+.importCarBtn .btnContent {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.importCarBtn .btnTextGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.importCarBtn .btnTitle {
+  font-size: 20px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #FFFFFF;
+  margin: 0;
+  transition: color 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: 0.15s;
+}
+
+.importCarBtn.animate .btnTitle {
+  color: #111111;
+}
+
+.importCarBtn .btnSubtitle {
+  font-size: 15px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 300;
+  line-height: 1.2;
+  color: #FFFFFF;
+  margin: 0;
+  white-space: nowrap;
+  transition: color 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: 0.15s;
+}
+
+.importCarBtn.animate .btnSubtitle {
+  color: #111111;
+}
+
+.importCarBtn .btnCarImageWrapper {
+  width: 134px;
+  height: 63px;
+  position: relative;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.importCarBtn .btnCarImage {
+  width: 134px;
+  height: 63px;
+  object-fit: contain;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translateX(200px);
+  opacity: 0;
+  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease-out;
+  transition-delay: 0.15s;
+}
+
+.importCarBtn.animate .btnCarImage {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* ===== 마감임박 섹션 ===== */
+.closingSection {
+  width: 100%;
+  background: #FFFFFF;
+  overflow: hidden;
+  padding: 20px 0;
+}
+
+.closingContainer {
+  width: 342px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Header Area - 222px width */
+.closingHeaderNew {
+  width: 115px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.closingIconWrapper {
+  width: 30px;
+  height: 26px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.closingIconNew {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.closingTitleNew {
+  font-size: 22px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0em;
+  line-height: 120%;
+  color: rgba(17, 17, 17, 1);
+  margin: 0;
+}
+
+/* Subtitle */
+.closingSubtitleNew {
+  font-size: 14px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0em;
+  line-height: 120%;
+  color: rgba(17, 17, 17, 1);
+  margin: 0;
+}
+
+/* Countdown Timer - 269px width */
+.countdownNew {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.timerGroup {
+  width: 59px;
+  height: 40px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.timerBox {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 4px;
+  box-shadow: 0px 10px 20px 0px rgba(103, 110, 118, 0.08), 0px 5px 10px 0px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.timerNum {
+  font-size: 20px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: 0em;
+  line-height: 120%;
+  color: rgba(17, 17, 17, 1);
+}
+
+.timerLabel {
+  font-size: 14px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0em;
+  line-height: 120%;
+  color: rgba(17, 17, 17, 1);
+  position: absolute;
+  left: 46px;
+  top: 23px;
+}
+
+/* Car Cards Grid - 342px width */
+.cardsGrid {
+  width: 342px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Individual Car Card - 166x258px */
+.carCard {
+  width: 166px;
+  height: 258px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 12px rgba(28, 28, 28, 0.08);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.carCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(28, 28, 28, 0.12);
+}
+
+.discountBadgeTop {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #FF3B30;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 4px;
+  z-index: 2;
+}
+
+.discountBadgeTop2 {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #FF3B30;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 4px;
+  z-index: 2;
+}
+
+/* Car Image - 166x82px at top:26px */
+.carImageWrapper {
+  width: 166px;
+  height: 82px;
+  position: absolute;
+  left: 0px;
+  top: 26px;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Brand Logo - top-left: 10px, 7px */
+.brandLogo {
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  position: absolute;
+  left: 10px;
+  top: 7px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 4px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brandLogoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Consult Button - 146x34px at bottom */
+.consultButton {
+  width: 146px;
+  height: 34px;
+  overflow: hidden;
+  position: absolute;
+  left: 10px;
+  top: 214px;
+  border-radius: 4px;
+  background: rgba(17, 17, 17, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.consultButtonText {
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: -0.025em;
+  line-height: 120%;
+  color: rgba(255, 255, 255, 1);
+}
+
+/* Car Info - 146px width at top:110px */
+.carInfo {
+  width: 146px;
+  position: absolute;
+  left: 10px;
+  top: 110px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.carName {
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 120%;
+  color: rgba(17, 17, 17, 1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.carTrim {
+  font-size: 11px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 140%;
+  color: rgba(85, 85, 85, 1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+}
+
+/* Rental Label - at top:186px */
+.rentalLabel {
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 120%;
+  color: rgba(33, 33, 33, 1);
+  position: absolute;
+  left: 10px;
+  top: 186px;
+  white-space: nowrap;
+}
+
+/* Price Row - 146px width at top:151px */
+.priceRow {
+  width: 146px;
+  position: absolute;
+  left: 10px;
+  top: 151px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+
+.priceLabel {
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 120%;
+  color: rgba(33, 33, 33, 1);
+  min-width: 55px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.priceValue {
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  text-align: right;
+  letter-spacing: -0.025em;
+  line-height: 120%;
+  color: rgba(17, 17, 17, 1);
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.priceAmount {
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.priceUnit {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Discount Badge - 52px at top:8px, right:8px */
+.discountBadge {
+  width: 52px;
+  height: auto;
+  position: absolute;
+  left: 104px;
+  top: 8px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  padding: 2px 4px;
+  border-radius: 4px;
+  background: rgba(255, 217, 64, 1);
+}
+
+.discountText {
+  font-size: 11px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  text-align: right;
+  letter-spacing: -0.025em;
+  line-height: 120%;
+  color: rgba(255, 61, 38, 1);
+}
+
+/* Final Price - 83px width at top:169px */
+.finalPriceWrapper {
+  width: 83px;
+  position: absolute;
+  left: 73px;
+  top: 169px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.originalPriceStrike {
+  width: 54px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.strikeText {
+  font-size: 11px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  text-align: right;
+  letter-spacing: -0.025em;
+  line-height: 120%;
+  color: rgba(85, 85, 85, 1);
+  white-space: nowrap;
+}
+
+.strikeLine {
+  width: 54px;
+  height: 0px;
+  border-top: 0.3125px solid rgba(85, 85, 85, 1);
+  position: absolute;
+  left: 0;
+  top: 6.5px;
+}
+
+.finalPrice {
+  font-size: 16px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  text-align: right;
+  letter-spacing: -0.025em;
+  line-height: 120%;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.finalPriceNum {
+  color: rgba(17, 17, 17, 1);
+  white-space: nowrap;
+}
+
+.finalPriceUnit {
+  font-weight: 400;
+  color: rgba(17, 17, 17, 1);
+  white-space: nowrap;
+}
+
+.finalPriceWrapper2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.discountBadgePercent {
+  background: #FF3B30;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.finalPrice2 {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.finalPriceNum2 {
+  font-size: 18px; 
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  color: #111111;
+}
+
+.finalPriceUnit2 {
+  font-size: 13px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500; 
+  color: #111111;
+}
+
+.rentCondition {
+  font-size: 10px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  color: #999999;
+  margin-bottom: 12px;
+}
+
+.consultButton2 {
+  width: 100%;
+  height: 36px;
+  background: #111111;
+  border: none;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.consultButton2:hover {
+  background: #000000;
+}
+
+.consultButton2:active {
+  background: #000000;
+}
+
+.consultButtonText2 {
+  font-size: 13px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+/* ===== 수입차 할인 특가 배너 ===== */
+.importDiscountSection {
+  width: 100%;
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 20px 16px;
+  background: #FFFFFF;
+}
+
+.importDiscountBanner {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.importDiscountBanner:hover {
+  opacity: 0.95;
+}
+
+.importDiscountBanner:active {
+  opacity: 0.9;
+}
+
+.importBannerImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ===== 재고특가핫딜 섹션 ===== */
+.hotDealSection {
+  width: 100%;
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 0 0 40px 0;
+  background: #FFFFFF;
+}
+
+.hotDealHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0 16px;
+  margin-bottom: 10px;
+}
+
+.hotDealTitleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hotDealTitle {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 120%;
+  letter-spacing: 0;
+  color: #111111;
+  margin: 0;
+}
+
+.hotDealSubtitle {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 120%;
+  letter-spacing: 0;
+  color: #767676;
+  margin: 0;
+}
+
+.viewAllButton {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none; 
+  padding: 0;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.viewAllButton:hover {
+  opacity: 0.7;
+}
+
+.viewAllText {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 120%;
+  letter-spacing: 0;
+  color: #111111;
+}
+
+.viewAllIcon {
+  width: 12px;
+  height: 12px;
+  object-fit: contain;
+}
+
+.hotDealList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 0 16px;
+}
+
+.hotDealCard {
+  width: 343px;
+  height: 143px;
+  background: #F7F7FB;
+  border: 1px solid #E5E5EC;
+  border-radius: 8px;
+  display: flex;
+  padding: 0;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.hotDealCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.hotDealImageWrapper {
+  width: 155px;
+  height: 105px;
+  position: absolute;
+  right: -1px;
+  top: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hotDealCarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hotDealContent {
+  flex: 1;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.hotDealBadge {
+  position: absolute;
+  left: 105px;
+  top: 14px;
+  padding: 2px 4px;
+  background: #FFD940;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hotDealBadgeText {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 140%;
+  letter-spacing: -0.025em;
+  color: #FF3D26;
+  text-align: right;
+}
+
+.hotDealInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hotDealCarName {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 120%;
+  letter-spacing: -0.025em;
+  color: #111111;
+  margin: 0;
+}
+
+.hotDealCarTrim {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 120%;
+  letter-spacing: -0.025em;
+  color: #555555;
+  margin: 0;
+}
+
+.hotDealPriceSection {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.hotDealPriceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 171px;
+}
+
+.hotDealPriceLabel {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 120%;
+  letter-spacing: -0.025em;
+  color: #111111;
+}
+
+.hotDealPriceOriginal {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.hotDealPriceOriginalText {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 120%;
+  letter-spacing: -0.025em;
+  color: #555555;
+}
+
+.hotDealPriceStrike {
+  position: absolute;
+  left: 1px;
+  top: 50%;
+  width: 65px;
+  height: 1px;
+  background: #555555;
+}
+
+.hotDealDiscountRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 171px;
+}
+
+.hotDealDiscountLabel {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 120%;
+  letter-spacing: -0.025em;
+  color: #111111;
+}
+
+.hotDealDiscountAmount {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 120%;
+  letter-spacing: -0.025em;
+}
+
+.hotDealDiscountAmount:first-child {
+  color: #FF3D26;
+}
+
+.hotDealFinalRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 11px;
+  width: 171px;
+  margin-top: 4px;
+}
+
+.hotDealPromoLabel {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 120%;
+  letter-spacing: -0.025em;
+  color: #111111;
+  white-space: pre-line;
+  line-height: 1.2;
+}
+
+.hotDealFinalPrice {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+}
+
+.hotDealFinalPriceAmount {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 120%;
+  letter-spacing: -0.025em;
+  color: #111111;
+}
+
+.hotDealFinalPriceUnit {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 120%;
+  letter-spacing: -0.025em;
+  color: #111111;
+}
+
+.hotDealMoreButton {
+  position: absolute;
+  right: 14px;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.hotDealMoreButton:hover {
+  opacity: 0.7;
+}
+
+.hotDealMoreText {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 140%;
+  letter-spacing: 0;
+  color: #111111;
+  text-align: center;
+}
+
+.hotDealMoreIcon {
+  width: 12px;
+  height: 12px;
+  object-fit: contain;
+}
+
+/* ===== 유튜브 섹션 (Pixso 디자인 기준) ===== */
+.youtubeSection {
+  width: 100%;
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 40px 16px;
+  background: #FFFFFF;
+}
+
+/* 헤더 컨테이너 */
+.youtubeHeaderContainer {
+  width: 100%;
+  max-width: 343px;
+  margin: 0 auto 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.youtubeHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 유튜브 아이콘 */
+.youtubeIconWrapper {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.youtubeIcon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+/* 제목 */
+.youtubeTitleNew {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 18px;
+  line-height: 120%;
+  letter-spacing: 0;
+  color: #111111;
+  margin: 0;
+  display: flex;
+}
+
+.youtubeTitleMedium {
+  font-weight: 500;
+}
+
+.youtubeTitleSemiBold {
+  font-weight: 600;
+}
+
+/* 전체보기 버튼 */
+.youtubeViewAllBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.youtubeViewAllBtn:hover {
+  opacity: 0.7;
+}
+
+.youtubeViewAllText {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 120%;
+  letter-spacing: 0;
+  color: #111111;
+}
+
+.youtubeViewAllIcon {
+  width: 12px;
+  height: 12px;
+  object-fit: contain;
+}
+
+/* 스크롤 컨테이너 (무한 스크롤용) */
+.youtubeScrollContainer {
+  width: 100%;
+  max-width: 343px;
+  margin: 0 auto 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scroll-behavior: smooth;
+}
+
+.youtubeScrollContainer::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* 비디오 그리드 */
+.youtubeGridNew {
+  display: flex;
+  gap: 10px;
+  width: fit-content;
+}
+
+/* 비디오 래퍼 */
+.videoWrapper {
+  width: 166px;
+  height: 99.458px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* 비디오 썸네일 */
+.videoThumbnail {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 0;
+  overflow: hidden;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.thumbnailImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnailPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1c1c1c;
+  color: #fff;
+  font-size: 14px;
+}
+
+/* 재생 버튼 오버레이 */
+.playOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.playButton {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.playButton svg {
+  width: 72px;
+  height: 72px;
+}
+
+/* 하단 인디케이터 */
+.youtubeIndicators {
+  width: 100%;
+  max-width: 343px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.youtubeIndicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #D2D2D2;
+  flex-shrink: 0;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.youtubeIndicator:hover {
+  background: #B0B0B0;
+}
+
+.youtubeIndicatorActive {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #767676;
+  flex-shrink: 0;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* ===== 출고후기 섹션 ===== */
+.reviewSection {
+  width: 100%;
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 40px 16px;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.reviewHeader {
+  width: 343px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.reviewHeaderLeft {
+  display: flex;
+  align-items: center;
+}
+
+.reviewTitle {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 120%;
+  letter-spacing: 0;
+  color: #111111;
+  margin: 0;
+}
+
+.reviewViewAllBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.reviewViewAllBtn:hover {
+  opacity: 0.7;
+}
+
+.reviewViewAllText {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 120%;
+  letter-spacing: 0;
+  color: #111111;
+}
+
+.reviewViewAllIcon {
+  width: 12px;
+  height: 12px;
+  object-fit: contain;
+}
+
+.reviewSubtitle {
+  width: 343px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 120%;
+  letter-spacing: 0;
+  color: #767676;
+  margin: 0 0 20px 0;
+}
+
+.reviewScrollContainer {
+  width: 343px;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  gap: 10px;
+  padding-bottom: 10px;
+  /* 스크롤바 숨기기 */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.reviewScrollContainer::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
+.reviewGrid {
+  display: flex;
+  gap: 10px;
+}
+
+.reviewCard {
+  flex-shrink: 0;
+  width: 150px;
+  min-height: 195px;
+  max-height: 220px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #F1F1F5;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.reviewCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(28, 28, 28, 0.08);
+}
+
+.reviewImageWrapper {
+  width: 150px;
+  height: 130px;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: #F7F7FB;
+}
+
+.reviewImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.reviewText {
+  width: 130px;
+  min-height: 45px;
+  max-height: 55px;
+  padding: 10px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 140%;
+  letter-spacing: 0;
+  color: #767676;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.reviewIndicators {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.reviewIndicator,
+.reviewIndicatorActive {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #D2D2D2;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: none;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.reviewIndicatorActive {
+  background-color: #767676;
+}
+
+/* ===== 제휴 파트너사 섹션 ===== */
+.partnerSection {
+  width: 100%;
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 40px 16px;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden; /* 가로 무한 스크롤을 위해 오버플로우 숨김 */
+}
+
+.partnerHeader {
+  width: 100%;
+  max-width: 343px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.partnerTitle {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 120%;
+  letter-spacing: 0;
+  color: #111111;
+  margin: 0;
+}
+
+.partnerSubtitle {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 120%;
+  letter-spacing: 0;
+  color: #767676;
+  margin: 0;
+}
+
+.partnerGrid {
+  display: flex;
+  gap: 24px;
+  padding-bottom: 40px;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: nowrap;
+  /* 홈과 동일한 무한 스크롤 애니메이션 */
+  animation: partner-cards-scroll-mobile 12s linear infinite;
+}
+
+.partnerCard {
+  flex-shrink: 0;
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
+.partnerLogoBox {
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  border: 1px solid #F1F1F5;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.partnerLogo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.partnerName {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 140%;
+  letter-spacing: 0;
+  color: #131313;
+  margin: 0;
+  text-align: center;
+}
+
+/* 제휴 파트너사 무한 스크롤 애니메이션
+   카드 리스트를 2배로 복제해 두었기 때문에
+   전체 폭의 -50% 만큼만 이동시키고 다시 0으로 돌아와도
+   자연스럽게 오른쪽 방향으로만 계속 흐르는 것처럼 보임 */
+@keyframes partner-cards-scroll-mobile {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ===== 푸터 ===== */
+.footer {
+  width: 100%;
+  max-width: 375px;
+  margin: 0 auto;
+  background: #F1F1F5;
+  padding: 27px 21px 30px 21px;
+}
+
+.footerContent {
+  width: 100%;
+  max-width: 334px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.footerAddress {
+  width: 100%;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 140%;
+  letter-spacing: 0;
+  color: #767676;
+  margin: 0;
+  text-align: center;
+}
+
+.footerInfo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.footerText {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 140%;
+  letter-spacing: 0;
+  color: #767676;
+  white-space: nowrap;
+}
+
+.footerBusiness {
+  width: 100%;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 140%;
+  letter-spacing: 0;
+  color: #767676;
+  margin: 0;
+  text-align: center;
+}
+
+.footerCopyright {
+  width: 100%;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 140%;
+  letter-spacing: 0;
+  color: #767676;
+  margin: 0;
+  text-align: center;
+}
+
+/* =====================
+   Event Component Styles (Final Consult Section) - item-id=1:2994
+   ===================== */
+
+/* Main Container - 375x364px */
+.finalConsultSection {
+  width: 375px;
+  height: 364px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  margin: 0 auto;
+}
+
+.finalConsultSectionYellow {
+  background-color: rgba(255, 217, 64, 1);
+}
+
+.finalConsultSectionBlue {
+  background-color: #111111;
+}
+
+/* Penguin Image - 122x185px at left:219px, top:8px */
+.consultPenguinWrapper {
+  width: 122px;
+  height: 185px;
+  position: absolute;
+  left: 219px;
+  top: 8px;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.consultPenguinImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* White Form Card - 335x212px centered at top:128px */
+.consultFormCard {
+  width: 335px;
+  height: 212px;
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  top: 128px;
+  transform: translateX(calc(-50% + 0px));
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+/* Input Fields Container - 214px at left:14px, top:14px */
+.consultInputs {
+  width: 214px;
+  height: auto;
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Individual Input Field - 214x48px */
+.consultInputField {
+  width: 214px;
+  height: 48px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  border-radius: 6px;
+  background-color: rgba(247, 247, 251, 1);
+  border: 0px solid rgba(229, 229, 236, 1);
+  box-sizing: border-box;
+}
+
+.consultTextInput {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  padding: 0 12px;
+  font-size: 16px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  line-height: 120%;
+  color: rgba(85, 85, 85, 1);
+  outline: none;
+}
+
+.consultTextInput::placeholder {
+  color: rgba(153, 153, 153, 1);
+}
+
+/* Submit Button - 83x164px at left:230px, top:14px */
+.consultSubmitBtn {
+  width: 83px;
+  height: 164px;
+  overflow: hidden;
+  position: absolute;
+  left: 230px;
+  top: 14px;
+  border-radius: 8px;
+  background-color: rgba(17, 17, 17, 1);
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.consultSubmitBtnBlue {
+  background-color: #FFD940;
+  box-shadow: 0 4px 12px rgba(255, 217, 64, 0.3);
+}
+
+.consultSubmitBtnBlue:hover {
+  opacity: 0.95;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 217, 64, 0.45);
+}
+
+.consultSubmitBtnBlue:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px rgba(255, 217, 64, 0.35);
+}
+
+.consultSubmitBtn:hover {
+  opacity: 0.95;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(17, 17, 17, 0.3);
+}
+
+.consultSubmitBtn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px rgba(17, 17, 17, 0.2);
+}
+
+/* When button is hovered, move hand up */
+.finalConsultSection:has(.consultSubmitBtn:hover) .consultHandWrapper {
+  top: 215px;
+  transform: rotate(-11.704deg) translateY(-5px);
+}
+
+/* When button is clicked, move hand up more */
+.finalConsultSection:has(.consultSubmitBtn:active) .consultHandWrapper {
+  top: 210px;
+  transform: rotate(-11.704deg) translateY(-10px);
+}
+
+.consultSubmitText {
+  font-size: 16px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  line-height: 120%;
+  color: rgba(255, 255, 255, 1);
+  text-align: center;
+}
+
+/* Privacy Checkbox - 위치 상단으로 조정 */
+.consultPrivacyWrapper {
+  width: 153px;
+  height: auto;
+  position: absolute;
+  left: 24px;
+  top: 170px;
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  align-items: center;
+}
+
+.consultCheckboxFrame {
+  width: 16px;
+  height: 16px;
+  position: relative;
+  flex-shrink: 0;
+  background-color: transparent;
+}
+
+.consultCheckboxGroup {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% + 0px)) translateY(calc(-50% + 0px));
+}
+
+.consultCheckboxRect {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% + 0px)) translateY(calc(-50% + 0px));
+  border-radius: 1px;
+  background-color: rgba(17, 17, 17, 1);
+}
+
+.consultCheckboxCheck {
+  width: 7.2px;
+  height: 4.8px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% + 0px)) translateY(calc(-50% + 0px));
+}
+
+.consultPrivacyText {
+  font-size: 0;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  text-align: right;
+  letter-spacing: -0.025em;
+  color: rgba(85, 85, 85, 1);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: nowrap;
+  flex-grow: 0;
+}
+
+.consultPrivacySpan1 {
+  font-size: 11px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  color: rgba(85, 85, 85, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.consultPrivacySpan2 {
+  font-size: 11px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  color: rgba(17, 17, 17, 1);
+  position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* Red Ribbon Badge (ri.svg) - 74.5x68.2px at left:284px, top:125px */
+.consultRibbonBadge {
+  width: 74.5px;
+  height: 68.2px;
+  position: absolute;
+  left: 284px;
+  top: 125px;
+}
+
+.consultRibbonImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Yellow Hand - 135x118px rotated -11.7deg, positioned to point at button */
+.consultHandWrapper {
+  width: 134.96px;
+  height: 117.65px;
+  position: absolute;
+  left: 268.13px;
+  top: 220px;
+  transform: rotate(-11.704deg);
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 0.15s ease, top 0.15s ease;
+  pointer-events: none;
+}
+
+.consultHandWrapper:active {
+  top: 215px;
+  transform: rotate(-11.704deg) translateY(-3px);
+}
+
+.consultHandImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Speech Bubble Group - 220x106px at left:20px, top:17px */
+.consultSpeechBubble {
+  width: 220px;
+  height: 106px;
+  position: absolute;
+  left: 12px;
+  top: 17px;
+}
+
+.consultSpeechBg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Speech Bubble Text - adjusted for new SVG with shadow */
+.consultSpeechText {
+  font-size: 0;
+  font-family: 'Pretendard', sans-serif;
+  letter-spacing: -0.5px;
+  color: rgba(0, 0, 0, 1);
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 35px;
+  top: 33px;
+  white-space: nowrap;
+  line-height: 130%;
+  flex-grow: 0;
+}
+
+.consultSpeechSpan1 {
+  font-size: 14px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  line-height: 130%;
+  color: rgba(0, 0, 0, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.consultSpeechSpan2 {
+  font-size: 16px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  line-height: 130%;
+  color: rgba(17, 17, 17, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.consultSpeechSpan3 {
+  font-size: 16px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  line-height: 130%;
+  color: rgba(17, 17, 17, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.consultSpeechSpan4 {
+  font-size: 14px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  line-height: 130%;
+  color: rgba(0, 0, 0, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Red Badge with Cart Icon - 159px at left:36px, top:76px */
+.consultRedBadge {
+  width: 159px;
+  height: auto;
+  position: absolute;
+  left: 36px;
+  top: 76px;
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background-color: rgba(255, 0, 0, 1);
+}
+
+.consultCartIcon {
+  width: 33px;
+  height: 19.24px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.consultCartIconImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.consultBadgeText {
+  font-size: 14px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  line-height: 130%;
+  color: rgba(255, 255, 255, 1);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+/* Toast 알림 */
+.toast {
+  position: fixed;
+  top: 80px; /* 헤더 아래 위치 */
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(17, 17, 17, 0.95);
+  color: #FFFFFF;
+  padding: 14px 24px;
+  border-radius: 8px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 10000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: toastSlideIn 0.3s ease-out, toastFadeOut 0.3s ease-out 0.7s forwards;
+  max-width: calc(100% - 48px);
+  text-align: center;
+  white-space: nowrap;
+}
+
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes toastFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+

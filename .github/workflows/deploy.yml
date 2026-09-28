@@ -1,0 +1,63 @@
+name: Deploy to S3
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # 원본 리액트와 동일하게 서버 시각 경계 테스트만 확인한다.
+      # 전체 lint는 원본에서 물려받은 오류 620건이 있어 게이트로 쓰지 않는다.
+      - name: Verify analytics server-clock boundary
+        run: npm test -- --runInBand src/utils/analyticsUtils.test.js
+
+      - name: Build project
+        env:
+          VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
+          VITE_COALITION_CODE: ${{ vars.VITE_COALITION_CODE }}
+        run: npm run build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ vars.AWS_REGION || 'ap-northeast-2' }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      # 해시가 붙은 정적 자산은 길게 캐시하고, index.html은 매번 재검증한다.
+      - name: Sync hashed assets to S3
+        run: |
+          aws s3 sync ./dist "s3://${{ vars.S3_BUCKET }}/" \
+            --delete \
+            --exclude "index.html" \
+            --cache-control "public, max-age=31536000, immutable"
+
+      - name: Upload index.html to S3
+        run: |
+          aws s3 cp ./dist/index.html "s3://${{ vars.S3_BUCKET }}/index.html" \
+            --cache-control "no-cache, must-revalidate"
+
+      - name: Invalidate CloudFront cache
+        if: vars.CLOUDFRONT_DISTRIBUTION_ID != ''
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --paths "/*"

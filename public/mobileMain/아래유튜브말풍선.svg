@@ -1,0 +1,37 @@
+<svg viewBox="0 0 214 84" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="214.000000" height="84.000000" fill="none" customFrame="#000000">
+	<defs>
+		<g id="pixso_custom_effect_0">
+			<effect x="4.000000" y="4.000000" visibility="visible" fill="rgb(0,0,0)" fill-opacity="0.300000012" effectType="dropShadow" stdDeviation="8" radius="4" />
+		</g>
+		<filter id="filter_0" width="214.000000" height="84.000000" x="0.000000" y="0.000000" filterUnits="userSpaceOnUse" customEffect="url(#pixso_custom_effect_0)" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix" />
+			<feColorMatrix result="hardAlpha" in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0 " />
+			<feOffset dx="4.000000" dy="4.000000" in="hardAlpha" />
+			<feMorphology radius="4" operator="dilate" />
+			<feOffset dx="0.000000" dy="0.000000" />
+			<feGaussianBlur stdDeviation="2.66666675" />
+			<feComposite k2="-1" k3="1" in2="hardAlpha" operator="out" />
+			<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0 " />
+			<feBlend result="effect_dropShadow_1" in2="BackgroundImageFix" mode="normal" />
+			<feBlend result="shape" in="SourceGraphic" in2="effect_dropShadow_1" mode="normal" />
+		</filter>
+		<g id="pixso_custom_effect_1">
+			<effect x="2.000000" y="2.000000" visibility="visible" fill="rgb(0,0,0)" fill-opacity="0.25" effectType="dropShadow" stdDeviation="4" radius="0" />
+		</g>
+		<filter id="filter_1" width="198.000000" height="68.000000" x="6.000000" y="6.000000" filterUnits="userSpaceOnUse" customEffect="url(#pixso_custom_effect_1)" color-interpolation-filters="sRGB">
+			<feFlood flood-opacity="0" result="BackgroundImageFix" />
+			<feOffset dx="2.000000" dy="2.000000" in="SourceAlpha" />
+			<feGaussianBlur stdDeviation="1.33333337" />
+			<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0 " />
+			<feBlend result="effect_dropShadow_1" in2="BackgroundImageFix" mode="normal" />
+			<feBlend result="shape" in="SourceGraphic" in2="effect_dropShadow_1" mode="normal" />
+		</filter>
+	</defs>
+	<g id="Group 177573">
+		<g id="Group 177525" filter="url(#filter_0)">
+			<g filter="url(#filter_1)">
+				<path id="Rectangle 3648" d="M31.0579 8L174.942 8C187.677 8 198 18.3234 198 31.0578C198 43.7924 187.677 54.1157 174.942 54.1157L109.076 54.1157L101.619 68L93.0581 54.1157L31.0579 54.1157C18.3234 54.1157 8 43.7924 8 31.0579C8 18.3234 18.3234 8 31.0579 8Z" fill="rgb(255,255,255)" fill-rule="nonzero" />
+			</g>
+		</g>
+	</g>
+</svg>

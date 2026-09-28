@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <!--
+      원본 리액트에 있던 Google Tag Manager, Meta Pixel, 네이버 사이트 소유확인은
+      원더굿라이프 계정 식별자라 제거했고, 이 사이트에는 외부 추적을 넣지 않기로 했다.
+      방문·상담 지표는 어드민 "제휴사 관리 > 분석"에서 자체 로그로 본다.
+    -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="icon" type="image/svg+xml" href="/logo/carstory-logo.svg" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css"
+    />
+
+    <!-- 기본 SEO: 네이버/구글/공유 썸네일에서 사용하는 정적 메타 -->
+    <title>블라인드 카스토리 | 신차 장기렌트·자동차 리스 비교견적</title>
+    <meta
+      name="description"
+      content="블라인드 카스토리 신차 장기렌트·리스 비교견적. 제휴 렌트·리스사 조건을 한 번에 비교해 보세요. 국산·수입차 전 차종 상담 가능."
+    />
+    <meta
+      name="keywords"
+      content="장기렌트, 신차장기렌트, 자동차리스, 리스, 렌트카, 장기렌트 비교견적, 자동차 리스 비교, 수입차 장기렌트, 국산차 장기렌트, 법인 장기렌트, 개인 장기렌트, 블라인드 카스토리"
+    />
+
+    <!-- 검색엔진 크롤링 명시적 허용 -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
+
+    <!-- Open Graph. 도메인이 정해지면 og:url, og:image, canonical을 추가한다. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="블라인드 카스토리" />
+    <meta
+      property="og:title"
+      content="블라인드 카스토리 | 신차 장기렌트·자동차 리스 비교견적"
+    />
+    <meta
+      property="og:description"
+      content="제휴 렌트·리스사 조건을 한 번에 비교해 보세요. 국산·수입차 전 차종 상담 가능."
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="블라인드 카스토리 | 신차 장기렌트·자동차 리스 비교견적" />
+    <meta name="twitter:description" content="제휴 렌트·리스사 조건을 한 번에 비교해 보세요." />
+  </head>
+  <body>
+    <div id="root">
+      <!-- SEO용 초기 콘텐츠 (React 로드 전까지 봇이 읽을 수 있음) -->
+      <noscript>
+        <h1>블라인드 카스토리 | 신차 장기렌트·자동차 리스 비교견적</h1>
+        <p>제휴 렌트·리스사 조건을 한 번에 비교해 보세요.</p>
+        <ul>
+          <li><a href="/carlist/domestic">국산차 장기렌트</a></li>
+          <li><a href="/carlist/imported">수입차 장기렌트</a></li>
+          <li><a href="/express-deals">재고 특가</a></li>
+          <li><a href="/review">출고후기</a></li>
+        </ul>
+        <p>연락처: 1577-8319</p>
+      </noscript>
+    </div>
+    <!-- 모달 전용 루트: React Portal 용도 -->
+    <div id="modal-root"></div>
+    <!-- 카카오 SDK는 동적으로 로드됩니다 (src/utils/kakaoAuth.js) -->
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

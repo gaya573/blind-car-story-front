@@ -1,0 +1,77 @@
+/* Breadcrumb - Pixso 디자인 스펙 */
+.breadcrumb {
+  width: 100%;
+  max-width: 1920px;
+  height: 60px;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 140%;
+  color: #212121;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: color 200ms ease;
+  white-space: nowrap;
+}
+
+.breadcrumb-item.active {
+  color: #212121;
+  font-weight: 500;
+}
+
+.breadcrumb-item:not(.active):hover {
+  color: #555555;
+}
+
+.breadcrumb-separator {
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.breadcrumb-separator svg {
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 1024px) {
+  .breadcrumb {
+    padding: 0 0 0 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .breadcrumb {
+    height: 50px;
+    padding: 0 12px;
+  }
+
+  .breadcrumb-item {
+    font-size: 14px;
+  }
+
+  .breadcrumb-separator {
+    width: 14px;
+    height: 14px;
+  }
+
+  .breadcrumb-separator svg {
+    width: 14px;
+    height: 14px;
+  }
+}

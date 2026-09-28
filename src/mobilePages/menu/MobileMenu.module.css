@@ -1,0 +1,159 @@
+.page {
+  max-width: 375px;
+  margin: 0 auto;
+  background: #FFFFFF;
+  min-height: 100vh;
+  padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+  position: relative;
+}
+
+/* Header */
+.topBar {
+  width: 100%;
+  height: 56px;
+  background: #111111;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.brand {
+  font-size: 18px;
+  font-weight: 800;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #FFFFFF;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Menu List */
+.menuList {
+  padding: 8px 0;
+}
+
+.menuItem {
+  width: 100%;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 16px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #F0F0F5;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.menuItem:hover {
+  background: #F7F7FB;
+}
+
+.menuItem:active {
+  background: #EFEFEF;
+  transform: translateY(1px);
+}
+
+.menuLabel {
+  flex: 1;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #1A1A1A;
+  display: flex;
+  align-items: center;
+
+  gap: 0;
+}
+
+.menuArrow {
+  flex-shrink: 0;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1;
+  margin-left: 10px;
+}
+
+.badgeBest {
+  background: #111111;
+  color: #FFFFFF;
+}
+
+.badgeHot {
+  background: #F72F2F;
+  color: #FFFFFF;
+}
+
+.badgeSale {
+  background: #F72F2F;
+  color: #FFFFFF;
+}
+
+.active .menuLabel {
+  color: #111111;
+  font-weight: 600;
+}
+
+.eventSection {
+  box-sizing: border-box;
+}
+
+/* Footer */
+.footer {
+.footer {
+  padding: 16px;
+  border-top: 8px solid #F7F7FB;
+  background: #FFFFFF;
+}
+
+.footerBox {
+  width: 100%;
+  background: #F7F7FB;
+  border-radius: 6px;
+  padding: 14px 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.footerRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12px;
+  font-weight: 400;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #666666;
+  line-height: 1.5;
+}
+
+.footerSpacer {
+  flex: 1 1 auto;
+}
+
+.footerDot {
+  color: #666666;
+  padding: 0 4px;
+}
+}
+

@@ -1,0 +1,44 @@
+/* Footer 메인 스타일 */
+.footer-main {
+  width: 100%;
+  background-color: var(--color-footer-bg);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-body-3);
+  padding: var(--spacing-2xl) 0;
+  font-weight: var(--font-weight-regular);
+}
+
+.footer-main-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--spacing-lg);
+}
+
+.footer-main-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  line-height: var(--line-height-base);
+}
+
+.footer-main-copyright {
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+  text-align: right;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .footer-main-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .footer-main-copyright {
+    text-align: left;
+  }
+}

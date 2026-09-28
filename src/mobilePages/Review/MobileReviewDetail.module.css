@@ -1,0 +1,180 @@
+.page { width: 100%; max-width: 375px; margin: 0 auto; }
+.container { width: 343px; margin: 0 auto; overflow-x: hidden; }
+.section { margin-top: 16px; }
+.pageTitle { font-size: 16px; font-weight: 700; color: #1c1c1c; margin: 0; }
+.reviewId { font-size: 12px; color: #767676; margin: 8px 0 0 0; }
+
+.detailCard {
+  background: #fff;
+}
+.badge { width: 46px; height: 20px; background: #f3f4f6; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #1c1c1c; }
+.nameRow { margin-top: 10px; display: flex; align-items: center; gap: 10px; }
+.name { font-size: 15px; font-weight: 700; color: #1c1c1c; }
+.rating { font-size: 14px; color: #f59e0b; display: flex; align-items: center; gap: 2px; }
+.score { font-size: 14px; font-weight: 600; color: #2d2d2d; margin-left: 6px; }
+.metaRow { margin-top: 10px; font-size: 12px; color: #767676; }
+
+.media { margin-top: 10px; display: grid; grid-template-columns: 1fr 70px; gap: 10px; }
+.mainImage { width: 100%; height: 140px; object-fit: cover; border-radius: 10px; user-select: none; }
+.thumbs { display: flex; flex-direction: column; gap: 10px; }
+.thumb { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; border: 1px solid #e5e7eb; user-select: none; }
+.moreIndicator { 
+  width: 60px; 
+  height: 60px; 
+  border-radius: 8px; 
+  border: 1px solid #e5e7eb; 
+  background: rgba(0, 0, 0, 0.6); 
+  color: #fff; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  font-size: 14px; 
+  font-weight: 700; 
+  cursor: pointer;
+  user-select: none;
+}
+
+.contentWrap { margin-top: 10px; }
+.title { font-size: 16px; font-weight: 700; color: #1c1c1c; margin: 0 0 8px 0; line-height: 1.5; }
+.subtitle { font-size: 14px; font-weight: 600; color: #585858; margin: 0 0 10px 0; line-height: 1.5; }
+.content { font-size: 13px; color: #787878; line-height: 1.6; margin: 0; white-space: pre-wrap; }
+
+.cta { margin-top: 40px; display: flex; flex-direction: column; gap: 10px; }
+.btn { width: 100%; height: 48px; border-radius: 10px; border: none; font-size: 14px; font-weight: 600; }
+.primary { background: #111111; color: #fff; }
+.secondary { background: #facc15; color: #1c1c1c; font-weight: 700; }
+
+.sectionHeader { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.sectionTitle { font-size: 14px; font-weight: 700; color: #1c1c1c; margin: 0; }
+
+.bottomSpacer { height: 64px; }
+
+/* 이미지 갤러리 모달 */
+.galleryModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.galleryHeader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent);
+}
+
+.galleryCounter {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.galleryClose {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.galleryContent {
+  position: relative;
+  width: 100%;
+  max-width: 375px;
+  height: 375px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.galleryImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  user-select: none;
+}
+
+.galleryPrev,
+.galleryNext {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.galleryPrev {
+  left: 10px;
+}
+
+.galleryNext {
+  right: 10px;
+}
+
+.galleryPrev:disabled,
+.galleryNext:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.galleryThumbs {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 8px;
+  padding: 0 20px;
+  overflow-x: auto;
+  justify-content: center;
+}
+
+.galleryThumb {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.galleryThumbActive {
+  border-color: #fff;
+  opacity: 1;
+}
+
+

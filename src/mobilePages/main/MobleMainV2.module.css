@@ -1,0 +1,5011 @@
+/* 
+  Mobile Main Page Styles - Pixel Perfect Refactoring 
+  Based on 375px width design
+*/
+
+.page {
+  max-width: 375px;
+  margin: 0 auto;
+  background: #F7F7FB;
+  min-height: 100vh;
+  padding-bottom: 80px; /* FAB/Bottom Nav ?⑤벀而?*/
+  position: relative;
+}
+
+/* === Top Bar Section === */
+.topBar {
+  width: 100%;
+  max-width: 375px;
+  height: 222px; /* Pixso ?遺우쁽???類μ넇???誘れ뵠 */
+  background: #111111; /* Pixso ?遺우쁽??獄쏄퀗瑗??*/
+  padding: 54px 16px 20px 16px; 
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Logo Text (Replaced Image) */
+.logoWrapper {
+  margin-bottom: 10px; /* Pixso ?遺우쁽?? 嚥≪뮄??? 野꺜??獄쏅벡??????揶쏄쑨爰?*/
+  height: auto;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logoText {
+  font-size: 22px; /* Pixso ?遺우쁽??*/
+  font-weight: 800; /* ExtraBold */
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #ffffff;
+  text-align: left;
+  line-height: 120%; /* Pixso ?遺우쁽??*/
+  margin: 0;
+  white-space: pre;
+}
+
+.logoIcon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* Search Bar (Custom Mobile Implementation) */
+.searchBar {
+  width: 343px;
+  height: 48px;
+  border-radius: 8px; /* Pixso ?遺우쁽?? 8px */
+  background: #111111; /* Pixso ?遺우쁽?? ?類μ넇??獄쏄퀗瑗??*/
+  display: flex;
+  align-items: center;
+  padding: 14px; /* Pixso ?遺우쁽??*/
+  box-sizing: border-box;
+  margin-bottom: 10px; /* Pixso ?遺우쁽?? 野꺜??獄쏅벡??? 筌?甕곕뜆??燁?餓?????揶쏄쑨爰?*/
+  gap: 10px; /* Pixso ?遺우쁽??*/
+  cursor: pointer;
+}
+
+.searchIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: #ffffff;
+  opacity: 1; /* ?袁⑷퍥 ?袁⑹뵠???븍뜇?억쭗?낅즲 */
+}
+
+.searchInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  font-size: 15px; /* Pixso ?遺우쁽??*/
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 120%; /* Pixso ?遺우쁽??*/
+  height: 100%;
+  padding: 0;
+}
+
+.searchInput::placeholder {
+  color: rgba(255, 255, 255, 1); /* Pixso ?遺우쁽?? ?袁⑹읈 ?븍뜇?억쭗?*/
+  font-weight: 400;
+}
+
+/* Chips Section */
+.chipScroll {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap; /* 2 rows like Pixso design */
+  column-gap: 6px; /* Pixso ?遺우쁽??*/
+  row-gap: 6px; /* Pixso ?遺우쁽?? 筌?甕곕뜆??? ??甕곕뜆??餓?????揶쏄쑨爰?*/
+}
+
+.chipScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.headerChip {
+  height: auto; /* ?癒?짗 ?誘れ뵠 */
+  padding: 4px 8px; /* Pixso ?遺우쁽??*/
+  border-radius: 100px; /* Pixso ?遺우쁽?? ?袁⑹읈??pill 筌뤴뫁堉?*/
+  background: rgba(0, 0, 0, 1); /* Pixso ?遺우쁽?? ?類μ넇??獄쏄퀗瑗??*/
+  color: #ffffff;
+  font-size: 15px; /* Pixso ?遺우쁽??*/
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400; /* Pixso ?遺우쁽??*/
+  text-align: center;
+  line-height: 120%; /* Pixso ?遺우쁽??*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.headerChip:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.05);
+}
+
+.headerChip:active {
+  transform: scale(0.98);
+}
+
+/* === Brand Grid Section (Pixso item-id=1:2372) === */
+.brandGridSection {
+  width: 100%;
+  max-width: 375px;
+  padding: 20px 16px; /* ?ル슣??16px ??ㅻ뎃??곗쨮 340px 域밸챶????類ㅺ쉐 */
+  background: #ffffff;
+  box-sizing: border-box;
+}
+
+.brandGrid {
+  width: 340px; /* Pixso ?遺우쁽?? ?類μ넇??域밸챶?????덊돩 */
+  display: grid;
+  grid-template-columns: repeat(4, 76px); /* Pixso ?遺우쁽?? ?類μ넇??燁삳?諭???덊돩 */
+  row-gap: 12px; /* Pixso ?遺우쁽??*/
+  column-gap: 12px; /* Pixso ?遺우쁽??*/
+  margin: 0 auto;
+}
+
+.brandItem {
+  width: 76px; /* Pixso ?遺우쁽??*/
+  height: 76px; /* Pixso ?遺우쁽??*/
+  background: #ffffff; /* Pixso ?遺우쁽??*/
+  border-radius: 6px; /* Pixso ?遺우쁽??*/
+  border: 1px solid #F1F1F5; /* Pixso ?遺우쁽??*/
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1); /* Pixso ?遺우쁽??*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  box-sizing: border-box;
+  padding: 8px 18px; /* Pixso ?遺우쁽?? ?怨밸릭 8px, ?ル슣??18px */
+}
+
+.brandItem:active {
+  transform: scale(0.96);
+}
+
+.brandIconBox {
+  width: 40px; /* Pixso ?遺우쁽?? ?袁⑹뵠???怨몃열 */
+  height: 40px; /* Pixso ?遺우쁽??*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-bottom: 0px; /* Pixso ?遺우쁽?? ?袁⑹뵠??獄쏅뗀以??袁⑥삋 ??용뮞??*/
+}
+
+.brandIcon {
+  width: 32px; /* 嚥≪뮄????由??곕벡??(40px -> 32px) */
+  height: 32px;
+  object-fit: contain;
+  opacity: 1;
+}
+
+.brandName {
+  width: 100%;
+  height: auto; /* ?癒?짗 ?誘れ뵠嚥?癰궰野껋?釉????용뮞??餓κ쑬而?퐛???됱뒠 */
+  min-height: 20px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 12px; /* ?怨좊뱜 ??由???꾩퍢 ?곕벡??(14px -> 12px) */
+  font-weight: 400;
+  line-height: 140%;
+  color: #111111;
+  text-align: center;
+  letter-spacing: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: normal; /* 餓κ쑬而?퐛???됱뒠 */
+  overflow: visible; /* ??살쒔???쨮????뽯뻻 */
+  word-break: keep-all; /* ??λ선 ??μ맄嚥?餓κ쑬而?퐛?*/
+}
+
+/* === Hero Banner === */
+.heroWrapper {
+  position: relative;
+  width: 375px;
+  height: 220px;
+  margin: 0 auto;
+}
+
+.sectionFull {
+  width: 100%;
+  height: 220px;
+  background: #f0f0f0;
+}
+
+/* Floating buttons on hero banner (right side) - TEMPORARILY DISABLED */
+/* .heroFloatingBtns {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 5;
+  align-items: flex-end;
+}
+
+.floatCallBtn {
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.14);
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  font-weight: 800;
+  font-size: 12px;
+  line-height: 1.05;
+  cursor: pointer;
+  padding: 0;
+}
+
+.floatCallIcon {
+  width: 18px;
+  height: 18px;
+  margin-bottom: 4px;
+}
+
+.floatTopBtn {
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.14);
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  font-weight: 800;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.floatTopArrow {
+  width: 18px;
+  height: 18px;
+  margin-bottom: 2px;
+} */
+
+/* === Info/Consult Section - Pixso Design item-id=1:2323 === */
+
+/* Main Container - 375x374px */
+.infoSectionNew {
+  width: 375px;
+  height: 374px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  margin: 0 auto;
+  background: #FFFFFF;
+}
+
+/* Phone Card - 343x100px, top: 20px */
+.phoneCard {
+  width: 343px;
+  height: 100px;
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  box-shadow: 0px 2px 30px 0px rgba(0, 0, 0, 0.16);
+  background: rgba(255, 255, 255, 1);
+}
+
+/* Penguin Image - left side */
+.phoneCardPenguin {
+  width: 76px;
+  height: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.phonePenguinImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Phone Card Content - left: 94px, top: 21px */
+.phoneCardContent {
+  width: 224px;
+  height: auto;
+  position: absolute;
+  left: 94px;
+  top: 21px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Phone Number Group - 192x42px */
+.phoneNumberGroup {
+  width: 192px;
+  height: 42px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.phoneIconWrapper {
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  position: absolute;
+  left: 0px;
+  top: 7px;
+  background-color: transparent;
+}
+
+.phoneIcon {
+  width: 83.12%;
+  height: 82.79%;
+  position: absolute;
+  left: 8.26%;
+  top: 8.5%;
+}
+
+.phoneNumber {
+  font-size: 30px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 800;
+  letter-spacing: 0em;
+  line-height: 140%;
+  color: rgba(17, 17, 17, 1);
+  margin: 0;
+  position: absolute;
+  left: 36px;
+  top: 0px;
+  white-space: pre;
+}
+
+.phoneDescription {
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0em;
+  line-height: 140%;
+  color: rgba(85, 85, 85, 1);
+  width: 100%;
+  margin: 0;
+}
+
+/* Mini Cards Grid - 343px width, top: 130px */
+.miniGridNew {
+  width: 343px;
+  position: absolute;
+  left: 50%;
+  top: 130px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: row;
+  gap: 11px;
+}
+
+/* Individual Mini Card - 166x100px */
+.miniCardNew {
+  width: 166px;
+  height: 100px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.miniCardNew:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.12);
+}
+
+.miniCardText {
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.miniCardTitle {
+  font-size: 15px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0em;
+  line-height: 140%;
+  color: rgba(17, 17, 17, 1);
+  white-space: pre;
+}
+
+.miniCardDesc {
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0em;
+  line-height: 140%;
+  color: rgba(85, 85, 85, 1);
+  white-space: pre;
+}
+
+.miniCardIcon {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  left: 100px;
+  top: 50%;
+  transform: translateY(calc(-50% + 14px));
+  object-fit: contain;
+}
+
+/* Kakao Banner - 343x114px, top: 240px */
+.kakaoBannerNew {
+  width: 343px;
+  height: 114px;
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  top: 240px;
+  transform: translateX(calc(-50% - 1px));
+  border-radius: 10px;
+  background: linear-gradient(135deg, #111111 0%, #000000 100%);
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.kakaoBannerNew:hover {
+  opacity: 0.95;
+}
+
+.kakaoTextArea {
+  width: 229px;
+  height: auto;
+  position: absolute;
+  left: 16px;
+  top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.kakaoMainText {
+  font-size: 18px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0em;
+  line-height: 120%;
+  color: rgba(255, 255, 255, 1);
+}
+
+.kakaoSubText {
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0em;
+  line-height: 120%;
+  color: rgba(255, 255, 255, 1);
+}
+
+.kakaoPenguinArea {
+  width: 96.73px;
+  height: 127.68px;
+  position: absolute;
+  left: 236px;
+  top: 15px;
+}
+
+.kakaoPenguinImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.kakaoButtonArea {
+  width: 217px;
+  height: 78px;
+  position: absolute;
+  left: 16px;
+  top: 59px;
+}
+
+.kakaoImageButton {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.kakaoButtonImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* OLD STYLES - Keep for backwards compatibility */
+.infoSection {
+  padding: 24px 16px 10px 16px;
+  background: #FFFFFF;
+}
+
+/* === Kakao Banner Section (SVG Image) === */
+.kakaoSection {
+  margin: 0 16px 24px 16px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kakaoButtonImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+}
+
+.consultHero {
+  width: 343px;
+  height: 100px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(28, 28, 28, 0.14);
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  box-sizing: border-box;
+  margin-bottom: 12px;
+}
+
+.heroImageWrap {
+  width: 84px;
+  height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 14px;
+}
+
+.heroImage {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+}
+
+.consultContent {
+  flex: 1;
+}
+
+.heroTitle {
+  font-size: 24px;
+  font-weight: 800;
+  color: #111;
+  margin: 0 0 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.callImage {
+  width: 20px;
+  height: 20px;
+}
+
+.heroSub {
+  font-size: 12px;
+  color: #787878;
+}
+
+/* Mini Grid (Inventory / Hot Deal) */
+.miniGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 11px;
+}
+
+.miniCardReal {
+  height: 100px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(28, 28, 28, 0.10);
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.miniTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 6px;
+}
+
+.miniDesc {
+  font-size: 10px;
+  color: #787878;
+  line-height: 1.4;
+}
+
+.miniImage {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+/* === Closing Soon - Pixso Design item-id=1:2916 === */
+.closingSection {
+  width: 100%;
+  background: #FFFFFF;
+  overflow: hidden;
+  padding: 20px 0;
+}
+
+.closingContainer {
+  width: 342px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Header Area - 222px width */
+.closingHeaderNew {
+  width: 115px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.closingIconWrapper {
+  width: 30px;
+  height: 26px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.closingIconNew {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.closingTitleNew {
+  font-size: 22px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0em;
+  line-height: 120%;
+  color: rgba(17, 17, 17, 1);
+  margin: 0;
+}
+
+/* Subtitle */
+.closingSubtitleNew {
+  font-size: 14px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0em;
+  line-height: 120%;
+  color: rgba(17, 17, 17, 1);
+  margin: 0;
+}
+
+/* Countdown Timer - 269px width */
+.countdownNew {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.timerGroup {
+  width: 59px;
+  height: 40px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.timerBox {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 4px;
+  box-shadow: 0px 10px 20px 0px rgba(103, 110, 118, 0.08), 0px 5px 10px 0px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.timerNum {
+  font-size: 20px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: 0em;
+  line-height: 120%;
+  color: rgba(17, 17, 17, 1);
+}
+
+.timerLabel {
+  font-size: 14px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0em;
+  line-height: 120%;
+  color: rgba(17, 17, 17, 1);
+  position: absolute;
+  left: 46px;
+  top: 23px;
+}
+
+/* Car Cards Grid - 342px width */
+.cardsGrid {
+  width: 342px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Individual Car Card - 166x258px */
+.carCard {
+  width: 166px;
+  height: 258px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 12px rgba(28, 28, 28, 0.08);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.carCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(28, 28, 28, 0.12);
+}
+
+/* Car Image - 166x82px at top:26px */
+.carImageWrapper {
+  width: 166px;
+  height: 82px;
+  position: absolute;
+  left: 0px;
+  top: 26px;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Brand Logo - top-left: 10px, 7px */
+.brandLogo {
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  position: absolute;
+  left: 10px;
+  top: 7px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 4px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brandLogoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Consult Button - 146x34px at bottom */
+.consultButton {
+  width: 146px;
+  height: 34px;
+  overflow: hidden;
+  position: absolute;
+  left: 10px;
+  top: 214px;
+  border-radius: 4px;
+  background: rgba(17, 17, 17, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.consultButtonText {
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: -0.025em;
+  line-height: 120%;
+  color: rgba(255, 255, 255, 1);
+}
+
+/* Car Info - 146px width at top:110px */
+.carInfo {
+  width: 146px;
+  position: absolute;
+  left: 10px;
+  top: 110px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.carName {
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 120%;
+  color: rgba(17, 17, 17, 1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.carTrim {
+  font-size: 11px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 140%;
+  color: rgba(85, 85, 85, 1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+}
+
+/* Rental Label - at top:186px */
+.rentalLabel {
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 120%;
+  color: rgba(33, 33, 33, 1);
+  position: absolute;
+  left: 10px;
+  top: 186px;
+}
+
+/* Price Row - 146px width at top:151px */
+.priceRow {
+  width: 146px;
+  position: absolute;
+  left: 10px;
+  top: 151px;
+  display: flex;
+  flex-direction: row;
+  gap: 31px;
+  align-items: center;
+}
+
+.priceLabel {
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 120%;
+  color: rgba(33, 33, 33, 1);
+  min-width: 55px;
+  flex-shrink: 0;
+}
+
+.priceValue {
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  text-align: right;
+  letter-spacing: -0.025em;
+  line-height: 120%;
+  color: rgba(17, 17, 17, 1);
+}
+
+.priceAmount {
+  font-weight: 400;
+}
+
+.priceUnit {
+  font-weight: 600;
+}
+
+/* Discount Badge - 52px at top:8px, right:8px (10px ??삘뀲筌???猷? */
+.discountBadge {
+  width: 52px;
+  height: auto;
+  position: absolute;
+  left: 104px;
+  top: 8px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  padding: 2px 4px;
+  border-radius: 4px;
+  background: rgba(255, 217, 64, 1);
+}
+
+.discountText {
+  font-size: 11px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  text-align: right;
+  letter-spacing: -0.025em;
+  line-height: 120%;
+  color: rgba(255, 61, 38, 1);
+}
+
+/* Final Price - 83px width at top:169px */
+.finalPriceWrapper {
+  width: 83px;
+  position: absolute;
+  left: 73px;
+  top: 169px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.originalPriceStrike {
+  width: 54px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.strikeText {
+  font-size: 11px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  text-align: right;
+  letter-spacing: -0.025em;
+  line-height: 120%;
+  color: rgba(85, 85, 85, 1);
+}
+
+.strikeLine {
+  width: 54px;
+  height: 0px;
+  border-top: 0.3125px solid rgba(85, 85, 85, 1);
+  position: absolute;
+  left: 0;
+  top: 6.5px;
+}
+
+.finalPrice {
+  font-size: 16px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  text-align: right;
+  letter-spacing: -0.025em;
+  line-height: 120%;
+  width: 100%;
+}
+
+.finalPriceNum {
+  color: rgba(17, 17, 17, 1);
+}
+
+.finalPriceUnit {
+  font-weight: 400;
+  color: rgba(17, 17, 17, 1);
+}
+
+/* OLD STYLES - Keep for backwards compatibility if needed */
+.closingHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.closingIcon { width: 24px; height: 24px; }
+.closingTitle { font-size: 22px; font-weight: 800; color: #111; margin: 0; }
+.closingSubtitle { text-align: center; color: #666; font-size: 14px; margin: 0 0 14px; }
+.countdown { display: flex; justify-content: center; gap: 12px; margin-bottom: 16px; }
+.cdItem { display: flex; align-items: center; gap: 4px; }
+.cdNum {
+  width: 40px; height: 40px; background: #fff; border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(28, 28, 28, 0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; color: #111;
+}
+.cdUnit { font-size: 12px; color: #333; }
+.closingGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.closingCard { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(28, 28, 28, 0.08); }
+.closingImage { width: 100%; height: 110px; background: #f5f7fa; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+.closingImage img { width: 100%; height: 100%; object-fit: cover; }
+.closingDiscountBadge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  height: 20px;
+  padding: 0 8px;
+  border-radius: 10px;
+  background: #FFD600;
+  color: #111;
+  font-size: 11px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.closingName { font-size: 13px; font-weight: 700; padding: 12px 12px 0 12px; color: #222; height: 40px; overflow: hidden; }
+.closingTrim { font-size: 11px; color: #666; padding: 4px 12px 6px; }
+.closingPriceBox { padding: 0 12px 10px; }
+.closingOriginalPrice { font-size: 11px; color: #a6a6a6; margin-bottom: 4px; }
+.closingStrike { text-decoration: line-through; }
+.closingRentalRow { font-size: 12px; font-weight: 800; color: #111; }
+.closingRentalHighlight { color: #000000; }
+.closingBtn { 
+  display: block; width: calc(100% - 24px); margin: 0 12px 12px; height: 36px;
+  background: #111111; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 12px;
+}
+
+
+/* === Reviews (?곗뮄??袁㏓┛) === */
+.section24 { 
+  padding: 24px 16px; 
+  background: #F7F7FB;
+}
+
+.reviewsHeader { 
+  font-size: 18px; 
+  font-weight: 500; 
+  font-family: 'Pretendard', sans-serif;
+  color: #111111;
+  margin: 0 0 4px 0; 
+  line-height: 120%;
+}
+
+.reviewsSub { 
+  font-size: 12px; 
+  font-weight: 400;
+  font-family: 'Pretendard', sans-serif;
+  color: #555555;
+  margin: 0 0 20px 0;
+  line-height: 120%;
+}
+
+.reviewsBox { 
+  background: #fff; 
+  border-radius: 8px; 
+  padding: 14px;
+  border: 1px solid #F1F1F5;
+}
+
+.reviewCard {
+  padding: 10px 0;
+  border-bottom: 1px solid #E5E5EC;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.reviewCard:hover {
+  opacity: 0.8;
+}
+
+.reviewCard:first-of-type {
+  padding-top: 0;
+}
+
+.reviewCard:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.reviewCardInner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.reviewCarImage {
+  width: 60px;
+  height: 60px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #F7F7FB;
+  flex-shrink: 0;
+}
+
+.reviewCarImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reviewContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.reviewHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.reviewTag {
+  height: 20px;
+  padding: 2px 4px;
+  border: 1px solid #E5E5EC;
+  border-radius: 2px;
+  font-size: 11px;
+  font-weight: 400;
+  font-family: 'Pretendard', sans-serif;
+  color: #111111;
+  line-height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -0.025em;
+}
+
+.reviewRating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.reviewStars {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.reviewRatingText {
+  font-size: 13px;
+  font-weight: 400;
+  font-family: 'Pretendard', sans-serif;
+  color: #111111;
+  line-height: 18px;
+}
+
+.reviewTitle {
+  font-size: 12px;
+  font-weight: 500;
+  font-family: 'Pretendard', sans-serif;
+  color: #111111;
+  line-height: 16px;
+  letter-spacing: -0.025em;
+}
+
+.reviewText {
+  font-size: 10px;
+  font-weight: 400;
+  font-family: 'Pretendard', sans-serif;
+  color: #111111;
+  line-height: 16px;
+  letter-spacing: -0.025em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.reviewsCTA { 
+  margin-top: 20px;
+  text-align: center; 
+}
+
+.reviewsCTA button { 
+  width: 210px;
+  height: 40px;
+  background: #111111;
+  color: #fff; 
+  border: none; 
+  border-radius: 6px; 
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'Pretendard', sans-serif;
+  line-height: 120%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reviewsCTA button:hover {
+  background: #000000;
+}
+
+.reviewsCTA button:active {
+  transform: scale(0.98);
+}
+
+.empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #999;
+  font-size: 14px;
+}
+
+/* =====================
+   YouTube (Mobile) - Pixso Design item-id=1:2390
+   ===================== */
+
+/* Main Container - 375x230px */
+.youtubeSection {
+  width: 375px;
+  height: 230px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 1);
+  margin: 0 auto;
+}
+
+/* Header Area - centered, top: 20px */
+.youtubeHeaderNew {
+  width: 173px;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: center;
+}
+
+/* YouTube Icon - 24x24px */
+.youtubeIconWrapper {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.youtubeIcon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Title Text - 18px */
+.youtubeTitleNew {
+  font-size: 18px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0em;
+  margin: 0;
+  white-space: nowrap;
+  color: rgba(17, 17, 17, 1);
+}
+
+.youtubeTitleBold {
+  font-weight: 600;
+}
+
+.youtubeTitleNormal {
+  font-weight: 500;
+}
+
+/* Video Grid - 342px width, top: 56px */
+.youtubeGridNew {
+  width: 342px;
+  height: auto;
+  position: absolute;
+  left: 16px;
+  top: 56px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Video Wrapper */
+.videoWrapper {
+  width: 166px;
+  height: 94px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Video Thumbnail - 166x94px rectangle */
+.videoThumbnail {
+  width: 166px;
+  height: 94px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: #1c1c1c;
+}
+
+.thumbnailImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.thumbnailPlaceholder {
+  width: 100%;
+  height: 100%;
+  background: #1c1c1c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 12px;
+}
+
+/* Play Button Overlay - centered */
+.playOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+}
+
+.playButton {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Bottom Button - 210x40px, top: 170px */
+.youtubeButtonWrapper {
+  width: 210px;
+  height: 40px;
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  top: 170px;
+  transform: translateX(calc(-50% - 5.5px));
+  border-radius: 6px;
+}
+
+.youtubeButtonNew {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 6px;
+  background: rgba(255, 217, 64, 1);
+  color: rgba(17, 17, 17, 1);
+  font-size: 13px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: 0em;
+  line-height: 120%;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.youtubeButtonNew:hover {
+  opacity: 0.9;
+}
+
+/* OLD STYLES - Keep for backwards compatibility */
+.sectionWhite { background: #fff; padding: 24px 16px; }
+.youtubeHeader { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; justify-content: center; }
+.youtubeTitle { font-size: 18px; font-weight: 800; color: #111; margin: 0; text-align: center; }
+.youtubeGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.youtubeCard { position: relative; border-radius: 8px; overflow: hidden; background: #1c1c1c; }
+.youtubeCTA { margin-top: 14px; text-align: center; }
+.youtubeButton { width: 240px; height: 44px; border: none; border-radius: 10px; background: #FFD600; color: #111; font-weight: 800; }
+
+/* =====================
+   Special Deal Section
+   ===================== */
+.specialDealSection {
+  padding: 0 0 48px 0;
+  background: #111111;
+}
+
+.dealCard {
+  max-width: 375px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 18px 0 0;
+}
+
+.dealCopyTop {
+  padding: 0 20px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.highlightPill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: #FFD600;
+  color: #111111;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.dealTitle {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 150%;
+  margin: 6px 0 0;
+}
+
+.dealCarCard {
+  margin: 0 16px;
+  background: #f6efd8;
+  border-radius: 12px;
+  padding: 16px 16px 14px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.dealCarImageWrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dealCarImage {
+  width: 240px;
+  height: 132px;
+  object-fit: contain;
+}
+
+.dealModelMeta {
+  text-align: center;
+  color: #111111;
+}
+
+.dealCarName {
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 140%;
+  margin-bottom: 4px;
+}
+
+.dealCarDetails {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1c1c1c;
+  opacity: 0.88;
+}
+
+.dealBulletBox {
+  margin: 0 16px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  line-height: 150%;
+  font-size: 12px;
+  color: #111111;
+  letter-spacing: -0.01em;
+}
+
+.dealHandIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.dealBulletEm {
+  color: #ffb400;
+  font-weight: 800;
+}
+
+.dealTableCard {
+  margin: 0 16px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 14px 14px 10px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+}
+
+.dealTableHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.dealTableTitle {
+  font-size: 14px;
+  font-weight: 800;
+  color: #111111;
+}
+
+.dealTableSub {
+  font-size: 11px;
+  color: #444444;
+}
+
+.dealTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 8px;
+  font-family: 'Pretendard', sans-serif;
+}
+
+.dealTable th {
+  background: #F1F1F5;
+  color: #333333;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 8px 4px;
+  text-align: center;
+  border: 1px solid #E5E5EC;
+}
+
+.dealTable td {
+  font-size: 11px;
+  font-weight: 500;
+  color: #111111;
+  padding: 8px 4px;
+  text-align: center;
+  border: 1px solid #E5E5EC;
+  background: #ffffff;
+}
+
+.dealTable .rateCell {
+  font-weight: 800;
+  color: #111111;
+}
+
+.dealTableNote {
+  font-size: 10px;
+  font-weight: 400;
+  color: #787878;
+  text-align: center;
+  line-height: 140%;
+}
+
+.dealCtaBanner {
+  margin: 0 16px;
+  background: #000000;
+  border-radius: 12px;
+  padding: 18px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  color: #ffffff;
+}
+
+.dealCtaText {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 150%;
+}
+
+.dealCtaHighlight {
+  font-size: 26px;
+  font-weight: 900;
+  color: #FFD600;
+}
+
+.dealPenguin {
+  width: 140px;
+  height: auto;
+  margin-left: 10px;
+}
+
+/* =====================
+   PIXSO EXACT STYLES - item-id=1:2412
+   ===================== */
+
+/* Main Container - 375px, auto height */
+.pixsoFrame1_2412 {
+  width: 375px;
+  min-height: 1200px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  background-color: rgba(17, 17, 17, 1);
+  margin: 0 auto;
+  padding-bottom: 20px;
+}
+
+/* Top Group with Yellow Highlight - left: 68px, top: 36px */
+.pixsoGroup1_2414 {
+  width: 240px;
+  height: 34px;
+  position: absolute;
+  left: 68px;
+  top: 36px;
+}
+
+/* Yellow Rectangle - 117x34px */
+.pixsoRectangle1_2415 {
+  width: 117px;
+  height: 34px;
+  position: absolute;
+  left: 123px;
+  top: 0px;
+  background-color: rgba(255, 217, 64, 1);
+}
+
+/* Text "?癒?쐭?댁슜???꾨늄??餓λ쵌而??ｍ???곸뵠," - 20px/600 */
+.pixsoText1_2416 {
+  font-size: 0;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0em;
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 4px;
+  transform: translateX(calc(-50% + 0px));
+  white-space: nowrap;
+  flex-grow: 0;
+}
+
+.pixsoSpan1_2416_1 {
+  font-size: 20px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.pixsoSpan1_2416_2 {
+  font-size: 20px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  color: rgba(17, 17, 17, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Main Title "?⑤벊???諭곷솇 ??쀪문??域밸챶?嚥???볥궗??몃빍??" - 24px/700, top: 72px */
+.pixsoText1_2413 {
+  font-size: 24px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0em;
+  line-height: 139.9999976158142%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 72px;
+  transform: translateX(calc(-50% + 0px));
+  white-space: pre;
+  flex-grow: 0;
+  color: rgba(255, 255, 255, 1);
+}
+
+/* Yellow Underline - 343x6px, top: 111px */
+.pixsoVector1_2417 {
+  width: 343px;
+  height: 6px;
+  background: rgba(255, 217, 64, 1);
+  position: absolute;
+  left: 15px;
+  top: 111px;
+}
+
+/* Car Image Container - 342x177px, top: 162px */
+.pixsoRectangle1_2418 {
+  width: 342px;
+  height: 177px;
+  position: absolute;
+  left: 50%;
+  top: 162px;
+  transform: translateX(calc(-50% + -16.5px));
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pixsoRectangle1_2418 img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Car Info Card - 278x62px, top: 339px */
+.pixsoFrame1_2419 {
+  width: 278px;
+  height: 62px;
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  top: 339px;
+  transform: translateX(calc(-50% + 0.5px));
+  border-radius: 10px 10px 10px 10px;
+  background-color: rgba(255, 255, 255, 0.8999999761581421);
+}
+
+.pixsoFrame1_2420 {
+  width: 230px;
+  height: auto;
+  position: absolute;
+  left: 24px;
+  top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Car Title - 16px/700 */
+.pixsoText1_2421 {
+  font-size: 16px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 0em;
+  line-height: 120.00000476837158%;
+  width: 100%;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  flex-grow: 0;
+  color: rgba(17, 17, 17, 1);
+}
+
+/* Car Details - 16px/400 */
+.pixsoText1_2422 {
+  font-size: 16px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 0em;
+  line-height: 120.00000476837158%;
+  width: 100%;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  flex-grow: 0;
+  color: rgba(17, 17, 17, 1);
+}
+
+/* Description Text on Blue Background */
+.descriptionText {
+  position: absolute;
+  left: 50%;
+  top: 437px;
+  transform: translateX(-50%);
+  width: 343px;
+  text-align: center;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.descriptionText p {
+  margin: 0 0 6px 0;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 300;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+  line-height: 150%;
+}
+
+.descriptionText p:last-child {
+  margin-bottom: 0;
+}
+
+.boldText {
+  font-weight: 600;
+}
+
+.normalText {
+  font-weight: 300;
+}
+
+.boldParagraph {
+  font-weight: 600 !important;
+  font-size: 13px !important;
+}
+
+.lastParagraph {
+  font-size: 13px !important;
+  font-weight: 300;
+}
+
+.yellowHighlight {
+  background: rgba(255, 217, 64, 1);
+  color: #111111;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 0;
+  display: inline-block;
+}
+
+/* Capital Company Logo */
+.capitalLogo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  margin-right: 4px;
+}
+
+/* Table Container - 354px, left: 10.5px, top: 580px (adjusted) */
+.pixsoFrame1_2426 {
+  width: 354px;
+  height: auto;
+  position: absolute;
+  left: 10.5px;
+  top: 580px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+}
+
+.pixsoFrame1_2427 {
+  width: 100%;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header Row */
+.pixsoFrame1_2428 {
+  width: 100%;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/* Cell Styles */
+.pixsoFrame1_2429 {
+  width: 63px;
+  height: 45px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  border-radius: 16px 0px 0px 0px;
+  border-width: 0px 0px 1px 0px;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: rgba(204, 204, 204, 1);
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.pixsoFrame1_2430 {
+  width: 74px;
+  height: 45px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  border-width: 0px 0px 1px 1px;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: rgba(204, 204, 204, 1);
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.pixsoFrame1_2431 {
+  width: 65px;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% + 0px)) translateY(calc(-50% + 0.5px));
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.pixsoRectangle1_2432 {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  flex-shrink: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.pixsoText1_2433 {
+  font-size: 11px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 0em;
+  line-height: 120.00000476837158%;
+  color: rgba(17, 17, 17, 1);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.pixsoFrame1_2434 {
+  width: 71px;
+  height: 45px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  border-width: 0px 0px 1px 1px;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: rgba(204, 204, 204, 1);
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.pixsoFrame1_2435 {
+  width: 68px;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% + 0px)) translateY(calc(-50% + 0.5px));
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.pixsoRectangle1_2436 {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  flex-shrink: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.pixsoText1_2437 {
+  font-size: 11px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 0em;
+  line-height: 120.00000476837158%;
+  color: rgba(227, 27, 14, 1);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.pixsoFrame1_2438 {
+  width: 73px;
+  height: 45px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  border-width: 0px 0px 1px 1px;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: rgba(204, 204, 204, 1);
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.pixsoFrame1_2439 {
+  width: 59px;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% + 0.5px)) translateY(calc(-50% + 0.5px));
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.pixsoRectangle1_2440 {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  flex-shrink: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.pixsoText1_2441 {
+  font-size: 11px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 0em;
+  line-height: 120.00000476837158%;
+  color: rgba(17, 17, 17, 1);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.pixsoFrame1_2442 {
+  width: 73px;
+  height: 45px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  border-width: 0px 0px 1px 1px;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: rgba(204, 204, 204, 1);
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.pixsoFrame1_2443 {
+  width: 61px;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% + 0.5px)) translateY(calc(-50% + 0.5px));
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.pixsoRectangle1_2444 {
+  width: 32px;
+  height: 32px;
+  position: relative;
+  flex-shrink: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.pixsoText1_2445 {
+  font-size: 11px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 0em;
+  line-height: 120.00000476837158%;
+  color: rgba(85, 85, 85, 1);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+/* Data Row 1 */
+.pixsoFrame1_2446 {
+  width: 100%;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.pixsoFrame1_2447 {
+  width: 63px;
+  height: 73px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  border-width: 0px 0px 1px 0px;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: rgba(204, 204, 204, 1);
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.pixsoFrame1_2448 {
+  width: 58px;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% + 0px)) translateY(calc(-50% + 0px));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.pixsoText1_2449 {
+  font-size: 12px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 0em;
+  line-height: 120.00000476837158%;
+  color: rgba(0, 0, 0, 1);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.pixsoText1_2450 {
+  font-size: 0;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 800;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 0em;
+  color: rgba(0, 0, 0, 1);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: nowrap;
+  flex-grow: 0;
+}
+
+.pixsoSpan1_2450_1 {
+  font-size: 13px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.pixsoSpan1_2450_2 {
+  font-size: 20px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  color: rgba(17, 17, 17, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.pixsoVector1_2451 {
+  width: 67px;
+  height: 46px;
+  background: transparent;
+  position: absolute;
+  left: 96px;
+  top: 24px;
+}
+
+.pixsoFrame1_2452 {
+  width: 74px;
+  height: 73px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  border-width: 0px 0px 1px 1px;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: rgba(204, 204, 204, 1);
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.pixsoText1_2453 {
+  font-size: 16px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 0em;
+  line-height: 120.00000476837158%;
+  color: rgba(17, 17, 17, 1);
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% + 0px)) translateY(calc(-50% + 0.5px));
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.pixsoFrame1_2454 {
+  width: 71px;
+  height: 73px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  border-width: 0px 0px 1px 1px;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: rgba(204, 204, 204, 1);
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.pixsoText1_2455 {
+  font-size: 16px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 0em;
+  line-height: 120.00000476837158%;
+  color: rgba(51, 51, 51, 1);
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% + 0.5px)) translateY(calc(-50% + 0.5px));
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.pixsoFrame1_2456 {
+  width: 73px;
+  height: 73px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  border-width: 0px 0px 1px 1px;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: rgba(204, 204, 204, 1);
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.pixsoText1_2457 {
+  font-size: 16px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 0em;
+  line-height: 120.00000476837158%;
+  color: rgba(51, 51, 51, 1);
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% + 0px)) translateY(calc(-50% + 0.5px));
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.pixsoFrame1_2458 {
+  width: 73px;
+  height: 73px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  border-width: 0px 0px 1px 1px;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: rgba(204, 204, 204, 1);
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.pixsoText1_2459 {
+  font-size: 16px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 0em;
+  line-height: 120.00000476837158%;
+  color: rgba(51, 51, 51, 1);
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% + 0.5px)) translateY(calc(-50% + 0.5px));
+  white-space: pre;
+  flex-grow: 0;
+}
+
+/* Data Row 2 */
+.pixsoFrame1_2460 {
+  width: 100%;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.pixsoFrame1_2461 {
+  width: 63px;
+  height: 73px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  border-width: 0px 0px 1px 0px;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: rgba(204, 204, 204, 1);
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.pixsoFrame1_2462 {
+  width: 44px;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% + 0px)) translateY(calc(-50% + 1px));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.pixsoText1_2463 {
+  font-size: 12px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 0em;
+  line-height: 120.00000476837158%;
+  color: rgba(0, 0, 0, 1);
+  width: 100%;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.pixsoText1_2464 {
+  font-size: 0;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 0em;
+  color: rgba(0, 0, 0, 1);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: nowrap;
+  flex-grow: 0;
+}
+
+.pixsoSpan1_2464_1 {
+  font-size: 13px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.pixsoSpan1_2464_2 {
+  font-size: 18px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.pixsoFrame1_2465 {
+  width: 74px;
+  height: 73px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  border-width: 0px 0px 1px 1px;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: rgba(204, 204, 204, 1);
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.pixsoText1_2466 {
+  font-size: 16px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 0em;
+  line-height: 120.00000476837158%;
+  color: rgba(51, 51, 51, 1);
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% + 0px)) translateY(calc(-50% + 0.5px));
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.pixsoFrame1_2467 {
+  width: 71px;
+  height: 73px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  border-width: 0px 0px 1px 1px;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: rgba(204, 204, 204, 1);
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.pixsoText1_2468 {
+  font-size: 16px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 0em;
+  line-height: 120.00000476837158%;
+  color: rgba(51, 51, 51, 1);
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% + 0px)) translateY(calc(-50% + 0.5px));
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.pixsoFrame1_2469 {
+  width: 73px;
+  height: 73px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  border-width: 0px 0px 1px 1px;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: rgba(204, 204, 204, 1);
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.pixsoText1_2470 {
+  font-size: 16px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 0em;
+  line-height: 120.00000476837158%;
+  color: rgba(51, 51, 51, 1);
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% + 0.5px)) translateY(calc(-50% + 0.5px));
+  white-space: pre;
+  flex-grow: 0;
+}
+
+.pixsoFrame1_2471 {
+  width: 73px;
+  height: 73px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  border-width: 0px 0px 1px 1px;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: rgba(204, 204, 204, 1);
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.pixsoText1_2472 {
+  font-size: 16px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 0em;
+  line-height: 120.00000476837158%;
+  color: rgba(51, 51, 51, 1);
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% + 0px)) translateY(calc(-50% + 0.5px));
+  white-space: pre;
+  flex-grow: 0;
+}
+
+/* Table Footer Note */
+.pixsoText1_2473 {
+  font-size: 10px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 0em;
+  line-height: 120.00000476837158%;
+  color: rgba(255, 255, 255, 1);
+  width: 100%;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+/* Penguin Image - 262x368px, top: 940px (adjusted) */
+.pixsoRectangle1_2474 {
+  width: 262px;
+  height: 368px;
+  position: absolute;
+  left: 50%;
+  top: 940px;
+  transform: translateX(calc(-50% + 0.5px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pixsoRectangle1_2474 img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Bottom CTA - top: 840px (adjusted) */
+.pixsoFrame1_2475 {
+  width: 333px;
+  height: auto;
+  position: absolute;
+  left: 25px;
+  top: 840px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+
+/* CTA Text - 18px/600 */
+.pixsoText1_2476 {
+  font-size: 18px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 0em;
+  line-height: 120.00000476837158%;
+  color: rgba(255, 255, 255, 1);
+  width: 100%;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+/* CTA Highlight - 40px/900 */
+.pixsoText1_2477 {
+  font-size: 40px;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 900;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 0em;
+  line-height: 120.00000476837158%;
+  color: rgba(255, 217, 64, 1);
+  width: 100%;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+/* =====================
+   PIXSO Final Consult Section - item-id=1:2994 - PIXEL PERFECT
+   ===================== */
+
+/* Main Container - 375x364px */
+.finalConsultSection {
+  width: 375px;
+  height: 364px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  margin: 0 auto;
+}
+
+.finalConsultSectionYellow {
+  background-color: rgba(255, 217, 64, 1);
+}
+
+.finalConsultSectionBlue {
+  background-color: #111111;
+}
+
+/* Penguin Image - 122x185px at left:219px, top:8px */
+.consultPenguinWrapper {
+  width: 122px;
+  height: 185px;
+  position: absolute;
+  left: 219px;
+  top: 8px;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.consultPenguinImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* White Form Card - 335x212px centered at top:128px */
+.consultFormCard {
+  width: 335px;
+  height: 212px;
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  top: 128px;
+  transform: translateX(calc(-50% + 0px));
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+/* Input Fields Container - 214px at left:14px, top:14px */
+.consultInputs {
+  width: 214px;
+  height: auto;
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Individual Input Field - 214x48px */
+.consultInputField {
+  width: 214px;
+  height: 48px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  border-radius: 6px;
+  background-color: rgba(247, 247, 251, 1);
+  border: 0px solid rgba(229, 229, 236, 1);
+  box-sizing: border-box;
+}
+
+.consultTextInput {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  padding: 0 12px;
+  font-size: 16px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  line-height: 120%;
+  color: rgba(85, 85, 85, 1);
+  outline: none;
+}
+
+.consultTextInput::placeholder {
+  color: rgba(153, 153, 153, 1);
+}
+
+/* Submit Button - 83x164px at left:230px, top:14px */
+.consultSubmitBtn {
+  width: 83px;
+  height: 164px;
+  overflow: hidden;
+  position: absolute;
+  left: 230px;
+  top: 14px;
+  border-radius: 8px;
+  background-color: rgba(17, 17, 17, 1);
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.consultSubmitBtnBlue {
+  background-color: #FFD940;
+  box-shadow: 0 4px 12px rgba(255, 217, 64, 0.3);
+}
+
+.consultSubmitBtnBlue:hover {
+  opacity: 0.95;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 217, 64, 0.45);
+}
+
+.consultSubmitBtnBlue:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px rgba(255, 217, 64, 0.35);
+}
+
+.consultSubmitBtn:hover {
+  opacity: 0.95;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(17, 17, 17, 0.3);
+}
+
+.consultSubmitBtn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px rgba(17, 17, 17, 0.2);
+}
+
+/* When button is hovered, move hand up */
+.finalConsultSection:has(.consultSubmitBtn:hover) .consultHandWrapper {
+  top: 215px;
+  transform: rotate(-11.704deg) translateY(-5px);
+}
+
+/* When button is clicked, move hand up more */
+.finalConsultSection:has(.consultSubmitBtn:active) .consultHandWrapper {
+  top: 210px;
+  transform: rotate(-11.704deg) translateY(-10px);
+}
+
+.consultSubmitText {
+  font-size: 16px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  line-height: 120%;
+  color: rgba(255, 255, 255, 1);
+  text-align: center;
+}
+
+/* Privacy Checkbox - 위치 상단으로 조정 */
+.consultPrivacyWrapper {
+  width: 153px;
+  height: auto;
+  position: absolute;
+  left: 24px;
+  top: 170px;
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  align-items: center;
+}
+
+.consultCheckboxFrame {
+  width: 16px;
+  height: 16px;
+  position: relative;
+  flex-shrink: 0;
+  background-color: transparent;
+}
+
+.consultCheckboxGroup {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% + 0px)) translateY(calc(-50% + 0px));
+}
+
+.consultCheckboxRect {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% + 0px)) translateY(calc(-50% + 0px));
+  border-radius: 1px;
+  background-color: rgba(17, 17, 17, 1);
+}
+
+.consultCheckboxCheck {
+  width: 7.2px;
+  height: 4.8px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(calc(-50% + 0px)) translateY(calc(-50% + 0px));
+}
+
+.consultPrivacyText {
+  font-size: 0;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  text-align: right;
+  letter-spacing: -0.025em;
+  color: rgba(85, 85, 85, 1);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: nowrap;
+  flex-grow: 0;
+}
+
+.consultPrivacySpan1 {
+  font-size: 11px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  color: rgba(85, 85, 85, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.consultPrivacySpan2 {
+  font-size: 11px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  color: rgba(17, 17, 17, 1);
+  position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* Red Ribbon Badge (ri.svg) - 74.5x68.2px at left:284px, top:125px */
+.consultRibbonBadge {
+  width: 74.5px;
+  height: 68.2px;
+  position: absolute;
+  left: 284px;
+  top: 125px;
+}
+
+.consultRibbonImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Yellow Hand - 135x118px rotated -11.7deg, positioned to point at button */
+.consultHandWrapper {
+  width: 134.96px;
+  height: 117.65px;
+  position: absolute;
+  left: 268.13px;
+  top: 220px;
+  transform: rotate(-11.704deg);
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 0.15s ease, top 0.15s ease;
+  pointer-events: none;
+}
+
+.consultHandWrapper:active {
+  top: 215px;
+  transform: rotate(-11.704deg) translateY(-3px);
+}
+
+.consultHandImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Speech Bubble Group - 220x106px at left:20px, top:17px */
+.consultSpeechBubble {
+  width: 220px;
+  height: 106px;
+  position: absolute;
+  left: 12px;
+  top: 17px;
+}
+
+.consultSpeechBg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Speech Bubble Text - adjusted for new SVG with shadow */
+.consultSpeechText {
+  font-size: 0;
+  font-family: 'Pretendard', sans-serif;
+  letter-spacing: -0.5px;
+  color: rgba(0, 0, 0, 1);
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 35px;
+  top: 33px;
+  white-space: nowrap;
+  line-height: 130%;
+  flex-grow: 0;
+}
+
+.consultSpeechSpan1 {
+  font-size: 14px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  line-height: 130%;
+  color: rgba(0, 0, 0, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.consultSpeechSpan2 {
+  font-size: 16px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  line-height: 130%;
+  color: rgba(17, 17, 17, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.consultSpeechSpan3 {
+  font-size: 16px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  line-height: 130%;
+  color: rgba(17, 17, 17, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.consultSpeechSpan4 {
+  font-size: 14px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  line-height: 130%;
+  color: rgba(0, 0, 0, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Red Badge with Cart Icon - 159px at left:36px, top:76px */
+.consultRedBadge {
+  width: 159px;
+  height: auto;
+  position: absolute;
+  left: 36px;
+  top: 76px;
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background-color: rgba(255, 0, 0, 1);
+}
+
+.consultCartIcon {
+  width: 33px;
+  height: 19.24px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.consultCartIconImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.consultBadgeText {
+  font-size: 14px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  line-height: 130%;
+  color: rgba(255, 255, 255, 1);
+  width: auto;
+  height: auto;
+  position: relative;
+  flex-shrink: 0;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+/* =====================
+   Long-term Rent Section - item-id=1:2478
+   ===================== */
+
+/* Main Container - 375x619px */
+.longTermRentSection {
+  width: 375px;
+  height: 619px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  background-color: rgba(255, 255, 255, 1);
+  margin: 0 auto;
+}
+
+/* Title Container - 317px at left:28.5px, top:40px */
+.rentTitleContainer {
+  width: 317px;
+  height: auto;
+  position: absolute;
+  left: 28.5px;
+  top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.rentTitleBlue {
+  font-size: 30px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 900;
+  text-align: left;
+  letter-spacing: 0em;
+  line-height: 140%;
+  color: rgba(17, 17, 17, 1);
+  white-space: pre;
+  width: 100%;
+}
+
+.rentTitleBlack {
+  font-size: 24px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  text-align: left;
+  letter-spacing: 0em;
+  line-height: 140%;
+  color: rgba(19, 19, 19, 1);
+  white-space: pre;
+  width: 100%;
+}
+
+/* Highlight Group - 317x auto at left:28.5px, top:124px */
+.rentHighlightGroup {
+  width: 317px;
+  height: auto;
+  position: absolute;
+  left: 28.5px;
+  top: 124px;
+}
+
+.rentHighlightBox1 {
+  width: 123px;
+  height: 16px;
+  position: absolute;
+  left: 192.5px;
+  top: 1px;
+  background-color: rgba(17, 17, 17, 1);
+  z-index: 1;
+}
+
+.rentHighlightBox2 {
+  width: 133px;
+  height: 16px;
+  position: absolute;
+  left: 179.5px;
+  top: 18px;
+  background-color: rgba(17, 17, 17, 1);
+  z-index: 1;
+}
+
+.rentHighlightText {
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0em;
+  position: relative;
+  left: 0px;
+  top: 0px;
+  color: rgba(19, 19, 19, 1);
+  z-index: 2;
+  line-height: 17px;
+  display: block;
+}
+
+.rentHighlightSpan1 {
+  color: rgba(19, 19, 19, 1);
+}
+
+.rentHighlightSpan2 {
+  color: rgba(255, 255, 255, 1);
+  position: relative;
+  z-index: 2;
+}
+
+/* Description Text - at left:30px, top:178px */
+.rentDescText {
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0em;
+  line-height: 140%;
+  position: absolute;
+  left: 30px;
+  top: 178px;
+  white-space: pre;
+  color: rgba(102, 102, 102, 1);
+}
+
+/* Car Image Group - 313.58x309.42px centered at top:250px */
+.rentCarGroup {
+  width: 313.58px;
+  height: 309.42px;
+  position: absolute;
+  left: 50%;
+  top: 250px;
+  transform: translateX(calc(-50% + -0.71px));
+}
+
+.rentCarBg {
+  width: 206.13px;
+  height: 309.42px;
+  position: absolute;
+  left: 107.45px;
+  top: 0px;
+  border-radius: 10px;
+  background-color: rgba(248, 251, 255, 1);
+}
+
+.rentCarImage {
+  width: 312.88px;
+  height: 172.82px;
+  position: absolute;
+  left: 0px;
+  top: 111.18px;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.rentCarImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.rentCarTitle {
+  font-size: 16px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0em;
+  line-height: 140%;
+  position: absolute;
+  left: 158.94px;
+  top: 33.6px;
+  white-space: pre;
+  color: rgba(19, 19, 19, 1);
+}
+
+.rentCarSubtitle {
+  font-size: 10px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0em;
+  line-height: 140%;
+  position: absolute;
+  left: 168.24px;
+  top: 55.71px;
+  white-space: pre;
+  color: rgba(102, 102, 102, 1);
+}
+
+/* Bottom Text - 138px at left:201px, top:565px */
+.rentBottomText {
+  font-size: 10px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  text-align: right;
+  letter-spacing: 0em;
+  line-height: 140%;
+  width: 138px;
+  position: absolute;
+  left: 201px;
+  top: 565px;
+  color: rgba(102, 102, 102, 1);
+}
+
+/* =====================
+   Comparison Section - item-id=1:2494 - PIXEL PERFECT
+   ===================== */
+
+.comparisonSection {
+  width: 375px;
+  height: 761px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  background-color: rgba(248, 251, 255, 1);
+}
+
+/* Penguin Image - 158x160px at left:108px, top:142px */
+.comparisonPenguin {
+  width: 158px;
+  height: 160.08px;
+  position: absolute;
+  left: 108px;
+  top: 142px;
+}
+
+.comparisonPenguinImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Speech Bubble - 304x98px centered at top:40px */
+.comparisonSpeechBubble {
+  width: 304px;
+  height: 98px;
+  position: absolute;
+  left: 50%;
+  top: 40px;
+  transform: translateX(calc(-50% + 5.5px));
+}
+
+.comparisonSpeechBg {
+  width: 304px;
+  height: 98px;
+  display: block;
+}
+
+/* Table Title - at left:252px, top:243px */
+.comparisonTableTitle {
+  font-size: 10px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  text-align: right;
+  letter-spacing: 0em;
+  line-height: 140%;
+  color: rgba(19, 19, 19, 1);
+  position: absolute;
+  left: 252px;
+  top: 243px;
+  white-space: pre;
+}
+
+/* Comparison Table - 360px centered at top:259px */
+.comparisonTable {
+  width: 360px;
+  position: absolute;
+  left: 50%;
+  top: 259px;
+  transform: translateX(calc(-50% - 0.5px));
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header Row */
+.comparisonHeaderRow {
+  width: 360px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.comparisonHeaderCell1 {
+  width: 82px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0em;
+  line-height: 140%;
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(0, 0, 0, 1);
+  border-radius: 10px 0 0 0;
+}
+
+.comparisonHeaderCell2 {
+  width: 94px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0em;
+  line-height: 140%;
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(0, 0, 0, 1);
+}
+
+.comparisonHeaderCell3 {
+  width: 92px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0em;
+  line-height: 140%;
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(0, 0, 0, 1);
+}
+
+.comparisonHeaderCell4 {
+  width: 92px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0em;
+  line-height: 140%;
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(0, 0, 0, 1);
+  border-radius: 0 10px 0 0;
+}
+
+/* Data Rows */
+.comparisonRow {
+  width: 360px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.comparisonRow:last-child .comparisonCell:first-child {
+  border-radius: 0 0 0 10px;
+}
+
+.comparisonRow:last-child .comparisonCell:last-child {
+  border-radius: 0 0 10px 0;
+}
+
+.comparisonRow:last-child .comparisonCellHighlight:last-child {
+  border-radius: 0 0 10px 0;
+}
+
+.comparisonCell {
+  min-width: 82px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0em;
+  line-height: 140%;
+  text-align: center;
+  color: rgba(19, 19, 19, 1);
+  background-color: rgba(255, 255, 255, 1);
+  border: 0px solid rgba(213, 213, 213, 1);
+  box-sizing: border-box;
+}
+
+.comparisonCell:nth-child(1) {
+  width: 82px;
+}
+
+.comparisonCell:nth-child(2),
+.comparisonCell:nth-child(3),
+.comparisonCell:nth-child(4) {
+  width: 92px;
+  flex: 1;
+}
+
+.comparisonCellHighlight {
+  min-width: 94px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0em;
+  line-height: 140%;
+  text-align: center;
+  color: rgba(19, 19, 19, 1);
+  background-color: rgba(246, 239, 216, 1);
+  border: 0px solid rgba(213, 213, 213, 1);
+  box-sizing: border-box;
+}
+
+.comparisonCellHighlightIcon {
+  min-width: 94px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0em;
+  line-height: 140%;
+  text-align: center;
+  color: rgba(19, 19, 19, 1);
+  background-color: rgba(246, 239, 216, 1);
+  border: 0px solid rgba(213, 213, 213, 1);
+  box-sizing: border-box;
+}
+
+.comparisonCheckIcon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Info Section 1: ?觀由??곕뱜 - at left:50%, top:519px */
+.comparisonInfo1 {
+  width: 316px;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 519px;
+  transform: translateX(calc(-50% + 0px));
+}
+
+.comparisonInfo1 .comparisonInfoTitle {
+  width: 316px;
+  height: auto;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.comparisonInfoTitle {
+  font-size: 16px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0em;
+  line-height: 140%;
+  color: rgba(19, 19, 19, 1);
+  margin-left: 5px; /* gap: 5px 대체 */
+}
+
+.comparisonInfoIcon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: block;
+}
+
+.comparisonInfoContent {
+  width: 304px;
+  height: auto;
+  position: relative;
+  left: 10.5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.comparisonInfoItem {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  font-size: 10px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0em;
+  line-height: 140%;
+  color: rgba(102, 102, 102, 1);
+  white-space: normal;
+  margin-top: 2px; /* gap 대체 */
+}
+
+.comparisonInfoItem:first-child {
+  margin-top: 0;
+}
+
+.comparisonInfoItem span {
+  margin-left: 8px; /* gap: 6px 대체 + 2px 추가 */
+}
+
+.comparisonInfoCheckSmall {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  display: block;
+  margin-top: 2px;
+}
+
+.comparisonInfoNote {
+  font-size: 8px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0em;
+  line-height: 140%;
+  color: rgba(102, 102, 102, 1);
+  width: 100%;
+  height: auto;
+  padding-left: 20px; 
+}
+
+/* Info Section 2: ?醫? ?닌됤꼻 - at left:28px, top:628px */
+.comparisonInfo2 {
+  width: 316px;
+  height: 41px;
+  position: absolute;
+  left: 28px;
+  top: 628px;
+}
+
+.comparisonInfo2 .comparisonInfoTitle {
+  width: 307px;
+  height: auto;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+}
+
+.comparisonInfo2Text {
+  font-size: 10px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0em;
+  line-height: 140%;
+  color: rgba(19, 19, 19, 1);
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 29px;
+  top: 27px;
+  white-space: pre;
+  flex-grow: 0;
+}
+
+/* Info Section 3: ??곸뒠?귐딅뮞 - at left:28px, top:679px */
+.comparisonInfo3 {
+  width: 303px;
+  height: 42px;
+  position: absolute;
+  left: 28px;
+  top: 679px;
+}
+
+.comparisonInfo3 .comparisonInfoTitle {
+  width: 303px;
+  height: auto;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+}
+
+.comparisonInfo3Text {
+  font-size: 0;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0em;
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 29px;
+  top: 28px;
+  white-space: nowrap;
+  flex-grow: 0;
+}
+
+.comparisonInfo3Gray {
+  font-size: 10px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  color: rgba(102, 102, 102, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.comparisonInfo3Black {
+  font-size: 10px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  color: rgba(19, 19, 19, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* =====================
+   NEW SECTION - 장기렌트 비교 (Pixso item-id=1:2584)
+   ===================== */
+
+/* Main Container - Pixso: 375x1990px */
+.rentComparisonSection {
+  width: 375px;
+  min-height: 2020px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  background-color: rgba(17, 17, 17, 1);
+  padding: 0;
+}
+
+/* Penguin Image - 172x177px centered at top:496px - 표 뒤로 */
+.rentPenguinImage {
+  width: 172px;
+  height: 177px;
+  position: absolute;
+  left: 50%;
+  top: 496px;
+  transform: translateX(calc(-50% + 0.5px));
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.rentPenguinImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Top Title Group - 311px, left:33px, top:40px */
+.rentTopTitleGroup {
+  width: 311px;
+  height: auto;
+  position: absolute;
+  left: 33px;
+  top: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.rentTopRow {
+  width: 281px;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.rentMainTitle {
+  font-size: 30px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0em;
+  line-height: 140%;
+  color: rgba(255, 217, 64, 1);
+  white-space: pre;
+}
+
+.rentSubtitle {
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0em;
+  line-height: 140%;
+  color: rgba(255, 255, 255, 1);
+  width: 100%;
+}
+
+/* Price with Yellow Underline - 169px, top:363px */
+.rentPriceGroup {
+  width: 169px;
+  height: 42px;
+  position: absolute;
+  left: 50%;
+  top: 363px;
+  transform: translateX(calc(-50% + 0px));
+}
+
+.rentPriceText {
+  font-size: 24px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0em;
+  line-height: 140%;
+  color: rgba(255, 255, 255, 1);
+  white-space: pre;
+  position: absolute;
+  left: 5px;
+  top: 0px;
+}
+
+.rentPriceUnderline {
+  width: 169px;
+  height: 8px;
+  background: rgba(255, 217, 64, 1);
+  position: absolute;
+  left: 0px;
+  top: 34px;
+}
+
+/* Car Image - 287.77x141px, top:222px */
+.rentCarImageWrapper {
+  width: 287.77px;
+  height: 141px;
+  position: absolute;
+  left: 50%;
+  top: 222px;
+  transform: translateX(calc(-50% - 0.5px));
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.rentCarImageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Comparison Table - 360px, top:621px */
+.rentComparisonTable {
+  width: 360px;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 621px;
+  transform: translateX(calc(-50% - 0.5px));
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.rentTableRow {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.rentTableCell {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0em;
+  line-height: 140%;
+  text-align: center;
+  color: rgba(19, 19, 19, 1);
+  background-color: rgba(255, 255, 255, 1);
+  border: 0px solid rgba(213, 213, 213, 1);
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 4px;
+}
+
+/* Header Row Styles */
+.rentTableHeaderCell1 {
+  width: 91px;
+  background-color: rgba(0, 0, 0, 1);
+  color: rgba(255, 255, 255, 1);
+  font-weight: 500;
+  border-radius: 10px 0 0 0;
+}
+
+.rentTableHeaderCell2 {
+  width: 135px;
+  background-color: rgba(0, 0, 0, 1);
+  color: rgba(255, 255, 255, 1);
+  font-weight: 400;
+}
+
+.rentTableHeaderCell3 {
+  width: 134px;
+  background-color: rgba(0, 0, 0, 1);
+  color: rgba(255, 255, 255, 1);
+  font-weight: 700;
+  border-radius: 0 10px 0 0;
+}
+
+.rentTableDataCell1 {
+  width: 91px;
+  background-color: rgba(255, 255, 255, 1);
+  color: rgba(19, 19, 19, 1);
+}
+
+.rentTableDataCell2 {
+  width: 135px;
+  background-color: rgba(255, 255, 255, 1);
+  color: rgba(19, 19, 19, 1);
+}
+
+.rentTableDataCell3 {
+  width: 134px;
+  background-color: rgba(246, 239, 216, 1);
+  color: rgba(19, 19, 19, 1);
+  font-weight: 700;
+}
+
+/* Speech Bubble Image - 개인 (PNG 이미지) - Pixso: top: 447px, width: 244px */
+.rentSpeechBubbleImage {
+  width: 244px;
+  height: 54px;
+  position: absolute;
+  left: 50%;
+  top: 447px;
+  transform: translateX(calc(-50% - 0.5px));
+  z-index: 3;
+}
+
+.rentSpeechBubbleImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+}
+
+/* Business Speech Bubble Image - 사업자 (PNG 이미지) - Pixso: top: 1305px, width: 254px */
+.rentBusinessSpeechBubbleImage {
+  width: 254px;
+  height: 54px;
+  position: absolute;
+  left: 50%;
+  top: 1305px;
+  transform: translateX(calc(-50% - 0.5px));
+  z-index: 3;
+}
+
+.rentBusinessSpeechBubbleImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+}
+
+/* Business Penguin Image - Pixso: 228x235px, left: 68px, top: 1327px - 표 뒤로 */
+.rentBusinessPenguinImage {
+  width: 228px;
+  height: 235px;
+  position: absolute;
+  left: 68px;
+  top: 1327px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.rentBusinessPenguinImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Estimate Image Carousel - 360x339.23px, top:909px */
+.rentEstimateCarousel {
+  width: 360px;
+  height: 339.23px;
+  position: absolute;
+  left: 50%;
+  top: 909px;
+  transform: translateX(calc(-50% - 0.5px));
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25) inset, -2px -2px 4px 0px rgba(211, 211, 211, 1) inset;
+}
+
+.rentEstimateHeader {
+  width: 84.62px;
+  height: 25.38px;
+  position: absolute;
+  left: 50%;
+  top: 13.85px;
+  transform: translateX(calc(-50% - 0.77px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-bottom: 1px solid rgba(102, 102, 102, 1);
+}
+
+.rentEstimateHeaderText {
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0em;
+  line-height: 140%;
+  color: rgba(19, 19, 19, 1);
+}
+
+.rentEstimateImageGroup {
+  width: 343.85px;
+  height: 269.23px;
+  position: absolute;
+  left: 7.69px;
+  top: 50px;
+}
+
+.rentEstimateImageWrapper {
+  width: 292.04px;
+  height: 269.23px;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(calc(-50% + 1.15px));
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.rentEstimateImageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Arrow Buttons - 동그라미 제거 */
+.rentEstimateArrowLeft {
+  width: 30px;
+  height: 30px;
+  overflow: visible;
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.rentEstimateArrowLeft:hover {
+  transform: translateY(-50%) scale(1.2);
+}
+
+.rentEstimateArrowLeft:active {
+  transform: translateY(-50%) scale(1.1);
+}
+
+.rentEstimateArrowRight {
+  width: 30px;
+  height: 30px;
+  overflow: visible;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.rentEstimateArrowRight:hover {
+  transform: translateY(-50%) scale(1.2);
+}
+
+.rentEstimateArrowRight:active {
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Business Rent Table - Pixso: 360px, top: 1499px - 표를 펭귄 앞으로 */
+.rentBusinessTable {
+  width: 360px;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 1499px;
+  transform: translateX(calc(-50% - 0.5px));
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+/* Disclaimer Note - Pixso: top: 1825px */
+.rentDisclaimerNote {
+  font-size: 10px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0em;
+  line-height: 139.9999976158142%;
+  color: rgba(19, 19, 19, 1);
+  position: absolute;
+  left: 50%;
+  top: 1825px;
+  transform: translateX(calc(-50% - 2.5px));
+  white-space: pre;
+}
+
+/* Youtube Comment Section - 크기 확대 */
+.rentYoutubeSection {
+  width: 367px;
+  height: 130px;
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  top: 1859px;
+  transform: translateX(calc(-50% + 0px));
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 1);
+}
+
+/* =====================
+   Import Compare Section (Pixso item-id=1:2726)
+   ===================== */
+.importCompareSection {
+  width: 375px;
+  min-height: 1042px;
+  position: relative;
+  flex-shrink: 0;
+  background-color: #ffffff;
+  margin: 0 auto;
+  padding: 40px 0 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.importTitleWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  width: 311px;
+  margin-bottom: 30px;
+}
+
+.importTitle {
+  font-size: 28px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 900;
+  line-height: 140%;
+  color: rgba(17, 17, 17, 1);
+  margin: 0 0 0 0;
+  white-space: pre-line;
+  text-align: left;
+}
+
+.importSubtitle {
+  font-size: 18px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  line-height: 140%;
+  color: rgba(19, 19, 19, 1);
+  margin: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.importCard {
+  width: 323px;
+  min-height: 260px;
+  border-radius: 28px;
+  padding: 34px 41px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.importCardBlue {
+  background-color: rgba(0, 0, 0, 1);
+  color: #ffffff;
+  box-shadow: 10px 10px 20px 4px rgba(0, 0, 0, 0.15);
+}
+
+.importCardWhite {
+  background-color: #ffffff;
+  color: rgba(19, 19, 19, 1);
+  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.1);
+}
+
+.importCardTitle {
+  font-size: 22px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  line-height: 140%;
+  margin: 0;
+}
+
+.importCardBlue .importCardTitle {
+  color: #ffffff;
+}
+
+.importCardWhite .importCardTitle {
+  color: rgba(19, 19, 19, 1);
+}
+
+.importCardDesc {
+  font-size: 10px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  line-height: 140%;
+  margin: 0;
+}
+
+.importCardBlue .importCardDesc {
+  color: rgba(213, 213, 213, 1);
+}
+
+.importCardWhite .importCardDesc {
+  color: rgba(102, 102, 102, 1);
+  font-weight: 200;
+}
+
+.importCardText {
+  font-size: 14px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  line-height: 140%;
+  margin: 0;
+}
+
+.importCardBlue .importCardText {
+  color: #ffffff;
+}
+
+.importCardWhite .importCardText {
+  color: rgba(19, 19, 19, 1);
+  font-weight: 400;
+}
+
+.importCardTextSmall {
+  font-size: 13px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  line-height: 140%;
+  margin: 0;
+  color: #ffffff;
+}
+
+.importHighlight {
+  background-color: rgba(255, 217, 64, 1);
+  color: rgba(19, 19, 19, 1);
+  padding: 0 4px;
+  display: inline;
+  font-weight: 600;
+  position: relative;
+}
+
+.importButton {
+  width: 124px;
+  height: 40px;
+  border-radius: 50px;
+  border: none;
+  background-color: #ffffff;
+  color: rgba(19, 19, 19, 1);
+  font-size: 14px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.importButton:hover {
+  box-shadow: 2px 2px 12px 2px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.importButton:active {
+  transform: translateY(0);
+}
+
+.importButton:active {
+  transform: translateY(1px);
+}
+.rentYoutubeImageWrapper {
+  width: 340px;
+  height: 80px;
+  position: absolute;
+  left: 50%;
+  top: 35px;
+  transform: translateX(calc(-50% - 0.5px));
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rentYoutubeImageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.rentYoutubeHeader {
+  font-size: 12px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: 0em;
+  line-height: 139.9999976158142%;
+  color: rgba(19, 19, 19, 1);
+  position: absolute;
+  left: 50%;
+  top: 8px;
+  transform: translateX(calc(-50% - 0.5px));
+  white-space: pre;
+}
+
+/* Arrow Buttons for Youtube - 동그라미 제거 */
+.rentYoutubeArrowLeft {
+  width: 30px;
+  height: 30px;
+  overflow: visible;
+  position: absolute;
+  left: 8px;
+  top: 60px;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.rentYoutubeArrowLeft:hover {
+  transform: scale(1.2);
+}
+
+.rentYoutubeArrowLeft:active {
+  transform: scale(1.1);
+}
+
+.rentYoutubeArrowRight {
+  width: 30px;
+  height: 30px;
+  overflow: visible;
+  position: absolute;
+  right: 8px;
+  top: 60px;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.rentYoutubeArrowRight:hover {
+  transform: scale(1.2);
+}
+
+.rentYoutubeArrowRight:active {
+  transform: scale(1.1);
+}
+
+/* === Trust Section (Pixso item-id=1:2806) === */
+.trustSection {
+  width: 100%;
+  max-width: 375px;
+  height: auto;
+  background: #111111;
+  padding: 40px 28px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.trustHeader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.trustTitle {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 140%;
+  letter-spacing: 0;
+  margin: 0;
+  text-align: center;
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.trustTitleWhite {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.trustTitleYellow {
+  color: #FFD940;
+  font-weight: 900;
+}
+
+/* 체크 리스트 */
+.trustCheckList {
+  width: 100%;
+  max-width: 190px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.trustCheckItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.trustCheckIcon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trustCheckText {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 140%;
+  color: #ffffff;
+  letter-spacing: 0;
+}
+
+/* 인터뷰 카드 */
+.trustInterviewCard {
+  width: 320px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.trustInterviewContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.trustInterviewImageWrapper {
+  width: 250px;
+  height: 136px;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.trustInterviewImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.trustPlayButton {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.trustPlayButton:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.trustPlayButton svg {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.trustInterviewTextGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 100%;
+}
+
+.trustInterviewLabel {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 140%;
+  color: #131313;
+  text-align: center;
+  margin: 0;
+}
+
+.trustInterviewQuote {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 140%;
+  color: #131313;
+  text-align: center;
+  margin: 0;
+}
+
+/* 차량 추천 */
+.trustCarRecommend {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.trustCarCard {
+  width: 129px;
+  height: 82px;
+  background: #f6efd8;
+  border-radius: 8px;
+  box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.15);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.trustPickBadge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #FFD940;
+  color: #131313;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 0px 10px;
+  border-radius: 0 0 4px 4px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 140%;
+}
+
+.trustCarImage {
+  width: 102px;
+  height: 51px;
+  object-fit: contain;
+}
+
+.trustCarInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.trustCarName {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 140%;
+  color: #131313;
+  white-space: nowrap;
+}
+
+.trustCarPrice {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 140%;
+  color: #131313;
+  white-space: nowrap;
+}
+
+/* 실시간 통계 카드 */
+.trustStatsCard {
+  width: 320px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.trustStatsContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.trustStatsHeader {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 4px;
+  width: 100%;
+}
+
+.trustStatsTitle {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 130%;
+  color: #000000;
+  margin: 0;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  white-space: nowrap;
+  padding: 0 4px;
+}
+
+.trustStatsBoxes {
+  display: flex;
+  gap: 10px;
+}
+
+.trustStatBox {
+  flex: 1;
+  background: #f6efd8;
+  border-radius: 10px;
+  box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.15);
+  padding: 16px 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.trustStatLabel {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 130%;
+  color: #131313;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.trustStatValue {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 130%;
+  color: #131313;
+  text-align: center;
+  text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+}
+
+.trustStatsFooter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.trustPlatformText {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 140%;
+  color: #131313;
+  text-align: center;
+  margin: 0;
+}
+
+.trustCTAButton {
+  width: 200px;
+  height: 40px;
+  background: #FFD940;
+  border-radius: 8px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  cursor: pointer;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 140%;
+  color: #131313;
+  text-decoration: none;
+}
+
+.trustCTAButton svg {
+  width: 18px;
+  height: 18px;
+  color: #131313;
+}
+
+.trustCTAButton:active {
+  background: #F5CB00;
+}
+
+/* === Youtube Section (Pixso item-id=1:2856) === */
+.youtubeSection {
+  width: 100%;
+  max-width: 375px;
+  background: #fff;
+  padding: 50px 30px 20px 30px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.youtubeSectionHeader {
+  margin-bottom: 32px;
+}
+
+.youtubeSectionTitle {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 140%;
+  margin: 0 0 12px 0;
+}
+
+.youtubeTitleBlue {
+  color: #111111;
+  font-weight: 900;
+}
+
+.youtubeTitleBlack {
+  color: #131313;
+  font-weight: 900;
+}
+
+.youtubeSectionDesc {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 140%;
+  color: #131313;
+  margin: 0;
+}
+
+/* 체크 리스트 */
+.youtubeCheckList {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 0;
+}
+
+.youtubeCheckItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.youtubeCheckIcon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.youtubeCheckTextWrapper {
+  flex: 1;
+}
+
+.youtubeCheckText {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 140%;
+  color: #131313;
+}
+
+.youtubeHighlight {
+  background-image: linear-gradient(transparent 60%, #FFD940 40%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 0 2px;
+}
+
+/* 유튜브 배너 */
+.youtubeBanner {
+  position: relative;
+  width: 100%;
+  max-width: 323px;
+  height: 393px;
+  margin: 0 auto;
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
+
+.youtubeBannerBg {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 323px;
+  height: 393px;
+  z-index: 1;
+  object-fit: contain;
+}
+
+/* 구독자 말풍선 */
+.youtubeSubscriberBubble {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 214px;
+  height: 84px;
+  z-index: 2;
+}
+
+.youtubeBubbleBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.youtubeSubscriberContent {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 3;
+}
+
+.youtubeSubscriberLabel {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #131313;
+}
+
+.youtubeSubscriberCount {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #131313;
+}
+
+/* 유튜브 프로필 */
+.youtubeProfile {
+  position: absolute;
+  top: 124px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 58px;
+  z-index: 2;
+}
+
+.youtubeProfileImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* 채널 정보 */
+.youtubeChannelInfo {
+  position: absolute;
+  top: 202px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  z-index: 2;
+  text-align: center;
+}
+
+.youtubeChannelTitle {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.youtubeChannelTags {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.youtubeChannelTags p {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 150%;
+  color: #fff;
+  margin: 0;
+  text-align: center;
+}
+
+/* 알아보기 버튼 */
+.youtubeViewButton {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 44px;
+  background: #111111;
+  border-radius: 10px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  z-index: 2;
+  cursor: pointer;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  transition: background 0.2s ease;
+}
+
+.youtubeViewButton svg {
+  width: 18px;
+  height: 18px;
+}
+
+.youtubeViewButton:hover {
+  background: #000000;
+}
+
+.youtubeViewButton:active {
+  background: #000000;
+}
+
+

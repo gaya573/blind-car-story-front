@@ -1,0 +1,61 @@
+.page { width: 375px; margin: 0 auto; background: #F5F6F8; padding-bottom: 30px; }
+
+/* 상단바 */
+.navBar { 
+  height: 56px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  padding: 0 16px; 
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.iconBtn { width: 24px; height: 24px; border: none; background: transparent; font-size: 20px; }
+.navTitle { font-size: 16px; font-weight: 600; }
+
+/* 세그먼트 */
+.segment { width: 375px; height: 40px; margin: 20px 0 0; background: #f6efd8; 
+    border-radius: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 11px; padding: 4px; }
+.segmentBtn { border: none; border-radius: 8px; background: transparent; font-size: 14px; font-weight: 600; color: #444444; }
+.active { background: #111111; color: #fff; }
+
+/* 섹션 */
+.section { width: 375px; margin: 24px 0 0; }
+.title { font-size: 14px; font-weight: 600; margin: 20px 0 14px 0; }
+.title40 { font-size: 14px; font-weight: 600; margin: 40px 0 14px 0; }
+/* 칩 그리드 */
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.chip { height: 40px; border-radius: 8px; border: 1px solid #E5E7EB; background: #fff; font-size: 13px; color: #111; }
+.on { border-color: #111111; color: #111111; box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.12) inset; }
+
+/* 가격 */
+.priceHeader { display: flex; justify-content: space-between; margin-bottom: 8px; width: 343px; margin-left: auto; margin-right: auto; }
+.priceText { font-size: 12px; color: #111; }
+.dualRange { position: relative; height: 24px; width: 343px; margin-left: auto; margin-right: auto; overflow: visible; }
+.dualRange input[type="range"] { -webkit-appearance: none; appearance: none; 
+    width: 100%; height: 4px; position: absolute; left: 0; top: 10px; background: transparent; pointer-events: none; }
+.rangeTrack { position: absolute; left: 0; right: 0; height: 4px; top: 10px; background: #eaeaea; border-radius: 2px; 
+    z-index: 1; }
+.rangeMin { z-index: 6; }
+.rangeMax { z-index: 7; }
+.dualRange input[type="range"]::-webkit-slider-runnable-track { height: 4px; background: transparent; border-radius: 2px; }
+.dualRange input[type="range"]::-moz-range-track { height: 4px; background: transparent; border-radius: 2px; }
+.dualRange input[type="range"]::-ms-track { height: 4px; background: transparent; border-color: transparent; color: transparent; }
+.dualRange input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance:
+     none; width: 24px; height: 24px; border-radius: 12px; background: #111111; 
+     border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.08); pointer-events: auto; margin-top: -12px; }
+.dualRange input[type="range"]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 12px; 
+    background: #111111; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-top: -12px; }
+.dualRange input[type="range"]::-ms-thumb { width: 24px; height: 24px; border-radius: 12px; 
+    background: #111111; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-top: -12px; }
+.priceScale { display: flex; justify-content: space-between; font-size: 11px; color: #767676; margin-top: 6px; width: 343px; margin-left: auto; margin-right: auto; }
+
+/* 푸터 CTA - 페이지 하단 고정 해제, 콘텐츠 끝에 배치 */
+.footer { width: 375px; margin-top:40px; }
+.cta { width: 100%; height: 48px; border-radius: 10px; border: none; font-weight: 700; }
+.ctaOff { background: #E5E7EB; color: #a6a6a6; }
+.ctaOn { background: #111111; color: #fff; }
+
+

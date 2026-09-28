@@ -1,0 +1,81 @@
+.page {
+  width: 100%;
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 0 16px 40px;
+  box-sizing: border-box;
+}
+
+.brandChipsBar {
+  padding: 8px 0 4px;
+}
+
+/* 상단 필터 바 */
+.filtersBar {
+  display: grid;
+  grid-template-columns: 1fr 150px;
+  align-items: center;
+  padding: 3px 0px;
+
+  gap: 8px;
+}
+
+.filtersScroll {
+  margin-top: 11px;
+  display: flex;
+  height: 28px;
+  gap: 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.filtersScroll::-webkit-scrollbar { display: none; }
+
+.category {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid #E5E7EB;
+  border-radius: 999px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.sortWrap { display: flex; justify-content: flex-end; }
+
+.list {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.noticeSection { padding-top: 12px; padding-bottom: 12px;  }
+
+/* 페이지네이션 */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 0 4px;
+}
+
+.paginationButton {
+  min-width: 72px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  font-size: 12px;
+  color: #444444;
+}
+
+.paginationButton:disabled {
+  opacity: 0.4;
+}
+
+.paginationInfo {
+  font-size: 12px;
+  color: #767676;
+}

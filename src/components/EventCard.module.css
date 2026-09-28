@@ -1,0 +1,91 @@
+/* EventCard Styles - 실제 디자인에 맞춤 */
+.event-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 416px;
+  height: 290px;
+}
+
+.event-card {
+  width: 416px;
+  height: 270px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  background: var(--color-white);
+}
+
+.event-card:hover {
+  transform: translateY(-2px);
+}
+
+/* 종료된 상태 스타일 */
+.event-card.ended {
+  filter: grayscale(1) saturate(0.6);
+  opacity: 0.8;
+}
+
+.event-card.ended:hover {
+  transform: none;
+}
+
+
+/* 상단 헤더 영역 */
+.event-header {
+  padding: 16px 20px 8px;
+  z-index: 2;
+  position: relative;
+}
+
+.event-title {
+  font-size: var(--font-size-title-2);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+  margin: 0 0 4px 0;
+  line-height: 1.2;
+}
+
+.event-subtitle {
+  font-size: var(--font-size-subtitle-2);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-100);
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* 이미지 영역 */
+.event-image-area {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.event-car-image {
+  width: 100% ;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1;
+  position: relative;
+}
+
+/* 웨이브 패턴 제거 */
+
+/* 카드 외부 설명 텍스트 */
+.event-description {
+  font-size: var(--font-size-body-3);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin: 0;
+  line-height: var(--line-height-base);
+  max-width: 280px;
+}

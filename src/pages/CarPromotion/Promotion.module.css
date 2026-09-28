@@ -1,0 +1,298 @@
+.promo-page { 
+  background: #fff; 
+  width: 100%;
+}
+.breadcrumb-container{
+  width: 1280px;
+  padding:0;
+    margin: 0 auto; 
+}
+.promo-container { 
+  width: 1280px;
+  margin: 0 auto; 
+  padding: 50px 0 80px;
+}
+
+/* 상단 타이틀/탭 */
+.promo-header { 
+  text-align: center; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.promo-title { 
+  margin: 0; 
+  font-size: 36px; 
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.4;
+  color: #111;
+}
+
+.promo-sub { 
+  margin: 0 0 40px; 
+  color: #111; 
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.4;
+}
+.promo-tabs {
+  display: flex;
+  flex-direction: row;
+  width: 1280px;
+  margin: 0;
+}
+
+/* 기본(비활성) 상태 */
+.promo-tab {
+  border: none;
+  border-bottom: 1px solid #E5E5EC;
+  background: #fff;
+  color: #555;
+  width: 640px;
+  height: 60px;
+  padding: 16px;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.promo-tab:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+/* 선택(active) 상태 */
+.promo-tab.active {
+  background: #fff;
+  color: #111;
+  border-bottom: 1px solid #111;
+  font-weight: 500;
+}
+
+.promo-tab.active:hover {
+  background: #fff;
+}
+
+/* Ended mode visuals */
+.ended .promo-tab.active { 
+  background: #fff; 
+  border-bottom: 1px solid #111; 
+  color: #111; 
+}
+.ended .promo-card { 
+  filter: grayscale(1) saturate(.6); 
+  opacity: .9; 
+}
+.ended .promo-card-btn { 
+  background: #d9d9d9; 
+  color: #5e5e5e; 
+  cursor: default; 
+}
+
+/* 3열 카드 그리드 (데스크탑 기준) */
+.promo-grid { 
+  display: grid; 
+  grid-template-columns: repeat(3, 406px); 
+  gap: 30px;
+  row-gap: 40px;
+  width: 1278px;
+  margin: 40px auto 0;
+}
+
+.promo-card { 
+  position: relative; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 16px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.promo-card:hover {
+  transform: translateY(-4px);
+}
+
+.promo-card-top { 
+  position: relative; 
+  width: 406px;
+  height: 264px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.promo-card-top img { 
+  display: block; 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+}
+
+/* 카드 배지 */
+.promo-card-badges {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  z-index: 2;
+}
+
+.badge-item {
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #111;
+  backdrop-filter: blur(4px);
+  line-height: 1.4;
+}
+
+/* 할인 금액 표시 */
+.promo-card-discount {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 
+    0 2px 4px rgba(0,0,0,0.3),
+    0 4px 12px rgba(0,0,0,0.2);
+  text-align: center;
+  white-space: nowrap;
+  line-height: 1.2;
+  z-index: 1;
+}
+
+/* 조건 정보 */
+.promo-card-condition {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 8px 12px;
+  background: rgba(0, 209, 178, 0.92);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  backdrop-filter: blur(4px);
+  line-height: 1.4;
+  z-index: 1;
+}
+
+.promo-card-body { 
+  padding: 0; 
+}
+
+.promo-card-body h3 { 
+  margin: 0; 
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: -0.48px;
+  line-height: 23.4px;
+  color: #111;
+}
+
+
+@media (max-width: 1400px) {
+  .promo-container {
+    width: 100%;
+    padding: 50px 20px 80px;
+  }
+  
+  .promo-tabs {
+    width: 100%;
+  }
+  
+  .promo-tab {
+    width: 50%;
+  }
+  
+  .promo-grid { 
+    grid-template-columns: repeat(2, 1fr); 
+    width: 100%;
+    gap: 20px;
+  }
+  
+  .promo-card-top {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 406 / 264;
+  }
+}
+
+@media (max-width: 768px) {
+  .promo-container {
+    padding: 30px 16px 60px;
+  }
+
+  .promo-title {
+    font-size: 28px;
+  }
+  
+  .promo-sub {
+    font-size: 18px;
+  }
+  
+  .promo-grid { 
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .promo-card-body h3 {
+    font-size: 18px;
+  }
+
+  .promo-card-discount {
+    font-size: 32px;
+  }
+}
+
+.promo-empty {
+  text-align: center;
+  padding: 100px 0;
+  color: #555;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+/* 페이지네이션 (사용 안함) */
+.promo-pagination {
+  display: none;
+}
+
+.pagination-btn {
+  display: none;
+}
+
+.pagination-numbers {
+  display: none;
+}
+
+.pagination-number {
+  display: none;
+}
+
+/* 미사용 요소들 */
+.promo-card-body p,
+.promo-card-btn,
+.promo-ribbon,
+.ribbon-title,
+.ribbon-badge,
+.promo-more,
+.promo-more-btn {
+  display: none;
+}
+

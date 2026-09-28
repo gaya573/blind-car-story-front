@@ -1,0 +1,350 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 20px;
+}
+
+.modal {
+  width: 100%;
+  max-width: 800px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 28px 32px 32px;
+  box-sizing: border-box;
+  position: relative;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  animation: pop-in 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 헤더 */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 28px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111;
+  margin: 0;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+.close {
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 2컬럼 콘텐츠 */
+.content {
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  align-items: stretch;
+}
+
+/* 폼 컬럼 (데스크톱: 좌측) */
+.formColumn {
+  flex: 0 0 370px;
+  display: flex;
+  flex-direction: column;
+  padding-right: 32px;
+  order: 1;
+}
+
+/* 이미지 컬럼 (데스크톱: 우측) */
+.imageColumn {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  order: 2;
+}
+
+.phoneImage {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* 헤드라인 */
+.heroTextArea {
+  margin-bottom: 20px;
+}
+
+.desc {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #111;
+  margin: 0 0 6px;
+  letter-spacing: -0.4px;
+}
+
+.highlightWrapper {
+  display: inline;
+}
+
+.highlightEmphasis {
+  position: relative;
+  font-weight: 800;
+  z-index: 1;
+}
+
+.highlightEmphasis::after {
+  content: '';
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  bottom: 1px;
+  height: 10px;
+  background: #FFEB00;
+  z-index: -1;
+}
+
+.subDesc {
+  font-size: 13px;
+  line-height: 1.4;
+  color: #666;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+/* 입력 폼 */
+.formArea {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.inputBox {
+  width: 100%;
+  height: 52px;
+  border: 1px solid #E5E5E5;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  box-sizing: border-box;
+  background: #fff;
+  transition: border-color 0.2s;
+}
+
+.inputBox:focus-within {
+  border-color: #111111;
+}
+
+.inlineLabel {
+  font-size: 15px;
+  font-weight: 700;
+  color: #222;
+  white-space: nowrap;
+  min-width: 72px;
+  margin-right: 10px;
+}
+
+.required {
+  color: #111111;
+  margin-left: 1px;
+}
+
+.inlineInput {
+  flex: 1;
+  border: none;
+  background: none;
+  height: 100%;
+  font-size: 15px;
+  color: #222;
+  padding: 0;
+  min-width: 0;
+}
+
+.inlineInput:focus {
+  outline: none;
+}
+
+.inlineInput::placeholder {
+  color: #C7C7CD;
+  font-weight: 400;
+}
+
+/* 동의 */
+.consentArea {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 4px;
+}
+
+/* 안내 문구 */
+.notice {
+  font-size: 11px;
+  color: #9A9A9A;
+  margin: 0 0 14px;
+  text-align: right;
+  letter-spacing: -0.3px;
+  line-height: 1.4;
+}
+
+/* 제출 버튼 */
+.actions {
+  width: 100%;
+}
+
+.primary {
+  width: 100%;
+  height: 52px;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  background: #111111;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -0.3px;
+  transition: background 0.2s;
+}
+
+.primary:hover {
+  background: #111111;
+}
+
+.primary:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* 모바일 (이미지 상단 배치) */
+@media (max-width: 768px) {
+  .overlay {
+    padding: 16px;
+  }
+
+  .modal {
+    padding: 24px 20px 28px;
+    border-radius: 24px;
+    max-width: 420px;
+    width: 100%;
+  }
+
+  .header {
+    margin-bottom: 16px;
+  }
+
+  .title {
+    font-size: 17px;
+  }
+
+  /* 모바일: 세로 배치, 이미지 상단 */
+  .content {
+    flex-direction: column;
+  }
+
+  .imageColumn {
+    order: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    max-height: 200px;
+    overflow: hidden;
+  }
+
+  .phoneImage {
+    max-width: 160px;
+    max-height: 200px;
+    object-fit: contain;
+  }
+
+  .formColumn {
+    order: 2;
+    flex: none;
+    width: 100%;
+    padding-right: 0;
+  }
+
+  .heroTextArea {
+    margin-bottom: 14px;
+  }
+
+  .desc {
+    font-size: 16px;
+  }
+
+  .subDesc {
+    font-size: 12px;
+  }
+
+  .formArea {
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .inputBox {
+    height: 48px;
+    border-radius: 10px;
+  }
+
+  .inlineLabel {
+    font-size: 13px;
+    min-width: 68px;
+  }
+
+  .inlineInput {
+    font-size: 14px;
+  }
+
+  .consentArea {
+    margin-bottom: 4px;
+  }
+
+  .notice {
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+
+  .primary {
+    height: 50px;
+    font-size: 16px;
+    border-radius: 14px;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

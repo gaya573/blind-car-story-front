@@ -1,0 +1,528 @@
+/* Import Design System */
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 300;
+  font-display: swap;
+  src: local('Pretendard Light'), url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-Light.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 400;
+  font-display: swap;
+  src: local('Pretendard Regular'), url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 500;
+  font-display: swap;
+  src: local('Pretendard Medium'), url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 600;
+  font-display: swap;
+  src: local('Pretendard SemiBold'), url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-SemiBold.woff2') format('woff2');
+}
+
+:root {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  line-height: var(--line-height-base);
+  font-weight: var(--font-weight-regular);
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #111111;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #111111;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-weight: var(--font-weight-medium);
+}
+
+h1 {
+  font-size: var(--font-size-head);
+  line-height: var(--line-height-base);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--letter-spacing-base);
+}
+
+  
+button:hover {
+  border-color: #111111;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #343434;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #111111;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+
+
+:root {
+  /* ============================================
+     LAYOUT
+     ============================================ */
+  --max-width: 1280px;
+  --gutter: 20px;
+  --gutter-lg: 40px;  
+  --gutter-xl: 120px;
+  --section-spacing: 64px;
+  --section-spacing-sm: 40px;
+  
+  /* ============================================
+     COLOR SYSTEM
+     ============================================ */
+  
+  /* Grey Scale */
+  --color-scale-50: #EBEBEB;
+  --color-scale-100: #EEEEEE;
+  --color-scale-200: #D9D9D9;
+  --color-scale-300: #666666;
+
+  /* Main Color — 시안(tokens.css) 기준: 주색은 검정, 골드는 강조용 */
+  --color-main-50: #2A2A2A;  /* hover: 시안은 주색보다 밝게 쓴다 */
+  --color-main-100: #111111; /* 기본 주색 */
+  --color-main-200: #000000; /* pressed */
+
+  /* Accent Color — 시안 골드 */
+  --color-gold: #C9A227;
+  --color-gold-strong: #A78416;
+  --color-gold-soft: #F6EFD8;
+  --color-gold-line: #E8D79A;
+
+  /* Sub Color */
+  --color-sub-1: #189B60;
+  --color-sub-1-y: #FFD940;
+
+  /* Background */
+  --color-bg: #FFFFFF;
+
+  /* Text Colors */
+  --color-text-main: #111111;
+  --color-text-sub-1-y: #666666;
+  --color-text-sub-2: #D9D9D9;
+  --color-text-emphasis: #D61F26;
+  --color-text-confirm: #A78416;
+  
+  /* Black / White */
+  --color-black: #111111;
+  --color-white: #FFFFFF;
+  
+  /* Legacy & Compatibility Mappings */
+  /* Keeping existing vars mapped to new system where possible to prevent breakage */
+  --color-stroke-50: var(--color-scale-50);
+  --color-stroke-100: var(--color-scale-100);
+  --color-bg-50: var(--color-white);
+  --color-bg-100: #F7F7FB; /* Kept original for specific bg needs not covered */
+  --color-bg-200: var(--color-scale-50);
+  
+  --color-text-50: #999999; /* Original */
+  --color-text-100: var(--color-text-sub-1-y);
+  --color-text-200: var(--color-text-main);
+
+  /* Legacy Color Mappings */
+  --color-primary: var(--color-main-100); /* Mapped to new Primary */
+  --color-primary-dark: var(--color-main-200); /* Mapped to new Dark */
+  --color-primary-light: var(--color-main-50); /* Mapped to new Light */
+  --color-footer-bg: #0c0000;
+  --color-text-primary: var(--color-text-main);
+  --color-text-secondary: var(--color-text-sub-1-y);
+  --color-text-tertiary: #555555;
+  --color-text-muted: #bfbfbf;
+  --color-border: var(--color-scale-100);
+  --color-border-light: var(--color-scale-50);
+  --color-border-medium: var(--color-scale-200);
+  --color-bg-hover: var(--color-bg-100);
+  
+  /* Gradients — 시안 CTA는 그라데이션 없이 단색 검정이라 단색으로 채운다 */
+  --gradient-main-50: linear-gradient(90deg, #111111 0%, #111111 100%);
+  --gradient-primary: var(--gradient-main-50);
+  --gradient-primary-hover: linear-gradient(90deg, #2A2A2A 0%, #2A2A2A 100%);
+  --gradient-primary-active: linear-gradient(90deg, #000000 0%, #000000 100%);
+  
+  /* ============================================
+     SPACING
+     ============================================ */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+  --spacing-2xl: 24px;
+  
+  /* ============================================
+     BORDER RADIUS
+     ============================================ */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  
+  /* ============================================
+     SHADOWS
+     ============================================ */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 4px 10px rgba(0, 0, 0, 0.06);
+  --shadow-xl: 0 4px 12px rgba(0, 0, 0, 0.1);
+  
+  /* ============================================
+     TYPOGRAPHY - Font Sizes
+     ============================================ */
+  /* Head */
+  --font-size-head: 40px;
+  
+  /* Title */
+  --font-size-title-1: 22px;  /* Title_1_B */
+  --font-size-title-2: 18px;   /* Title_2_B */
+  --font-size-title-3: 16px;   /* Title_3_Sb */
+  
+  /* Subtitle */
+  --font-size-subtitle-1: 16px;  /* Sbtitle_1_M */
+  --font-size-subtitle-2: 12px;  /* Sbtitle_2_R */
+  
+  /* Body */
+  --font-size-body-1: 18px;   /* Body_1_M */
+  --font-size-body-2: 16px;   /* Body_2_M */
+  --font-size-body-3: 14px;   /* Body_3_Sb */
+  --font-size-body-4: 14px;   /* Body_4_M */
+  
+  /* Button */
+  --font-size-button-1: 16px;  /* Button_1_Sb */
+  --font-size-button-2: 12px;  /* Button_2_Sb */
+  
+  /* Caption */
+  --font-size-caption-1: 16px;  /* Caption_1_B */
+  --font-size-caption-2: 14px;  /* Caption_2_R */
+  --font-size-caption-3: 12px;  /* Caption_3_M */
+  
+  /* Legacy Font Size Mappings (for backward compatibility) */
+  --font-size-xs: 11px;
+  --font-size-sm: var(--font-size-subtitle-2);  /* 12px */
+  --font-size-base: 13px;
+  --font-size-md: var(--font-size-body-3);      /* 14px */
+  --font-size-lg: 15px;
+  --font-size-xl: var(--font-size-title-3);      /* 16px */
+  --font-size-2xl: var(--font-size-title-2);    /* 18px */
+  --font-size-3xl: var(--font-size-title-1);    /* 22px */
+  
+  /* ============================================
+     TYPOGRAPHY - Font Weights
+     ============================================ */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* ============================================
+     TYPOGRAPHY - Line Height & Letter Spacing
+     ============================================ */
+  --line-height-base: 140%;  /* 1.4 */
+  --letter-spacing-base: 0%;
+  
+  /* ============================================
+     TRANSITIONS
+     ============================================ */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* ============================================
+     BUTTON HEIGHTS
+     ============================================ */
+  --btn-height-sm: 38px;
+  --btn-height-md: 40px;
+  --btn-height-lg: 44px;
+  
+  /* ============================================
+     Z-INDEX
+     ============================================ */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 10;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
+}
+
+/* Container Utility */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.container-lg {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter-lg);
+}
+
+.container-xl {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter-xl);
+}
+
+/* Button Base */
+.btn {
+  height: var(--btn-height-md);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: none;
+  outline: none;
+}
+
+.btn-primary {
+  background: var(--gradient-primary);
+  color: var(--color-white);
+  border: 1px solid transparent;
+}
+
+.btn-primary:hover {
+  background: var(--gradient-primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  background: var(--gradient-primary-active);
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background-color: var(--color-white);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-light);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.btn-secondary.active {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border-color: transparent;
+}
+
+/* Card Base */
+.card {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-fast);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Section Spacing */
+.section {
+  margin-top: var(--section-spacing);
+}
+
+.section-sm {
+  margin-top: var(--section-spacing-sm);
+}
+
+/* Gradient Utilities */
+.gradient-primary {
+  background: var(--gradient-primary);
+}
+
+.gradient-primary-hover:hover {
+  background: var(--gradient-primary-hover);
+}
+
+.gradient-primary-active:active {
+  background: var(--gradient-primary-active);
+}
+
+/* ============================================
+   TYPOGRAPHY UTILITY CLASSES
+   ============================================ */
+
+/* Head */
+.head {
+  font-size: var(--font-size-head);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-base);
+}
+
+/* Title */
+.title-1 {
+  font-size: var(--font-size-title-1);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-base);
+}
+
+.title-2 {
+  font-size: var(--font-size-title-2);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-base);
+}
+
+.title-3 {
+  font-size: var(--font-size-title-3);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-base);
+}
+
+/* Subtitle */
+.subtitle-1 {
+  font-size: var(--font-size-subtitle-1);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-base);
+}
+
+.subtitle-2 {
+  font-size: var(--font-size-subtitle-2);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-base);
+}
+
+/* Body */
+.body-1 {
+  font-size: var(--font-size-body-1);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-base);
+}
+
+.body-2 {
+  font-size: var(--font-size-body-2);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-base);
+}
+.body-3 {
+  font-size: var(--font-size-body-3);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-base);
+}
+
+.body-4 {
+  font-size: var(--font-size-body-4);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-base);
+}
+
+/* Button */
+.button-1 {
+  font-size: var(--font-size-button-1);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-base);
+}
+
+.button-2 {
+  font-size: var(--font-size-button-2);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-base);
+}
+
+/* Caption */
+.caption-1 {
+  font-size: var(--font-size-caption-1);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-base);
+}
+
+.caption-2 {
+  font-size: var(--font-size-caption-2);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-base);
+}
+
+.caption-3 {
+  font-size: var(--font-size-caption-3);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-base);
+}
+
+/* ============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================ */
+@media (max-width: 1200px) {
+  :root {
+    --gutter-xl: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --gutter: 20px;
+    --gutter-lg: 20px;
+    --section-spacing: 40px;
+  }
+}
+
+/* Scrollbar 스타일 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-scale-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #111111;
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #111111;
+}

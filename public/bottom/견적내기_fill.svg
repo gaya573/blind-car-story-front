@@ -1,0 +1,19 @@
+<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="path-1-inside-1_1184_23817" fill="white">
+<rect x="6" y="4" width="16" height="20" rx="1"/>
+</mask>
+<rect x="6" y="4" width="16" height="20" rx="1" stroke="#111111" stroke-width="3" mask="url(#path-1-inside-1_1184_23817)"/>
+<mask id="path-2-inside-2_1184_23817" fill="white">
+<rect x="9" y="7" width="10" height="5" rx="1"/>
+</mask>
+<rect x="9" y="7" width="10" height="5" rx="1" stroke="#111111" stroke-width="3" mask="url(#path-2-inside-2_1184_23817)"/>
+<circle cx="10" cy="14" r="1" fill="#111111"/>
+<circle cx="10" cy="17" r="1" fill="#111111"/>
+<circle cx="10" cy="20" r="1" fill="#111111"/>
+<circle cx="14" cy="14" r="1" fill="#111111"/>
+<circle cx="14" cy="17" r="1" fill="#111111"/>
+<circle cx="14" cy="20" r="1" fill="#111111"/>
+<circle cx="18" cy="14" r="1" fill="#111111"/>
+<circle cx="18" cy="17" r="1" fill="#111111"/>
+<circle cx="18" cy="20" r="1" fill="#111111"/>
+</svg>

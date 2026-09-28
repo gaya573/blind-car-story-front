@@ -1,0 +1,26 @@
+.promo-page { background:#fff; }
+.promo-container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--gutter); }
+
+.promo-header { text-align:center; padding: 24px 0 12px; }
+.promo-title { margin:0 0 6px; font-size: 24px; font-weight: var(--font-weight-bold); }
+.promo-sub { margin:0 0 16px; color: var(--color-text-tertiary); font-size: 14px; }
+
+.promo-tabs { display:flex; gap:10px; justify-content:center; margin-bottom: 14px; }
+.promo-tab { border: 1.5px solid #000000; background:#fff; color:#000000; height:40px; padding:0 18px; border-radius:8px; font-weight:600; cursor:pointer; }
+.promo-tab.active { background:#000000; color:#fff; border-color:#000000; }
+.promo-tab.active:hover { background:#000000; }
+
+.ended .promo-tab.active { background:#C9CDD4; border-color:#C9CDD4; color:#2b2b2b; }
+.ended .promo-card { filter: grayscale(1) saturate(.6); opacity:.9; }
+
+.brand-bar { margin: 12px 0 22px; background:#f6f8fb; border:1px solid #eceff3; border-radius: 14px; padding: 16px 20px; }
+.brand-scroller { display:flex; gap:28px; justify-content: space-between; align-items:center; flex-wrap: nowrap; overflow: hidden; }
+.brand-pill { background:transparent; border:none; padding:0 10px; display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer; }
+.brand-circle { width:56px; height:56px; border:1px solid #d9dee5; border-radius:999px; background:#fff; box-shadow: 0 1px 0 rgba(0,0,0,.02); }
+.brand-label { font-size:12px; color:#767676; }
+.brand-pill.selected .brand-circle { border-color:#000000; box-shadow: 0 0 0 2px rgba(0, 0, 0, .1); }
+.brand-pill.selected .brand-label { color:#000000; font-weight:600; }
+
+.promo-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+
+

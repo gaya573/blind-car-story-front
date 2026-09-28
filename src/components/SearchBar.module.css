@@ -1,0 +1,108 @@
+/* 데스크톱 SearchBar (사각형) 전용 스타일 */
+.container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: 0 var(--spacing-xl);
+  height: 48px;
+  background: var(--color-white);
+  border: 1px solid var(--color-stroke-100);
+  box-shadow: var(--shadow-sm);
+  border-radius: 24px;
+}
+
+.small {
+  width: 250px;
+  height: 48px;
+  border-radius: 24px;
+}
+
+.long {
+  width: 639px;
+  height: 56px;
+  padding: 14px;
+  padding-right: 4px;
+  border-radius: var(--radius-sm);
+}
+
+.compact {
+  width: 240px;
+  height: 40px;
+  padding: 0 10px 0 8px;
+  border-radius: 20px;
+  border: 1px solid var(--color-stroke-100);
+  background: var(--color-white);
+  box-shadow: none;
+  gap: var(--spacing-sm);
+}
+
+/* 모바일 사각형 343 x 48 */
+.mobileRect {
+  width: 343px;
+  height: 48px;
+  padding: 0 var(--spacing-md);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.18);
+  border: 0px ;
+  backdrop-filter: blur(8px) saturate(160%);
+  -webkit-backdrop-filter: blur(8px) saturate(160%);
+}
+
+.icon {
+  flex-shrink: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  color: var(--color-main-50);
+  background: none;
+  border: none;
+  padding: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.icon:hover {
+  opacity: 0.7;
+}
+
+.icon:active {
+  opacity: 0.5;
+}
+
+.input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 0;
+  height: 24px;
+  font-size: var(--font-size-body-3);
+  line-height: 24px;
+  color: var(--color-text-200);
+  outline: none;
+}
+
+.input-compact {
+  font-size: var(--font-size-body-3);
+  line-height: 18px;
+  color: var(--color-text-200);
+}
+
+.input-compact::placeholder {
+  color: var(--color-text-100);
+}
+
+.icon-mobileRect { color: var(--color-white); }
+.input-mobileRect { color: var(--color-text-200); }
+.input-mobileRect::placeholder { color: rgba(0,0,0,0.45); }
+
+.input::placeholder {
+  color: var(--color-text-50);
+}
+
+.icon-compact {
+  width: 22px;
+  height: 22px;
+  color: var(--color-text-100);
+}

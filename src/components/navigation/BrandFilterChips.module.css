@@ -1,0 +1,52 @@
+.container {
+  width: 343px;
+  margin: 0 auto;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 8px;
+  background: #ffffff;
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  touch-action: pan-x;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: grab;
+}
+
+.container:active {
+  cursor: grabbing;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  height: 32px;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  color: #5d5d5d;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid #e6e8ef;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.active {
+  background: #0b0f19;
+  color: #ffffff;
+  border-color: #0b0f19;
+}

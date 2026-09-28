@@ -1,0 +1,251 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.sheet {
+  width: 100%;
+  max-width: 375px; /* 조금 넓혀서 Figma 치수 375에 맞춤 (좌우 패딩 고려) */
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 24px 20px;
+  box-sizing: border-box;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  animation: pop-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 28px;
+  margin-bottom: 24px;
+}
+
+.heroTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111;
+  margin: 0;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+.iconClose {
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Hero Section: Phone Image + Text */
+.heroSection {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.phoneImageWrapper {
+  flex-shrink: 0;
+  width: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phoneImage {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.heroTextArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding-top: 4px; /* 시각적 정렬 보정 */
+}
+
+.desc {
+  font-size: 15px;
+  line-height: 1.4;
+  color: #222;
+  margin: 0 0 6px;
+  font-weight: 500;
+  letter-spacing: -0.3px;
+  text-align: left;
+}
+
+.highlightWrapper {
+  display: inline-block;
+  margin-top: 2px;
+}
+
+.highlightEmphasis {
+  position: relative;
+  font-weight: 800;
+  z-index: 1;
+}
+
+.highlightEmphasis::after {
+  content: '';
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  bottom: 2px;
+  height: 8px;
+  background: #FFEB00; /* 노란색 형광펜 */
+  z-index: -1;
+  opacity: 1;
+}
+
+.subDesc {
+  font-size: 13px;
+  line-height: 1.4;
+  color: #555;
+  margin: 0;
+  white-space: pre-line;
+  letter-spacing: -0.3px;
+  text-align: left;
+}
+
+.formArea {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.inputBox {
+  width: 100%;
+  height: 52px;
+  border: 1px solid #E5E5E5;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  box-sizing: border-box;
+  background: #fff;
+  transition: border-color 0.2s;
+}
+
+.inputBox:focus-within {
+  border-color: #111111;
+}
+
+.label {
+  font-size: 15px;
+  font-weight: 700;
+  color: #222;
+  white-space: nowrap;
+  min-width: 60px; /* 72 -> 60 조정 */
+  text-align: left;
+  margin-right: 10px;
+}
+
+.input {
+  flex: 1;
+  border: none;
+  background: none;
+  height: 100%;
+  font-size: 15px;
+  color: #222;
+  padding: 0;
+  min-width: 0;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.input::placeholder {
+  color: #C7C7CD;
+  font-weight: 400;
+}
+
+.consentArea {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.noticeGroup {
+  width: 100%;
+  margin-bottom: 20px;
+  padding-left: 4px;
+}
+
+.notice {
+  font-size: 11px;
+  line-height: 1.4;
+  color: #9A9A9A;
+  margin: 0;
+  text-align: left;
+  letter-spacing: -0.5px;
+}
+
+.actions {
+  width: 100%;
+}
+
+.primary {
+  width: 100%;
+  height: 52px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  background: #111111;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -0.3px;
+}
+
+.primary:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+@keyframes pop-in {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

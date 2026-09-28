@@ -1,0 +1,148 @@
+.card {
+  width: 320px;
+  height: 95px;
+  display: flex;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.clickable { cursor: pointer; }
+
+.leftSection {
+  width: 60px;
+  height: 95px;
+  flex-shrink: 0;
+  background: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carImage {
+  width: 60px;
+  height: 60px;
+  background: var(--color-bg-100);
+  object-fit: cover;
+}
+
+.rightSection {
+  flex: 1;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 0; /* ellipsis 동작을 위한 설정 */
+}
+
+.carName {
+  border: 1px solid var(--color-stroke-100);
+  padding: 0px 2px;
+  font-size: 10px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-200);
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 1;
+}
+
+.rating {
+  display: flex;
+  margin-left: 6px;
+  align-items: center;
+}
+
+.star {
+  font-size: 12px;
+}
+
+.starFilled {
+  color: var(--color-sub-1-y);
+}
+
+.starEmpty {
+  color: var(--color-stroke-100);
+}
+
+.ratingNumber {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-200);
+  margin-left: 4px;
+}
+
+.reviewText {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-200);
+  line-height: var(--line-height-base);
+}
+
+.reviewDetail {
+  font-size: 11px;
+  margin-right: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-100);
+  line-height: var(--line-height-base);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* list variant (compact row inside white card) */
+.listRow { display: grid; grid-template-columns: 60px 1fr; gap: 12px; padding: 10px 0; }
+.listThumb { width: 60px; height: 60px; border-radius: var(--radius-sm); overflow: hidden; background: var(--color-bg-100); }
+.listThumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.listMeta { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+.listMeta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  min-width: 0; /* 내부 배지 줄바꿈/말줄임 처리용 */
+}
+.listBadge {
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  background: var(--color-bg-200);
+  border-radius: 4px;
+  padding: 2px 6px;
+  max-width: 170px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 1;
+}
+.listStars { color: var(--color-sub-1-y); font-size: var(--font-size-subtitle-2); }
+.listScore { font-size: var(--font-size-subtitle-2); color: var(--color-text-200); font-weight: var(--font-weight-semibold); }
+.listTitle {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-200);
+  margin: 0 0 6px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.listText {
+  font-size: var(--font-size-subtitle-2);
+  color: var(--color-text-100);
+  margin: 0;
+  line-height: var(--line-height-base);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}

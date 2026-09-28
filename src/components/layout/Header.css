@@ -1,0 +1,261 @@
+/* =========================
+   전체 헤더 공통 레이아웃
+   ========================= */
+.header {
+  background: var(--color-white);
+  width: 100%;
+  position: relative;
+  top: 0;
+  z-index: var(--z-index-fixed);
+}
+
+/* 상단 로그인/회원가입 바 */
+.top-bar {
+  border-bottom: 1px solid var(--color-stroke-100);
+  padding: 0.5rem 0;
+}
+
+.top-links {
+  width: 1280px;
+  margin: 0 auto;
+  padding: 0 ;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5rem;
+}
+
+.top-links a {
+  color: var(--color-text-100);
+  font-size: var(--font-size-body-4);
+  text-decoration: none;
+}
+
+.top-links a:hover {
+  color: var(--color-main-50);
+}
+
+/* 중간 바: 로고 + 검색 + 우측 링크 */
+.middle-bar {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 12px 0;
+  padding-bottom: 17px;
+  padding-top: 59px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 로고 영역 */
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.logo-section:hover {
+  opacity: 0.8;
+}
+
+.logo-icon {
+  width: 46px;
+  height: 60px;
+  display: block;
+  object-fit: contain;
+}
+
+.logo-text-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0px;
+}
+
+.logo-sub-text {
+  font-size: 14px;
+  color: #000;
+  font-weight: regular;
+}
+
+.logo-main-text {
+  font-size: 24px;
+  font-weight: semibold;
+  color: #000;
+}
+
+/* 오른쪽 영역: 검색 + 텍스트 링크 */
+.right-area {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-right: 12px;
+}
+
+.header-search {
+  width: 350px !important;
+  height: 48px !important;
+  background-color: #F8F8F8 !important;
+  border: none !important;
+  border-radius: 999px !important;
+  padding: 0 !important;
+  gap: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.header-search input {
+  padding-left: 20px !important;
+  font-size: 14px !important;
+  color: #111 !important;
+  height: 100% !important;
+}
+
+.header-search input::placeholder {
+  color: #999 !important;
+}
+
+.header-search button {
+  width: 48px !important;
+  height: 48px !important;
+  padding: 10px !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.header-search button svg {
+  width: 28px !important;
+  height: 28px !important;
+  color: #111 !important;
+}
+
+.right-links {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.right-links a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: var(--font-size-body-2);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  word-break: keep-all;
+  display: inline-block;
+}
+
+.right-links a:hover {
+  color: var(--color-main-50);
+}
+
+/* =========================
+   하단 내비게이션 (텍스트 형태)
+   ========================= */
+.bottom-nav {
+  background: var(--color-white);
+}
+
+.bottom-nav-inner {
+  width: 1280px;
+
+  margin: 0 auto;
+  padding-bottom:20px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 120px;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.nav-item-year-end {
+  gap: 6px;
+}
+
+/* BEST / HOT 배지 (디자인: 60 x 24, main 50 / F72F2F 컬러) */
+.nav-item-badge {
+  width: 60px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+  line-height: 1;
+  color: #fff;
+}
+
+.nav-item-badge.best {
+  background: #111111;
+  align-self: flex-end;
+}
+
+.nav-item-badge.hot {
+  background: #F72F2F;
+  align-self: flex-end;
+}
+
+.nav-item-badge.year-end-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  background: #F72F2F;
+  box-shadow: 0 4px 12px rgba(247, 47, 47, 0.35);
+  animation: yearEndPulse 1.8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* 내비게이션 텍스트 링크 */
+.nav-item-link {
+  position: relative;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #000;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-decoration: none;
+}
+
+.nav-item-link:hover {
+  color: var(--color-main-50);
+}
+
+.nav-item-link.active {
+  color: #111111;
+  font-weight: var(--font-weight-semibold);
+}
+
+.nav-item-link.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background-color: #111111;
+}
+
+@keyframes yearEndPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.16);
+  }
+}
