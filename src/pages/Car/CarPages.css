@@ -1,0 +1,135 @@
+/*
+ * 내 차 견적 목록 · 차량 상세 보완 스타일.
+ * 퍼블리싱(carlist.css, car-detail.css)에 없는 실데이터 표시만 더한다: 국산차 월 렌탈료 행, 검색어 안내,
+ * 로딩·오류 문구, 차량 라인 상세의 모델 선택 줄, 연락처 입력 모달.
+ */
+
+/* 레거시 components/Breadcrumb.css 의 전역 .breadcrumb(높이 60px, margin auto)가 다른 페이지를 통해 함께 로드되면 퍼블리싱 간격이 틀어진다. */
+.bcs-page-carlist .breadcrumb {
+  height: auto;
+  max-width: none;
+  margin: 0 0 20px;
+}
+
+/* 목록 카드: 할인이 없는 차량가는 취소선 없이, 월 렌탈료 3종은 퍼블리싱 차량 카드(.vehicle-chip) 모양으로 */
+.bcs-page-carlist .cl-price-base.is-plain {
+  text-decoration: none;
+  color: var(--color-text);
+  font-weight: var(--fw-semibold);
+}
+
+.bcs-page-carlist .cl-price-row--label dt {
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-secondary);
+}
+
+.bcs-page-carlist .cl-price-row .vehicle-chip {
+  height: 22px;
+  padding: 0 8px;
+  font-size: 11px;
+}
+
+.bcs-page-carlist .cl-price-monthly {
+  font-size: var(--fs-16);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.bcs-page-carlist .cl-price-monthly .price-suffix {
+  margin-left: 2px;
+  font-size: var(--fs-12);
+  font-weight: var(--fw-medium);
+  color: var(--color-text-secondary);
+}
+
+.bcs-page-carlist .cl-keyword {
+  color: var(--color-text);
+  font-weight: var(--fw-bold);
+}
+
+.bcs-page-carlist .cl-keyword__clear,
+.bcs-page-carlist .cl-empty a {
+  color: var(--color-text);
+  font-weight: var(--fw-semibold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.bcs-page-carlist .cl-empty a {
+  display: inline-block;
+  margin-top: 12px;
+}
+
+.bcs-page-carlist .cl-more__btn:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* 차량 상세 */
+.bcs-page-car-detail .cd-status {
+  padding: 120px 0;
+  text-align: center;
+  font-size: var(--fs-14);
+  color: var(--color-text-muted);
+}
+
+.bcs-page-car-detail .cd-status button {
+  margin-left: 8px;
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  font-weight: var(--fw-semibold);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.bcs-page-car-detail .cd-model-tabs {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.bcs-page-car-detail .cd-empty {
+  padding: 16px 10px;
+  font-size: var(--fs-14);
+  color: var(--color-text-muted);
+}
+
+.bcs-page-car-detail .cd-contract-note {
+  font-size: var(--fs-13);
+  color: var(--color-text-secondary);
+}
+
+.bcs-page-car-detail .cd-estimate__cta:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* 연락처 입력 모달: 오른쪽은 예시 대신 사용자가 고른 견적 조건을 보여준다. */
+.bcs-page-car-detail .cd-contact {
+  width: min(880px, 100%);
+}
+
+.bcs-page-car-detail .cd-contact .qm-body {
+  grid-template-columns: minmax(0, 1fr) 340px;
+}
+
+.bcs-page-car-detail .cd-contact__summary {
+  box-shadow: none;
+}
+
+.bcs-page-car-detail .cd-contact__summary .cd-est-options {
+  max-height: none;
+}
+
+.bcs-page-car-detail .cd-contact .qm-submit {
+  margin-top: 16px;
+}
+
+@media (max-width: 1024px) {
+  .bcs-page-car-detail .cd-contact .qm-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
