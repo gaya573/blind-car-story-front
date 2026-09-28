@@ -7,8 +7,18 @@ import { SITE_NAME } from '../site';
  * 퍼블리싱 .consult-banner (메인·출고후기·브랜드 혜택 상세에 반복되는 "1분 만에 카카오로 간편 상담" 배너).
  * 퍼블리싱에는 이 폼에 개인정보 동의가 없어서, 동의 없이 연락처를 받지 않도록 동의 줄을 더했다.
  */
-export default function ConsultBannerForm({ idPrefix, source, entryLabel, id, variant, description, carModel = '' }) {
-  const { handleSubmit, error, submitting } = useConsultForm({ source, entryLabel, defaults: { model: carModel } });
+export default function ConsultBannerForm({
+  idPrefix,
+  source,
+  entryLabel,
+  id,
+  variant,
+  description,
+  title = `합리적인 신차구매, ${SITE_NAME}`,
+  carModel = '',
+  brand = '',
+}) {
+  const { handleSubmit, error, submitting } = useConsultForm({ source, entryLabel, defaults: { model: carModel, brand } });
   const titleId = id ? `${id}-title` : undefined;
   return (
     <section
@@ -19,7 +29,7 @@ export default function ConsultBannerForm({ idPrefix, source, entryLabel, id, va
     >
       <img className="consult-banner__car" src="/bcs/images/banner/consult-car-gold.png" alt="" aria-hidden="true" />
       <div className="consult-banner__left">
-        <h3 id={titleId}>합리적인 신차구매, {SITE_NAME}</h3>
+        <h3 id={titleId}>{title}</h3>
         <div className="consult-banner__phone">쉽고 투명한 신차 견적</div>
         {description ? <p>{description}</p> : null}
       </div>

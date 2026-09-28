@@ -1,38 +1,23 @@
-import React, {
-  useState,
-  useMemo,
-  useEffect,
-  useCallback,
-  useRef,
-} from 'react';
+import React, { useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import styles from './MobleCarSearchResult.module.css';
-import { DropdownFilterMobile } from '../../components/filters/MobileFilters';
-import OptionPopupMobile from '../../components/OptionPopupMobile';
-import VehicleCardMobile from '../../components/VehicleCardMobile';
-import VehicleCardDomestic from '../../components/VehicleCardDomestic';
-import NoticeBox from '../../components/NoticeBox';
-import BrandFilterChips from '../../components/navigation/BrandFilterChips.jsx';
-import { useCarBrandsQuery, useCarListInfiniteQueryV3 } from '../../hooks/queries/carQueries';
-import {
-  getPreferredBrandLabel,
-  isSameBrandName,
-  sortBrandsByPriority,
-} from '../../config/brandPriority';
-import { resolveMonthlyPayment } from '../../utils/priceUtils';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import SeoHelmet from '../../components/SeoHelmet.jsx';
+import { MobileSubHeader } from '../../bcs/layout/MobileLayout';
+import { useBcsUi } from '../../bcs/BcsUiContext';
+import { useVehicleNavigation } from '../../bcs/useVehicleNavigation';
+import { formatMonthly, formatWon, formatWonTilde } from '../../bcs/format';
+import { SITE_NAME } from '../../bcs/site';
+import VehicleCard from '../../bcs/components/VehicleCard';
+import { carAPI } from '../../services/carApi';
+import { useCarBrandsQuery } from '../../hooks/queries/carQueries';
+import { getPreferredBrandLabel, isSameBrandName, sortBrandsByPriority } from '../../config/brandPriority';
 
-const FALLBACK_IMAGE = '/placeholder/car.svg';
+// 퍼블리싱 mobile-pages.js renderResults 의 PAGE_SIZE
+const PAGE_SIZE = 8;
 
-const noticeItems = [
-  '페이지의 월 납입금 등은 예시이며, 실제 계약 시 월 납입금은 다를 수 있습니다.',
-  '내 출고는 공휴일을 제외한 영업일 기준입니다.',
-  '블라인드 카스토리는 금융사의 장기렌트/리스 상품을 중개합니다.',
-  '고객 요청에 따라 금융사 심사를 거쳐 상품이 진행됩니다.',
-  '서비스 이용 시 별도 수수료나 금전적 대가가 발생하지 않습니다.',
-  '계약 전 반드시 설명서 및 약관을 확인하시기 바랍니다.',
-];
+const ORIGIN_LABEL = { domestic: '국산차', imported: '수입차' };
 
-// 차량 종류 매핑 (UI -> API)
+// 차량 종류·연료 (필터 화면 표기 → API 값)
 const CAR_TYPE_MAP = {
   '경·소형 승용': '소형',
   '중형 승용': '중형',
@@ -42,449 +27,277 @@ const CAR_TYPE_MAP = {
 };
 
 const FUEL_MAP = {
-  '가솔린': '가솔린',
+  가솔린: '가솔린',
   '디젤(경유)': '디젤',
-  'LPG': 'LPG',
-  '하이브리드': '하이브리드',
+  LPG: 'LPG',
+  하이브리드: '하이브리드',
   '전기·수소': '전기',
 };
 
+const toNumber = (value) => {
+  const number = Number(value);
+  return Number.isFinite(number) ? number : 0;
+};
+
+const splitParam = (value) =>
+  value
+    ? value
+        .replace(/\+/g, ' ')
+        .split(',')
+        .map((item) => item.trim())
+        .filter(Boolean)
+    : [];
+
+const normalizeOrigin = (value) => {
+  if (value === 'domestic') return 'domestic';
+  if (value === 'import' || value === 'imported') return 'imported';
+  return '';
+};
+
+const hasValue = (value) => value !== null && value !== undefined && value !== '';
+
+/**
+ * v3 차량 라인 응답을 카드 모델로 바꾼다. 가격·할인은 대표 트림 값을 우선 쓰고,
+ * 없으면 차량 라인 대표값(representative*)을 쓴다.
+ */
+const toResultCardModel = (line, brandLabelById = {}) => {
+  const trims = Array.isArray(line.trims) ? line.trims : [];
+  const trim = trims.find((item) => item.id === line.representativeTrimId) || trims[0] || {};
+  const trimBase = toNumber(trim.basePrice ?? trim.price);
+  const trimDiscounted = toNumber(trim.discountInfo?.discountedPrice ?? trim.discountedPrice ?? trim.finalPrice);
+  const lineFinal = toNumber(line.representativeFinalPrice);
+  const basePrice = trimBase || toNumber(line.basePrice) || lineFinal;
+
+  let finalPrice = trimDiscounted || lineFinal || basePrice;
+  let discount = toNumber(line.representativeDiscountAmount);
+  if (trimBase && trimDiscounted && trimDiscounted < trimBase) {
+    discount = trimBase - trimDiscounted;
+    finalPrice = trimDiscounted;
+  } else if (discount > 0 && basePrice) {
+    finalPrice = basePrice - discount;
+  }
+  const discountRate = discount > 0 && basePrice > 0 ? Math.round((discount / basePrice) * 100) : 0;
+
+  return {
+    id: line.vehicleLineId ?? line.id ?? line.modelId,
+    vehicleLineId: line.vehicleLineId ?? line.id,
+    trimId: line.representativeTrimId ?? trim.id,
+    brandName: line.brandName || brandLabelById[line.brandId] || '',
+    vehicleName: line.modelName?.trim() || line.vehicleLineName || line.name || '',
+    trimName: line.representativeTrimName || trim.name || '',
+    imageUrl: line.imageUrl || trim.imageUrl || '',
+    basePrice: basePrice || null,
+    finalPrice: finalPrice || null,
+    discount,
+    discountRate,
+    prepayment30: trim.lowestPrepayment30MonthlyFee ?? trim.lowest_prepayment_30_monthly_fee ?? null,
+    deposit30: trim.lowestDeposit30MonthlyFee ?? trim.lowest_deposit_30_monthly_fee ?? null,
+    noDeposit: trim.lowestNoDepositMonthlyFee ?? trim.lowest_no_deposit_monthly_fee ?? null,
+    remainingDays: null,
+  };
+};
+
+/**
+ * 퍼블리싱 resultCard (vehicle-card). 할인이 있으면 기존가격 · 할인가격 · 최종가격을,
+ * 할인도 월 렌탈료도 없으면 차량가격만 보여준다.
+ */
+function ResultCard({ car }) {
+  const { openQuote } = useBcsUi();
+  const goToDetail = useVehicleNavigation();
+  const open = () => goToDetail(car);
+  const discounted = car.discount > 0;
+
+  return (
+    <article
+      className="vehicle-card"
+      data-trim-id={car.trimId ?? ''}
+      data-vehicle-line-id={car.vehicleLineId ?? ''}
+      role="link"
+      tabIndex={0}
+      onClick={open}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter') open();
+      }}
+    >
+      <div className="vehicle-card__media">
+        {car.brandName ? <span className="vehicle-card__brand">{car.brandName}</span> : null}
+        {discounted ? <span className="vehicle-card__badge vehicle-card__badge--discount">{car.discountRate}% 할인</span> : null}
+        <img className="vehicle-image" src={car.imageUrl || '/bcs/images/cars/car-sedan.svg'} alt={car.vehicleName} loading="lazy" />
+      </div>
+      <div className="vehicle-card__body">
+        <div>
+          <h3 className="vehicle-name">{car.vehicleName}</h3>
+          <p className="vehicle-trim">{car.trimName}</p>
+        </div>
+        <div className="vehicle-price-block">
+          {discounted ? (
+            <>
+              <div className="vehicle-price-row">
+                <span className="vehicle-price-label">기존가격</span>
+                <span className="vehicle-base-price vehicle-base-price--strike">{formatWonTilde(car.basePrice)}</span>
+              </div>
+              <div className="vehicle-price-row">
+                <span className="vehicle-price-label">할인가격</span>
+                <span className="vehicle-off-price">-{formatWon(car.discount)}</span>
+              </div>
+            </>
+          ) : null}
+          <div className="vehicle-monthly-row">
+            <span className="vehicle-chip">{discounted ? '최종가격' : '차량가격'}</span>
+            <strong className="vehicle-amount">
+              {formatMonthly(car.finalPrice)}
+              <span className="price-suffix">원~</span>
+            </strong>
+          </div>
+        </div>
+        <button
+          className="vehicle-cta"
+          type="button"
+          onClick={(event) => {
+            event.stopPropagation();
+            openQuote([car.vehicleName, car.trimName].filter(Boolean).join(' '), 'mobile-search-results');
+          }}
+        >
+          실시간 무료견적 받기
+        </button>
+      </div>
+    </article>
+  );
+}
+
+/** 퍼블리싱 pages/m-search-results.html. URL 조건: carOrigin, brand, types, fuels, keyword */
 export default function MobleCarSearchResult() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [activeSort, setActiveSort] = useState('recent');
-  const [isSortPopupOpen, setIsSortPopupOpen] = useState(false);
-  const [navigatingCardId, setNavigatingCardId] = useState(null);
 
-  const { data: brandsData = [] } = useCarBrandsQuery();
+  const origin = normalizeOrigin(searchParams.get('carOrigin'));
+  const brandNames = splitParam(searchParams.get('brand'));
+  const types = splitParam(searchParams.get('types'));
+  const fuelNames = splitParam(searchParams.get('fuels'));
+  const keyword = searchParams.get('keyword')?.trim() || '';
 
-  // URL 파라미터
-  const brandParam = searchParams.get('brand');
-  const carOrigin = searchParams.get('carOrigin');
-  const isImportMode = useMemo(() => carOrigin === 'import' || carOrigin === 'imported', [carOrigin]);
-  const typesParam = searchParams.get('types') ? decodeURIComponent(searchParams.get('types')).replace(/\+/g, ' ') : null;
-  const fuelsParam = searchParams.get('fuels') ? decodeURIComponent(searchParams.get('fuels')).replace(/\+/g, ' ') : null;
-  const keyword = searchParams.get('keyword');
-  
-  // 다중 브랜드 이름 파싱
-  const brandNames = useMemo(() => {
-    if (!brandParam) return [];
-    return brandParam.split(',').map(b => b.trim()).filter(Boolean);
-  }, [brandParam]);
+  const brandsQuery = useCarBrandsQuery();
+  const brands = useMemo(() => (Array.isArray(brandsQuery.data) ? brandsQuery.data : []), [brandsQuery.data]);
+  const brandLabelById = useMemo(
+    () => Object.fromEntries(brands.map((brand) => [brand.id, getPreferredBrandLabel(brand)])),
+    [brands],
+  );
 
-  // 선택된 브랜드 ID 확인 (첫 번째 브랜드 사용)
-  const selectedBrandId = useMemo(() => {
-    if (brandNames.length === 0) return undefined;
-    const firstBrandName = brandNames[0];
-    const found = brandsData.find((b) => isSameBrandName(b.name, firstBrandName));
-    return found?.id;
-  }, [brandNames, brandsData]);
-
-  // 필터용 API 파라미터 계산
-  const apiCarType = useMemo(() => {
-    if (typesParam) {
-      const types = typesParam.split(',').map((t) => CAR_TYPE_MAP[t.trim()]).filter(Boolean);
-      if (types.length > 0) return types[0];
-    }
-    // 백엔드 v3는 '국산'/'수입' 값도 허용하므로 데스크탑 CarList와 동일하게 맞춤
-    if (carOrigin === 'domestic') return '국산';
-    if (carOrigin === 'import' || carOrigin === 'imported') return '수입';
-    return undefined;
-  }, [carOrigin, typesParam]);
-
-  const fuels = useMemo(() => {
-    if (!fuelsParam) return undefined;
-    const fuelList = fuelsParam.split(',').map((f) => FUEL_MAP[f.trim()]).filter(Boolean);
-    return fuelList.length > 0 ? fuelList[0] : undefined;
-  }, [fuelsParam]);
-
-  // 정렬 옵션 변환
-  const sortOption = useMemo(() => {
-    switch (activeSort) {
-      case 'priceAsc':
-        return { sort: 'price_asc' };
-      case 'priceDesc':
-        return { sort: 'price_desc' };
-      // 최신순 -> 할인율 높은 순으로 백엔드에 위임
-      default:
-        return { sort: 'percent_desc' };
-    }
-  }, [activeSort]);
-
-  // v3 무한 스크롤 쿼리 사용
-  const PAGE_SIZE = 20;
-  
-  // 쿼리 파라미터 구성
-  const queryParams = useMemo(() => ({
-    brandId: selectedBrandId,
-    carType: apiCarType, // 'domestic', 'import', '소형', 'SUV' 등
-    fuel: fuels,
-    keyword: keyword || undefined,
-    limit: PAGE_SIZE,
-    sort: sortOption.sort,
-  }), [selectedBrandId, apiCarType, fuels, keyword, sortOption]);
-
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isLoading,
-    isError
-  } = useCarListInfiniteQueryV3(queryParams);
-
-  // 데이터 Flattening
-  const vehicleLineItems = useMemo(() => {
-    if (!data?.pages) return [];
-    return data.pages.flatMap((page) => page.items || []);
-  }, [data]);
-
-  // v3 응답을 단순 매핑 (대표 트림/가격/할인 값은 백엔드에서 계산됨)
-  const processedItems = useMemo(() => {
-    if (!vehicleLineItems || vehicleLineItems.length === 0) return [];
-
-    return vehicleLineItems.map((vehicleLine) => {
-      const toNumber = (value) => {
-        const num = Number(value);
-        return Number.isFinite(num) ? num : 0;
-      };
-
-      // 백엔드 v3에서 내려주는 대표 트림 가격/할인 정보 사용 (없으면 0)
-      const basePriceLine = toNumber(vehicleLine.basePrice);
-      const finalPriceLine = toNumber(vehicleLine.representativeFinalPrice);
-
-      const trims = Array.isArray(vehicleLine.trims) ? vehicleLine.trims : [];
-      const representativeTrim =
-        trims.find((t) => t.id === vehicleLine.representativeTrimId) || trims[0] || null;
-
-      // 트림 기반 차량가/할인
-      const trimBasePrice = representativeTrim
-        ? toNumber(
-            representativeTrim.basePrice ??
-              representativeTrim.price ??
-              representativeTrim.consumerPrice ??
-              representativeTrim.msrtPrice,
-          )
-        : 0;
-      const trimDiscountedPrice = representativeTrim
-        ? toNumber(
-            representativeTrim.discountInfo?.discountedPrice ??
-              representativeTrim.discountInfo?.discounted_price ??
-              representativeTrim.discountedPrice ??
-              representativeTrim.discounted_price ??
-              representativeTrim.finalPrice ??
-              representativeTrim.final_price,
-          )
-        : 0;
-
-      const computedBasePrice = trimBasePrice > 0 ? trimBasePrice : basePriceLine ?? 0;
-      const computedFinalPrice =
-        trimDiscountedPrice > 0
-          ? trimDiscountedPrice
-          : trimBasePrice > 0
-            ? trimBasePrice
-            : finalPriceLine ?? 0;
-
-      let discountAmount = vehicleLine.representativeDiscountAmount ?? 0;
-      let discountPercent = vehicleLine.representativeDiscountPercent ?? 0;
-      if (trimBasePrice > 0 && trimDiscountedPrice > 0 && trimDiscountedPrice < trimBasePrice) {
-        discountAmount = trimBasePrice - trimDiscountedPrice;
-        discountPercent = Math.round((discountAmount / trimBasePrice) * 100);
-      }
-
-      const monthlyRentalFee =
-        representativeTrim?.discountedMonthlyFee ??
-        representativeTrim?.discounted_monthly_fee ??
-        representativeTrim?.monthlyRentalFee ??
-        representativeTrim?.monthly_rental_fee ??
-        null;
-
-      const monthlyBase =
-        representativeTrim?.monthlyRentalFee ??
-        representativeTrim?.monthly_rental_fee ??
-        null;
-
-      const monthlyDiscountPercent =
-        representativeTrim?.monthlyDiscountPercent ??
-        representativeTrim?.monthly_discount_percent ??
-        null;
-
-      // 3가지 렌탈플랜 데이터 추출
-      const lowestPrepayment30MonthlyFee =
-        representativeTrim?.lowestPrepayment30MonthlyFee ??
-        representativeTrim?.lowest_prepayment_30_monthly_fee ??
-        null;
-      const lowestDeposit30MonthlyFee =
-        representativeTrim?.lowestDeposit30MonthlyFee ??
-        representativeTrim?.lowest_deposit_30_monthly_fee ??
-        null;
-      const lowestNoDepositMonthlyFee =
-        representativeTrim?.lowestNoDepositMonthlyFee ??
-        representativeTrim?.lowest_no_deposit_monthly_fee ??
-        null;
-
-      return {
-        id: vehicleLine.modelId || vehicleLine.model_id || vehicleLine.representativeTrimId || vehicleLine.vehicleLineId || vehicleLine.id,
-        modelId: vehicleLine.modelId || vehicleLine.model_id,
-        vehicleLineId: vehicleLine.vehicleLineId || vehicleLine.id,
-        vehicleLineName: vehicleLine.vehicleLineName || vehicleLine.name,
-        modelName: vehicleLine.modelName, // 모델 그룹명 필드 추가 매핑 (있으면 사용)
-        brandId: vehicleLine.brandId,
-        brandName: vehicleLine.brandName,
-        representativeTrimName: vehicleLine.representativeTrimName || '',
-        representativeTrimId: vehicleLine.representativeTrimId,
-        imageUrl: vehicleLine.imageUrl || vehicleLine.image || FALLBACK_IMAGE,
-        basePrice: computedBasePrice,
-        finalPrice: computedFinalPrice,
-        discountAmount,
-        discountPercent,
-        monthlyRentalFee: monthlyBase ?? null,
-        discountedMonthlyFee: monthlyRentalFee ?? null,
-        monthlyDiscountPercent: monthlyDiscountPercent ?? null,
-        hasMonthlyRentalFee: Boolean(monthlyBase || monthlyRentalFee),
-        trimsCount: trims.length,
-        // 3가지 렌탈플랜 데이터 추가
-        lowestPrepayment30MonthlyFee,
-        lowestDeposit30MonthlyFee,
-        lowestNoDepositMonthlyFee,
-      };
+  // 칩: 국산/수입 구분에 맞는 브랜드만 우선순위대로
+  const chipBrands = useMemo(() => {
+    const list = brands.filter((brand) => {
+      if (origin === 'domestic') return brand.country === 'KR';
+      if (origin === 'imported') return brand.country !== 'KR';
+      return true;
     });
-  }, [vehicleLineItems]);
+    return sortBrandsByPriority(list);
+  }, [brands, origin]);
 
+  const selectedBrand = brandNames.length ? brands.find((brand) => isSameBrandName(brand.name, brandNames[0])) : null;
+  // 브랜드 이름을 id로 바꿀 수 있을 때까지 목록을 부르지 않는다. 목록에 없는 브랜드면 준비 중 안내를 띄운다.
+  const brandPending = brandNames.length > 0 && !selectedBrand && brandsQuery.isPending;
+  const unknownBrand = brandNames.length > 0 && !selectedBrand && !brandPending;
 
-  // 필터 칩 (브랜드)
-  const filteredBrands = useMemo(() => {
-    if (!brandsData.length) return [];
-    let list = brandsData;
-    if (carOrigin === 'domestic') {
-      list = brandsData.filter((b) => b.country === 'KR');
-    } else if (carOrigin === 'import' || carOrigin === 'imported') {
-      list = brandsData.filter((b) => b.country !== 'KR');
-    }
-    const sorted = sortBrandsByPriority(list);
-    return [
-      { key: '전체', label: '전체', name: '전체' },
-      ...sorted.map((b) => ({
-        key: b.name,
-        label: getPreferredBrandLabel(b),
-        name: b.name,
-      })),
-    ];
-  }, [carOrigin, brandsData]);
+  const carType = types.map((type) => CAR_TYPE_MAP[type]).find(Boolean) ?? (origin === 'domestic' ? '국산' : origin === 'imported' ? '수입' : undefined);
+  const fuel = fuelNames.map((name) => FUEL_MAP[name]).find(Boolean);
 
-  // 필터 핸들러
-  const handleBrandChipChange = (nextKey) => {
-    const params = new URLSearchParams(searchParams);
-    params.delete('keyword'); // 브랜드 변경시 검색어 초기화
-    
-    if (nextKey === '전체') {
-      params.delete('brand');
-    } else {
-      params.set('brand', nextKey);
-    }
-    // 페이지 리셋은 query key 변경으로 자동 처리됨 (infinite query)
-    navigate(`/m/search/results?${params.toString()}`, { replace: true });
+  const params = { brandId: selectedBrand?.id, carType, fuel, keyword: keyword || undefined, sort: 'percent_desc' };
+  const listQuery = useInfiniteQuery({
+    queryKey: ['cars', 'list', 'infinite', 'v3', params],
+    queryFn: ({ pageParam = 1 }) => carAPI.findTrimsV3({ ...params, page: pageParam, limit: PAGE_SIZE }),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      const pagination = lastPage?.pagination;
+      return pagination && pagination.page < pagination.totalPages ? pagination.page + 1 : undefined;
+    },
+    enabled: !brandPending && !unknownBrand,
+    staleTime: 1000 * 60 * 5,
+  });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = listQuery;
+
+  const cars = useMemo(() => {
+    if (unknownBrand) return [];
+    const lines = (data?.pages ?? []).flatMap((page) => page?.items ?? []);
+    return lines.map((line) => toResultCardModel(line, brandLabelById));
+  }, [data, brandLabelById, unknownBrand]);
+
+  const loading = brandPending || (!unknownBrand && listQuery.isPending);
+  const total = unknownBrand ? 0 : toNumber(data?.pages?.[0]?.pagination?.totalElements) || cars.length;
+  const rest = Math.max(0, total - cars.length);
+
+  const selectBrand = (name) => {
+    const next = new URLSearchParams(searchParams);
+    next.delete('keyword'); // 브랜드를 바꾸면 검색어 조건은 푼다
+    if (name) next.set('brand', name);
+    else next.delete('brand');
+    navigate(`/m/search/results?${next.toString()}`, { replace: true });
   };
 
-  const activeBrandKey = useMemo(() => {
-    if (brandNames.length === 0) return '전체';
-    const matchedBrand = filteredBrands.find((brand) => isSameBrandName(brand.key, brandNames[0]));
-    return matchedBrand?.key ?? brandNames[0];
-  }, [brandNames, filteredBrands]);
-
-  // 카드 클릭 이동
-  const handleCardNavigate = useCallback((item) => {
-      if (navigatingCardId) return;
-      setNavigatingCardId(item.id);
-      
-      // 상세 페이지 이동
-      const targetId = item.vehicleLineId;
-      const trimQuery = item.representativeTrimId ? `?trimId=${item.representativeTrimId}` : '';
-      
-      navigate(`/m/car-detail/${targetId}${trimQuery}`);
-      setNavigatingCardId(null);
-  }, [navigate, navigatingCardId]);
-
-  // 무한 스크롤 Trigger
-  const loadMoreRef = useRef(null);
-  useEffect(() => {
-    if (!hasNextPage || isFetchingNextPage || isLoading) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          fetchNextPage();
-        }
-      },
-      { threshold: 0.1, rootMargin: '100px' }
-    );
-
-    const el = loadMoreRef.current;
-    if (el) observer.observe(el);
-
-    return () => {
-      if (el) observer.unobserve(el);
-    };
-  }, [hasNextPage, isFetchingNextPage, isLoading, fetchNextPage]);
+  const activeName = selectedBrand?.name ?? brandNames[0] ?? '';
+  const title = `${ORIGIN_LABEL[origin] ? `${ORIGIN_LABEL[origin]} ` : ''}검색결과`;
+  let emptyMessage = keyword ? '검색 결과가 없습니다.' : '해당 브랜드의 차량 정보를 준비 중입니다.';
+  if (listQuery.isError) emptyMessage = '차량 정보를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.';
 
   return (
-    <div className={styles.page}>
-      {filteredBrands.length > 0 && (
-        <div className={styles.brandChipsBar}>
-          <BrandFilterChips
-            items={filteredBrands}
-            activeKey={activeBrandKey}
-            onChange={handleBrandChipChange}
-          />
+    <>
+      <SeoHelmet title={`${title} | ${SITE_NAME}`} description={`${SITE_NAME} 차량 검색결과. 브랜드별 할인 조건을 비교해 보세요.`} />
+      <MobileSubHeader title={title} />
+      <main id="main-content">
+        <div className="m-chips">
+          <button className={`m-chip${activeName ? '' : ' is-active'}`} type="button" onClick={() => selectBrand('')}>
+            전체
+          </button>
+          {chipBrands.map((brand) => (
+            <button
+              key={brand.id ?? brand.name}
+              className={`m-chip${activeName && isSameBrandName(brand.name, activeName) ? ' is-active' : ''}`}
+              type="button"
+              onClick={() => selectBrand(brand.name)}
+            >
+              {getPreferredBrandLabel(brand)}
+            </button>
+          ))}
         </div>
-      )}
-      
-      <div className={styles.sortWrap}>
-        <DropdownFilterMobile
-          value={activeSort}
-          placeholder="정렬"
-          options={[
-            { value: 'recent', label: '최신 순' },
-            { value: 'priceAsc', label: '차량 가격 낮은 순' },
-            { value: 'priceDesc', label: '차량 가격 높은 순' },
-          ]}
-          onChange={(value) => setActiveSort(value)}
-          onOpen={() => setIsSortPopupOpen(true)}
-        />
-      </div>
 
-      <div className={styles.list}>
-        {isLoading ? (
-          <div className={styles.loading}>검색 중...</div>
-        ) : processedItems.length === 0 ? (
-          <div className={styles.empty}>검색 결과가 없습니다.</div>
-        ) : (
-          processedItems.map((item) => {
-            const monthlyDisplay = resolveMonthlyPayment({
-              monthlyRentalFee: item.monthlyRentalFee,
-              discountedMonthlyFee: item.discountedMonthlyFee,
-              fallbackBasePrice: item.basePrice,
-              fallbackDiscountedPrice: item.finalPrice,
-              months: 48,
-            });
-            
-            const monthlyValue =
-              monthlyDisplay.monthlyValue && monthlyDisplay.monthlyValue > 0
-                ? monthlyDisplay.monthlyValue.toLocaleString()
-                : '가격 문의';
-            const shouldShowOriginal =
-              monthlyDisplay.monthlyOriginal &&
-              monthlyDisplay.monthlyOriginal > 0 &&
-              monthlyValue !== '가격 문의' &&
-              (item.hasMonthlyRentalFee ? monthlyDisplay.monthlyOriginal > monthlyDisplay.monthlyValue : true);
-            // 월렌탈 할인율 우선, 없으면 차량 가격 할인율 사용
-            const effectiveDiscountPercent =
-              (item.monthlyDiscountPercent != null && item.monthlyDiscountPercent > 0)
-                ? item.monthlyDiscountPercent
-                : (item.discountPercent > 0 ? item.discountPercent : 0);
-            const hasDiscount = effectiveDiscountPercent > 0;
-            const monthlyOriginal =
-              shouldShowOriginal && hasDiscount && monthlyDisplay.monthlyOriginal
-                ? `${monthlyDisplay.monthlyOriginal.toLocaleString()}원`
-              : '';
-            
-            const effectivePrice = item.finalPrice > 0 ? item.finalPrice : item.basePrice;
-            const priceValue = effectivePrice > 0 
-              ? `${effectivePrice.toLocaleString()}원~` 
-              : '가격 문의';
+        <div className="m-listbar">
+          <span>{keyword ? `'${keyword}' 검색결과` : '검색결과'}</span>
+          <span>
+            <strong>{total.toLocaleString('ko-KR')}</strong>대
+          </span>
+        </div>
 
-            const badgeText = hasDiscount ? `${effectiveDiscountPercent}% 할인` : '';
-            // 수입차 모드에서 할인율이 있으면 원가 표시
-            const priceOriginalLabel =
-              isImportMode && hasDiscount && item.basePrice > 0
-                ? `${item.basePrice.toLocaleString()}원~`
-                : '';
-            const priceDiscountLabel =
-              isImportMode && hasDiscount ? `${effectiveDiscountPercent}% 할인` : '';
-
-            const cardName = item.modelName && item.modelName.trim() !== ''
-              ? item.modelName
-              : item.vehicleLineName;
-            
-            // 트림 데이터 추출 (3가지 렌탈플랜 모두 포함)
-            const trim = {
-              lowestPrepayment30MonthlyFee: item.lowestPrepayment30MonthlyFee ?? null,
-              lowestDeposit30MonthlyFee: item.lowestDeposit30MonthlyFee ?? null,
-              lowestNoDepositMonthlyFee: item.lowestNoDepositMonthlyFee ?? null,
-            };
-
-            // 국산차: VehicleCardDomestic 사용 (3가지 렌탈플랜 표시)
-            // 수입차: VehicleCardMobile 사용 (기존 방식 유지)
-            if (!isImportMode) {
-              return (
-                <VehicleCardDomestic
-                  key={`${item.id}-${item.representativeTrimId}`}
-                  name={cardName}
-                  subtitle={item.representativeTrimName}
-                  priceValue={priceValue}
-                  image={item.imageUrl}
-                  trim={trim}
-                  onClick={() => handleCardNavigate(item)}
-                />
-              );
-            }
-
-            // 수입차는 VehicleCardMobile 사용
-            return (
-              <VehicleCardMobile
-                key={`${item.id}-${item.representativeTrimId}`}
-                name={cardName}
-                subtitle={item.representativeTrimName}
-                discountPercent={effectiveDiscountPercent}
-                badgeText={badgeText}
-                
-                monthlyLabel="월 렌트료"
-                monthlyValue={monthlyValue}
-                monthlyOriginal={monthlyOriginal}
-                monthlyUnit={monthlyValue !== '가격 문의' ? '원' : ''}
-                showMonthlyRow={!isImportMode}
-                
-                priceLabel="차량가격"
-                priceValue={priceValue}
-                priceOriginal={priceOriginalLabel}
-                priceDiscountLabel={priceDiscountLabel}
-                priceVariant={isImportMode ? 'imported' : 'default'}
-                
-                image={item.imageUrl}
-                onClick={() => handleCardNavigate(item)}
-                trim={trim}
-              />
+        <div className="m-card-stack m-resultlist">
+          {cars.map((car) => {
+            const key = `${car.id}-${car.trimId}`;
+            const hasMonthly = [car.prepayment30, car.deposit30, car.noDeposit].some(hasValue);
+            // 할인 없이 월 렌탈료가 있는 차량(주로 국산차)은 메인과 같은 월 렌탈료 카드로 보여준다.
+            return car.discount > 0 || !hasMonthly ? (
+              <ResultCard key={key} car={car} />
+            ) : (
+              <VehicleCard key={key} vehicle={car} showBadge={false} source="mobile-search-results" />
             );
-          })
-        )}
-      </div>
+          })}
+        </div>
+        {loading ? <p className="m-empty">검색 중...</p> : null}
+        {!loading && cars.length === 0 ? <p className="m-empty">{emptyMessage}</p> : null}
 
-      {/* Infinite Scroll Sentinel */}
-      <div ref={loadMoreRef} style={{ height: '20px', margin: '10px 0' }}>
-        {isFetchingNextPage && <div className={styles.loading}>더 불러오는 중...</div>}
-      </div>
+        <div className="m-more">
+          <button
+            className="m-more__btn"
+            type="button"
+            hidden={!hasNextPage || rest <= 0}
+            disabled={isFetchingNextPage}
+            onClick={() => fetchNextPage()}
+          >
+            {isFetchingNextPage ? '불러오는 중...' : `차량 더보기 (${rest})`}
+          </button>
+        </div>
 
-      <div className={styles.noticeSection}>
-        <NoticeBox title="안내드립니다" items={noticeItems} />
-      </div>
-
-      {isSortPopupOpen && (
-        <OptionPopupMobile
-          size="small"
-          title="정렬"
-          sortOptions={[
-            { name: '최신 순', value: 'recent' },
-            { name: '차량 가격 낮은 순', value: 'priceAsc' },
-            { name: '차량 가격 높은 순', value: 'priceDesc' },
-          ]}
-          selectedSort={activeSort}
-          onSortSelect={(value) => {
-            setActiveSort(value);
-            setIsSortPopupOpen(false);
-          }}
-          onClose={() => setIsSortPopupOpen(false)}
-        />
-      )}
-    </div>
+        <p className="m-fine" style={{ borderTop: 0 }}>
+          <strong>안내</strong>
+          표기 가격은 공식 할인 기준이며, 계약 조건에 따라 달라질 수 있습니다.
+        </p>
+      </main>
+    </>
   );
 }

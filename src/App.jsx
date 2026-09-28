@@ -153,6 +153,11 @@ function App() {
   const isMobilePath = location.pathname.startsWith('/m');
   const isMobile = isMobilePath || isMobileViewport;
 
+  // SPA 이동은 스크롤 위치를 유지하므로, 다른 페이지로 넘어가면 퍼블리싱(페이지 이동)처럼 맨 위에서 시작한다.
+  useEffect(() => {
+    if (!location.hash) window.scrollTo(0, 0);
+  }, [location.pathname, location.hash]);
+
   // 퍼블리싱 CSS는 body.pc-page / body.mobile-page 를 기준으로 PC·모바일 스타일을 나눈다.
   useLayoutEffect(() => {
     document.body.classList.toggle('pc-page', !isMobile);

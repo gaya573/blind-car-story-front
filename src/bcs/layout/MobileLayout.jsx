@@ -63,13 +63,14 @@ export function MobileSubHeader({ title }) {
   );
 }
 
-export function MobileFooter() {
+/** copyrightGap: 전체 메뉴(m-menu.html)처럼 저작권 줄 위를 10px 띄울 때. */
+export function MobileFooter({ copyrightGap = false }) {
   return (
     <footer className="m-footer">
       <p>{SITE_NAME}</p>
       <p>{BUSINESS_INFO.line}</p>
       <p>{BUSINESS_INFO.contact}</p>
-      <p>{BUSINESS_INFO.copyright}</p>
+      <p style={copyrightGap ? { marginTop: 10 } : undefined}>{BUSINESS_INFO.copyright}</p>
     </footer>
   );
 }

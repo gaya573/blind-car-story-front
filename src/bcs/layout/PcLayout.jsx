@@ -84,6 +84,20 @@ export function PcFooter() {
 }
 
 const COLLAPSE_WIDTH = 1280;
+
+// 퍼블리싱이 페이지마다 플로팅 상담창에 붙인 data-source. 긴 경로를 먼저 비교한다.
+const QUICK_SOURCES = [
+  ['/express-deals', 'express-sidebar'],
+  ['/promotion/brands/detail', 'promotion-detail-sidebar'],
+  ['/promotion', 'promotion-sidebar'],
+  ['/review', 'review-sidebar'],
+  ['/carlist', 'carlist-sidebar'],
+  ['/car-detail', 'car-detail-sidebar'],
+];
+// 퍼블리싱에서 data-quick-default="closed" 로 접힌 채 시작하는 페이지 (히어로 타이머를 가리지 않게).
+const CLOSED_BY_DEFAULT = ['/promotion/brands/detail', '/car-detail'];
+
+const isNarrow = () => typeof window !== 'undefined' && window.innerWidth < COLLAPSE_WIDTH;
 const TopIcon = () => (
   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="M5 15l7-7 7 7" />
@@ -93,17 +107,26 @@ const TopIcon = () => (
 /** 오른쪽 플로팅 상담창. 1280px 미만에서는 본문을 가리지 않도록 접힌 채로 시작한다. */
 export function QuickConsultAside() {
   const { openQuote } = useBcsUi();
-  const { handleSubmit, error, submitting } = useConsultForm({ source: 'quick-sidebar', entryLabel: '플로팅 상담창' });
+  const { pathname } = useLocation();
+  const source = QUICK_SOURCES.find(([prefix]) => pathname.startsWith(prefix))?.[1] ?? 'quick-sidebar';
+  const forcedClosed = CLOSED_BY_DEFAULT.some((prefix) => pathname.startsWith(prefix));
+  const { handleSubmit, error, submitting } = useConsultForm({ source, entryLabel: '플로팅 상담창' });
   const userToggled = useRef(false);
-  const [closed, setClosed] = useState(() => typeof window !== 'undefined' && window.innerWidth < COLLAPSE_WIDTH);
+  const [closed, setClosed] = useState(() => forcedClosed || isNarrow());
+
+  // 페이지가 바뀌면 그 페이지의 기본 상태로 되돌린다.
+  useEffect(() => {
+    userToggled.current = false;
+    setClosed(forcedClosed || isNarrow());
+  }, [forcedClosed, pathname]);
 
   useEffect(() => {
     const onResize = () => {
-      if (!userToggled.current) setClosed(window.innerWidth < COLLAPSE_WIDTH);
+      if (!userToggled.current) setClosed(forcedClosed || isNarrow());
     };
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
-  }, []);
+  }, [forcedClosed]);
 
   const toggle = () => {
     userToggled.current = true;

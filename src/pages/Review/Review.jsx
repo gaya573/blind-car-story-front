@@ -1,366 +1,169 @@
-import React, { useMemo, useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import Breadcrumb from '../../components/Breadcrumb';
-import ReviewCard from './ReviewCard';
-import ReviewDetailModal from './ReviewDetailModal';
-import styles from './Review.module.css';
+import React, { useCallback, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useInfiniteQuery, useQueries } from '@tanstack/react-query';
 import { contentAPI } from '../../services/contentApi';
-import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
-import PrivacyConsentCheckbox from '../../components/PrivacyConsentCheckbox.jsx';
-import BrowserContactModal from '../../components/BrowserContactModal.jsx';
-import ConsultSuccessModal from '../../components/ConsultSuccessModal.jsx';
+import { carAPI } from '../../services/carApi';
 import SeoHelmet from '../../components/SeoHelmet.jsx';
 import StructuredData, { getReviewSchema } from '../../components/StructuredData.jsx';
 import { getPageSeo } from '../../config/seoConfig';
-import { getStoredUserPhone } from '../../utils/phoneStorage';
-import ConsultBanner from '../../components/ConsultBanner';
+import { useBcsUi } from '../../bcs/BcsUiContext';
+import ConsultBannerForm from '../../bcs/components/ConsultBannerForm';
+import ReviewDetailDialog from './ReviewDetailDialog';
+import ReviewStars from './ReviewStars';
+import { toReviewModel } from './reviewModel';
+import './review-bcs.css';
 
-const PAGE_SIZE = 12;
-const FALLBACK_IMAGE = '/placeholder/car.svg';
-const REVIEW_CONTACT_PROMPT =
-  '휴대폰 번호를 남겨주시면 차량 전문 매니저가 곧 연락드립니다.';
+// 퍼블리싱 review.js PAGE_SIZE
+const PAGE_SIZE = 9;
+const FALLBACK_IMAGE = '/bcs/images/cars/car-suv.svg';
 
-const Review = () => {
-  const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedReview, setSelectedReview] = useState(null);
-  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
-  const [contactModalMessage, setContactModalMessage] = useState('');
-  const [contactModalInitialPhone, setContactModalInitialPhone] = useState('');
-  const [contactPayload, setContactPayload] = useState(null);
-  const [isContactSubmitting, setIsContactSubmitting] = useState(false);
-  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-
-  const breadcrumbItems = useMemo(
-    () => [
-      { label: '홈', link: '/' },
-      { label: '출고후기 및 리뷰' },
-    ],
-    [],
-  );
-
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isLoading,
-    isFetching,
-    isError,
-  } = useInfiniteQuery({
-    queryKey: ['reviews', 'infinite'],
-    queryFn: ({ pageParam = 1 }) => contentAPI.getReviewsPage({ page: pageParam, limit: PAGE_SIZE }),
-    getNextPageParam: (lastPage) => {
-      const pagination = lastPage?.pagination;
-      if (!pagination) return undefined;
-      if (pagination.page < pagination.totalPages) {
-        return pagination.page + 1;
-      }
-      return undefined;
-    },
-    keepPreviousData: true,
-  });
-
-  const mappedReviews = useMemo(() => {
-    if (!data?.pages) return [];
-    const allItems = data.pages.flatMap((page) => page.items || []);
-    return allItems.map((item) => ({
-      id: item.id,
-      productName: item.title ?? '블라인드 카스토리 고객 후기',
-      reviewTextSnippet: item.description?.slice(0, 80) ?? '',
-      reviewText: item.description ?? '',
-      reviewTextFull: item.description ?? '',
-      rating: item.rating ?? 5,
-      author: item.authorName ?? '익명 고객',
-      date: item.createdAt ? new Date(item.createdAt).toLocaleDateString() : '',
-      imageUrl: item.imageUrl ?? FALLBACK_IMAGE,
-    }));
-  }, [data]);
-
-  const handleReviewClick = (review) => {
-    setSelectedReview(review);
-    setIsModalOpen(true);
-  };
-
-  const { observerRef } = useInfiniteScroll({
-    fetchNextPage,
-    hasNextPage: hasNextPage ?? false,
-    isFetchingNextPage,
-  });
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedReview(null);
-  };
-
-  const handleEstimateClick = async (review) => {
-    // 리뷰 모달 닫기
-    handleCloseModal();
-    
-    // 상담 페이로드 구성
-    const payload = {
-      consultType: '휴대폰연락',
-      source: 'review-detail',
-      entryLabel: `리뷰 상세 > ${review?.productName || '차량'} 견적 문의`,
-      model: review?.productName || '',
-      extra: {
-        note: `리뷰에서 접수된 차량 문의 - ${review?.productName || ''}`,
-      },
-    };
-
-    try {
-      // 1) 저장된 연락처 확인
-      const savedPhone = getStoredUserPhone();
-      
-      // 2) 연락처 없으면 바로 모달 오픈 (카카오 OAuth 제거!)
-      if (!savedPhone) {
-        openContactModal(REVIEW_CONTACT_PROMPT, payload, '');
-        return;
-      }
-
-      // 3) 연락처 있으면 바로 상담 신청
-      const enriched = {
-        ...payload,
-        phone: savedPhone,
-        name: localStorage.getItem('wgl_user_name') || '',
-      };
-      const { submitConsult } = await import('../../services/consultHelper');
-      const result = await submitConsult(enriched, {
-        useKakao: false,  // 카카오 OAuth 사용 안 함
-      });
-
-      // API 호출이 성공하면 무조건 성공 모달 표시
-      if (result.success) {
-        closeContactModal();
-        setIsSuccessModalOpen(true);
-      } else {
-        openContactModal(
-          result.message || '상담 신청에 실패했습니다. 다시 시도해주세요.',
-          enriched,
-          enriched.phone || '',
-        );
-      }
-    } catch (error) {
-      console.error('[Review] 견적 신청 실패', error);
-      openContactModal(
-        '상담 신청에 실패했습니다. 다시 시도해주세요.',
-        payload,
-        '',
-      );
-    }
-  };
-
-  const openContactModal = (message = REVIEW_CONTACT_PROMPT, payload = null, initialPhone = '') => {
-    setContactPayload(payload);
-    setContactModalMessage(message);
-    setContactModalInitialPhone(initialPhone);
-    setIsContactModalOpen(true);
-  };
-
-  const closeContactModal = () => {
-    if (isContactSubmitting) return;
-    setIsContactModalOpen(false);
-    setContactModalMessage('');
-    setContactModalInitialPhone('');
-    setContactPayload(null);
-  };
-
-  const handleContactSubmit = async (phoneValue, nameValue) => {
-    const phone = (phoneValue || '').trim();
-    if (!phone) {
-      setContactModalMessage('연락처를 입력해 주세요.');
-      return;
-    }
-    setIsContactSubmitting(true);
-    try {
-      const { submitConsult } = await import('../../services/consultHelper');
-      const payload = {
-        ...(contactPayload || {}),
-        phone,
-        name: (nameValue || contactPayload?.name || '').trim(),
-        consultType: contactPayload?.consultType || '휴대폰연락',
-        source: contactPayload?.source || 'review-page',
-        entryLabel: contactPayload?.entryLabel || '리뷰 페이지 > 차량 문의하기',
-        extra: {
-          note: '리뷰 CTA에서 접수된 차량 문의',
-          ...(contactPayload?.extra || {}),
-        },
-      };
-      const result = await submitConsult(payload, {
-        useKakao: false,
-        kakaoOpenTarget: '_blank',
-      });
-
-      // API 호출이 성공하면 무조건 성공 모달 표시
-      if (result.success) {
-        closeContactModal(); // 연락처 모달 닫기
-        setIsSuccessModalOpen(true); // 성공 모달 표시
-      } else {
-        setContactModalMessage(result.message || '상담 신청에 실패했습니다. 다시 시도해주세요.');
-      }
-    } catch (error) {
-      console.error('[Review] 연락처 보완 실패', error);
-      setContactModalMessage('상담 신청에 실패했습니다. 다시 시도해주세요.');
-    } finally {
-      setIsContactSubmitting(false);
-    }
-  };
-
-  const { title: seoTitle, description: seoDescription, keywords: seoKeywords } = getPageSeo('review');
-
-  // SEO용 대표 이미지: 첫 리뷰 카드의 이미지를 사용
-  const seoImage = useMemo(() => {
-    const first = mappedReviews[0];
-    if (!first) return undefined;
-    return first.imageUrl || undefined;
-  }, [mappedReviews]);
-
-  const reviewSchema = useMemo(() => {
-    const schemaReviews = mappedReviews.map((review) => ({
-      author: review.author,
-      date: review.date,
-      text: review.reviewText,
-      rating: review.rating
-    }));
-    return getReviewSchema(schemaReviews);
-  }, [mappedReviews]);
-
+function ReviewCard({ review, onOpen }) {
+  const open = () => onOpen(review);
   return (
-    <>
-      <SeoHelmet
-        title={seoTitle}
-        description={seoDescription}
-        keywords={seoKeywords}
-        image={seoImage}
-      />
-      <StructuredData data={reviewSchema} />
-    <div className={styles.reviewPage}>
-      <div className={styles.mainContent}>
-        <Breadcrumb items={breadcrumbItems} />
-
-        <div className={styles.pageHeader}>
-          <h2 className={styles.pageTitle}>출고후기 및 리뷰</h2>
-          <p className={styles.pageSubtitle}>블라인드 카스토리를 이용한 실제 고객들의 생생한 후기와 리뷰를 만나보세요.</p>
-        </div>
-
-        <div className={styles.reviewLayout}>
-          <div className={styles.reviewSection}>
-            {isLoading || isFetching ? (
-              <div className={styles.reviewEmpty}>리뷰를 불러오는 중입니다...</div>
-            ) : isError ? (
-              <div className={styles.reviewEmpty}>리뷰 데이터를 불러오지 못했습니다.</div>
-            ) : mappedReviews.length === 0 ? (
-              <div className={styles.reviewEmpty}>등록된 리뷰가 없습니다.</div>
-            ) : (
-              <>
-                <div className={styles.reviewGrid}>
-                  {mappedReviews.map((review) => (
-                    <ReviewCard key={review.id} review={review} onClick={() => handleReviewClick(review)} />
-                  ))}
-                </div>
-
-                <div ref={observerRef} style={{ height: '20px', marginTop: '20px' }}>
-                  {isFetchingNextPage && (
-                    <div className={styles.reviewEmpty}>더 불러오는 중...</div>
-                  )}
-                </div>
-              </>
-            )}
-
-            <ConsultBanner 
-              styles={styles}
-              onSubmit={async (e) => {
-                e.preventDefault();
-                const formData = new FormData(e.target);
-                const name = formData.get('name')?.trim() || '';
-                const phone = formData.get('phone')?.trim() || '';
-                const carModel = formData.get('carModel')?.trim() || '';
-                
-                // 연락처 없으면 바로 모달 오픈 (카카오 OAuth 제거!)
-                if (!phone) {
-                  const payload = {
-                    consultType: '휴대폰연락',
-                    source: 'review-page',
-                    entryLabel: '출고후기 페이지 > 상담신청',
-                    name,
-                    extra: {
-                      note: '출고후기 CTA에서 접수된 차량 문의',
-                      carModel,
-                    },
-                  };
-                  openContactModal(REVIEW_CONTACT_PROMPT, payload, '');
-                  return;
-                }
-                
-                const payload = {
-                  consultType: '휴대폰연락',
-                  source: 'review-page',
-                  entryLabel: '출고후기 페이지 > 상담신청',
-                  name,
-                  phone,
-                  extra: {
-                    note: '출고후기 CTA에서 접수된 차량 문의',
-                    carModel,
-                  },
-                };
-                
-                setContactPayload(payload);
-                
-                try {
-                  const { submitConsult } = await import('../../services/consultHelper');
-                  const result = await submitConsult(payload, {
-                    useKakao: false,  // 카카오 OAuth 사용 안 함
-                  });
-
-                  // API 호출이 성공하면 무조건 성공 모달 표시
-                  if (result.success) {
-                    closeContactModal();
-                    e.target.reset();
-                    setIsSuccessModalOpen(true);
-                  } else {
-                    openContactModal(
-                      result.message || '상담 신청에 실패했습니다. 다시 시도해주세요.',
-                      payload,
-                      payload.phone || '',
-                    );
-                  }
-                } catch (error) {
-                  console.error('[Review] 상담 신청 실패', error);
-                  openContactModal(
-                    '상담 신청에 실패했습니다. 다시 시도해주세요.',
-                    payload,
-                    '',
-                  );
-                }
-              }}
-            />
-          </div>
+    <article
+      className="rv-card"
+      data-review-id={review.id}
+      role="link"
+      tabIndex={0}
+      onClick={open}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter') open();
+      }}
+    >
+      <div className={`rv-card__media${review.imageUrl ? ' rv-card__media--photo' : ''}`}>
+        {review.recommend ? <span className="rv-card__badge">추천해요!</span> : null}
+        <img src={review.imageUrl || FALLBACK_IMAGE} alt={review.carName || review.title} loading="lazy" />
+      </div>
+      <div className="rv-card__body">
+        {review.carName ? <span className="rv-card__car">{review.carName}</span> : null}
+        <h3 className="rv-card__title">{review.title}</h3>
+        <p className="rv-card__snippet">{review.snippet}</p>
+        <ReviewStars rating={review.rating} />
+        <div className="rv-card__meta">
+          <span>{review.author}</span>
+          <span>{review.date}</span>
         </div>
       </div>
+    </article>
+  );
+}
 
-      {isModalOpen && (
-        <ReviewDetailModal 
-          isOpen={isModalOpen} 
-          onClose={handleCloseModal} 
-          reviewData={selectedReview}
-          onEstimateClick={handleEstimateClick}
-        />
-      )}
-      <BrowserContactModal
-        open={isContactModalOpen}
-        onClose={closeContactModal}
-        onSubmit={handleContactSubmit}
-        isSubmitting={isContactSubmitting}
-        description={contactModalMessage || undefined}
-        initialPhone=""
-      />
-      <ConsultSuccessModal
-        isOpen={isSuccessModalOpen}
-        onClose={() => setIsSuccessModalOpen(false)}
-      />
+const Review = () => {
+  const { openQuote } = useBcsUi();
+  const [selected, setSelected] = useState(null);
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } = useInfiniteQuery({
+    queryKey: ['reviews', 'pages', PAGE_SIZE],
+    queryFn: ({ pageParam }) => contentAPI.getReviewsPage({ page: pageParam, limit: PAGE_SIZE }),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      const pagination = lastPage?.pagination;
+      return pagination && pagination.page < pagination.totalPages ? pagination.page + 1 : undefined;
+    },
+  });
+
+  const baseReviews = useMemo(
+    () => (data?.pages ?? []).flatMap((pageData) => pageData?.items ?? []).map(toReviewModel),
+    [data],
+  );
+  const total = data?.pages?.[0]?.pagination?.totalElements ?? baseReviews.length;
+  const rest = Math.max(0, total - baseReviews.length);
+
+  // 트림이 연결된 후기는 차량 상세에서 "브랜드 + 차종" 이름을 가져와 차종 칩에 쓴다.
+  const trimIds = useMemo(() => [...new Set(baseReviews.map((review) => review.trimId).filter(Boolean))], [baseReviews]);
+  const carNames = useQueries({
+    queries: trimIds.map((trimId) => ({
+      queryKey: ['cars', 'detail', trimId],
+      queryFn: () => carAPI.getCarDetail(trimId),
+      staleTime: 1000 * 60 * 5,
+    })),
+    combine: (results) =>
+      Object.fromEntries(
+        results
+          .map((result, index) => [trimIds[index], result.data])
+          .filter(([, detail]) => detail?.name)
+          .map(([trimId, detail]) => [trimId, [detail.brandName, detail.name].filter(Boolean).join(' ')]),
+      ),
+  });
+
+  const reviews = useMemo(
+    () => baseReviews.map((review) => (carNames[review.trimId] ? { ...review, carName: carNames[review.trimId] } : review)),
+    [baseReviews, carNames],
+  );
+
+  const closeDialog = useCallback(() => setSelected(null), []);
+  const quoteFromReview = useCallback(
+    (review) => {
+      setSelected(null);
+      openQuote(review?.carName ?? '', 'review-modal');
+    },
+    [openQuote],
+  );
+
+  const { title: seoTitle, description: seoDescription, keywords: seoKeywords } = getPageSeo('review');
+  const reviewSchema = useMemo(
+    () => getReviewSchema(reviews.map((review) => ({ author: review.author, date: review.date, text: review.snippet, rating: review.rating }))),
+    [reviews],
+  );
+
+  return (
+    <div className="bcs-page-review">
+      <SeoHelmet title={seoTitle} description={seoDescription} keywords={seoKeywords} image={reviews[0]?.imageUrl || undefined} />
+      <StructuredData data={reviewSchema} />
+      <section className="review-page">
+        <div className="container">
+          <nav className="rv-breadcrumb" aria-label="현재 위치">
+            <Link to="/">홈</Link>
+            <span aria-hidden="true">›</span>
+            <strong>출고후기 및 리뷰</strong>
+          </nav>
+
+          <div className="rv-header">
+            <h1 className="rv-header__title">
+              <em>출고후기</em> 및 리뷰
+            </h1>
+            <p className="rv-header__sub">블라인드 카스토리를 이용한 실제 고객들의 생생한 후기와 리뷰를 만나보세요.</p>
+          </div>
+
+          <div className="rv-listhead">
+            <h2 className="rv-listhead__title">전체 후기</h2>
+            <p className="rv-listhead__note">최신 등록순으로 표시됩니다.</p>
+          </div>
+
+          {isLoading ? (
+            <p className="rv-empty">후기를 불러오는 중입니다...</p>
+          ) : isError && reviews.length === 0 ? (
+            <p className="rv-empty">후기를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</p>
+          ) : reviews.length === 0 ? (
+            <p className="rv-empty">등록된 후기가 아직 없습니다.</p>
+          ) : (
+            <div className="rv-grid">
+              {reviews.map((review) => (
+                <ReviewCard key={review.id} review={review} onOpen={setSelected} />
+              ))}
+            </div>
+          )}
+
+          {hasNextPage && rest > 0 && (
+            <div className="rv-more">
+              <button className="rv-more__btn" type="button" disabled={isFetchingNextPage} onClick={() => fetchNextPage()}>
+                {isFetchingNextPage ? '후기를 불러오는 중…' : `후기 더보기 (${rest})`}
+              </button>
+            </div>
+          )}
+
+          <ConsultBannerForm
+            idPrefix="review-banner"
+            title="후기의 주인공, 다음은 고객님입니다"
+            source="review-banner"
+            entryLabel="출고후기 상담 배너"
+          />
+
+          <p className="disclaimer">* 후기는 고객 동의 하에 게재되며, 작성자명은 일부 비공개 처리됩니다.</p>
+        </div>
+      </section>
+      <ReviewDetailDialog review={selected} onClose={closeDialog} onQuote={quoteFromReview} />
     </div>
-    </>
   );
 };
 

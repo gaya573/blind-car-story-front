@@ -1,164 +1,116 @@
-import React, { useMemo, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import React, { useMemo } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import Breadcrumb from '../../components/Breadcrumb';
-import PromotionCard from '../../components/PromotionCard';
-import styles from './PromotionBrands.module.css';
-import { contentAPI } from '../../services/contentApi';
+import SeoHelmet from '../../components/SeoHelmet.jsx';
+import { getPageSeo } from '../../config/seoConfig';
 import { useCarBrandsQuery } from '../../hooks/queries/carQueries';
+import { brandLogoUrl, isSameBrand } from '../ExpressDeals/brandMarks';
+import { PromotionGrid, PromotionTabs } from './Promotion';
+import { promotionListQuery, resolveTab } from './promotionModel';
+import './promotion-bcs.css';
 
+const ALL = '전체';
+
+/** 기획전의 브랜드: 추가정보(extraInfo) 우선, 없으면 제목 속 브랜드 이름. */
+const brandOf = (item, brands) => {
+  if (item?.extraInfo) return item.extraInfo;
+  const title = String(item?.title ?? '');
+  return brands.find((brand) => brand?.name && title.includes(brand.name))?.name ?? '';
+};
+
+/**
+ * 브랜드별 혜택 전체. 퍼블리싱 전용 화면이 없어 브랜드별 혜택(promotion.html) 구성에
+ * 재고 특가 핫딜의 제조사 필터(.ex-brands)를 더했다. 그래서 두 페이지 범위 클래스를 함께 단다.
+ */
 export default function PromotionBrands() {
-  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [tab, setTab] = useState(searchParams.get('tab') || 'active');
-  const [brand, setBrand] = useState(searchParams.get('maker') || '전체');
+  const tab = resolveTab(searchParams.get('tab'));
+  const maker = searchParams.get('maker') || ALL;
 
-  // 브랜드 API 호출
-  const { data: brandsData = [] } = useCarBrandsQuery();
+  const { data, isLoading, isError } = useQuery(promotionListQuery(tab));
+  const { data: brandsData } = useCarBrandsQuery();
+  const brands = useMemo(() => (Array.isArray(brandsData) ? brandsData : []), [brandsData]);
+  const items = useMemo(() => (Array.isArray(data) ? data : []), [data]);
 
-  const breadcrumbItems = useMemo(
-    () => [
-      { label: '홈', link: '/' },
-      { label: '할인 프로모션', link: '/promotion' },
-      { label: '브랜드별 혜택 전체' },
-    ],
-    [],
-  );
-
-  const {
-    data: promotions,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ['brand-promotions', tab, { brand }],
-    queryFn: () => {
-      // 탭에 따라 position 설정: 'active' -> 'TOP', 'ended' -> 'BOTTOM'
-      const position = tab === 'active' ? 'TOP' : 'BOTTOM';
-      return contentAPI.getBrandPromotions(position, 100);
-    },
-  });
-
-  // 프로모션 데이터에서 브랜드 정보 추출 (title 기준)
-  const promotionBrands = useMemo(() => {
-    if (!promotions || !brandsData) return [];
-    
-    const brandSet = new Set();
-    
-    promotions.forEach((promo) => {
-      // extraInfo(추가정보) 우선
-      if (promo.extraInfo) {
-        brandSet.add(promo.extraInfo);
-        return;
-      }
-      // fallback: title에서 브랜드 이름 추출
-      if (promo.title) {
-        const title = promo.title;
-        let matched = false;
-        for (const brandItem of brandsData) {
-          if (title.includes(brandItem.name)) {
-            brandSet.add(brandItem.name);
-            matched = true;
-            break;
-          }
-        }
-        // 공식 브랜드명을 찾지 못하면 title 자체를 사용
-        if (!matched) {
-          brandSet.add(title);
-        }
-      }
+  const brandNames = useMemo(() => {
+    const names = [];
+    items.forEach((item) => {
+      const name = brandOf(item, brands);
+      if (name && !names.some((known) => isSameBrand(known, name))) names.push(name);
     });
-    
-    return Array.from(brandSet).sort();
-  }, [promotions, brandsData]);
-
-  // 브랜드 목록 생성 (프로모션 중인 브랜드만)
-  const BRANDS = useMemo(() => {
-    return ['전체', ...promotionBrands];
-  }, [promotionBrands]);
+    if (maker !== ALL && !names.some((known) => isSameBrand(known, maker))) names.push(maker);
+    return [ALL, ...names.sort((a, b) => a.localeCompare(b, 'ko'))];
+  }, [items, brands, maker]);
 
   const displayed = useMemo(() => {
-    if (!promotions) return [];
-    if (brand === '전체') return promotions;
-    
-    // 브랜드 필터링: extraInfo(추가정보) 우선, 그 다음 title
-    return promotions.filter((item) => {
-      // 추가정보 기준
-      if (item.extraInfo && (item.extraInfo === brand || item.extraInfo.includes(brand))) return true;
-      // fallback: 제목 기준
-      if (item.title && (item.title === brand || item.title.includes(brand))) return true;
-      return false;
-    });
-  }, [promotions, brand]);
+    if (maker === ALL) return items;
+    return items.filter((item) => isSameBrand(brandOf(item, brands), maker) || String(item.title ?? '').includes(maker));
+  }, [items, brands, maker]);
 
-  const handleSelectBrand = (next) => {
-    setBrand(next);
-    const p = new URLSearchParams(searchParams);
-    if (next === '전체') p.delete('maker'); else p.set('maker', next);
-    setSearchParams(p, { replace: true });
+  const updateParams = (next) => {
+    const params = new URLSearchParams(searchParams);
+    Object.entries(next).forEach(([key, value]) => {
+      if (!value || value === ALL || (key === 'tab' && value === 'active')) params.delete(key);
+      else params.set(key, value);
+    });
+    setSearchParams(params, { replace: true });
   };
 
-  const isEnded = tab === 'ended';
+  const { title: seoTitle, description: seoDescription, keywords: seoKeywords } = getPageSeo('promotion');
 
   return (
-    <div className={styles['promo-page']}>
-      <div className={`${styles['promo-container']} ${isEnded ? styles['ended'] : ''}`}>
-        <Breadcrumb items={breadcrumbItems} />
+    <div className="bcs-page-promotion bcs-page-express">
+      <SeoHelmet title={`[브랜드별 전체] ${seoTitle}`} description={seoDescription} keywords={seoKeywords} />
+      <section className="promotion-page">
+        <div className="container">
+          <nav className="pm-breadcrumb" aria-label="현재 위치">
+            <Link to="/">홈</Link>
+            <span aria-hidden="true">›</span>
+            <Link to="/promotion">브랜드별 혜택</Link>
+            <span aria-hidden="true">›</span>
+            <strong>브랜드별 혜택 전체</strong>
+          </nav>
 
-        <div className={styles['promo-header']}>
-          <h2 className={styles['promo-title']}>브랜드별 혜택 전체</h2>
-          <p className={styles['promo-sub']}>브랜드 선택 후, 진행중/종료된 기획전을 확인하세요</p>
-         
-        </div>
-
-        <div className={styles['brand-bar']} role="listbox" aria-label="브랜드 선택">
-          <div className={styles['brand-scroller']}>
-            {BRANDS.map((b) => (
-              <button
-                key={b}
-                type="button"
-                className={`${styles['brand-pill']} ${brand === b ? styles['selected'] : ''}`}
-                aria-selected={brand === b}
-                onClick={() => handleSelectBrand(b)}
-              >
-                <div className={styles['brand-circle']} aria-hidden="true" />
-                <span className={styles['brand-label']}>{b}</span>
-              </button>
-            ))}
+          <div className="pm-header">
+            <h1 className="pm-header__title">
+              <em>브랜드별</em> 혜택 전체
+            </h1>
+            <p className="pm-header__sub">브랜드 선택 후, 진행중/종료된 기획전을 확인하세요</p>
           </div>
-        </div>
 
-        {isLoading ? (
-          <div className={styles['promo-empty']}>프로모션을 불러오는 중입니다...</div>
-        ) : isError ? (
-          <div className={styles['promo-empty']}>프로모션 정보를 불러오지 못했습니다.</div>
-        ) : displayed.length === 0 ? (
-          <div className={styles['promo-empty']}>표시할 프로모션이 없습니다.</div>
-        ) : (
-          <div className={styles['promo-grid']}>
-            {displayed.map((item) => {
-              const handleNavigate = () => {
-                const detailPath = `/promotion/brands/detail/${item.id}`;
-                navigate(detailPath, { state: { promotion: item } });
-              };
+          <PromotionTabs value={tab} onChange={(value) => updateParams({ tab: value })} />
+
+          <div className="ex-brands pm-brand-filter" aria-label="브랜드 선택">
+            {brandNames.map((name) => {
+              const active = name === maker || (maker !== ALL && isSameBrand(name, maker));
+              const logo = name === ALL ? '' : brandLogoUrl(name);
               return (
-                <PromotionCard
-                  key={item.id}
-                  id={item.id}
-                  name={item.title ?? item.extraInfo ?? '블라인드 카스토리'}
-                  desc={item.subtitle ?? item.description ?? ''}
-                  img={item.imageUrl ?? '/placeholder/car.svg'}
-                  brand={item.extraInfo ?? '블라인드 카스토리'}
-                  onClick={handleNavigate}
-                  buttonText="혜택 상담 받기"
-                  ended={isEnded}
-                />
+                <button
+                  key={name}
+                  type="button"
+                  className={`ex-brand${active ? ' is-active' : ''}`}
+                  aria-pressed={active}
+                  onClick={() => updateParams({ maker: name })}
+                >
+                  <span className="ex-brand__mark">{logo ? <img src={logo} alt="" /> : name}</span>
+                  <span className="ex-brand__name">{name}</span>
+                </button>
               );
             })}
           </div>
-        )}
-      </div>
+
+          <div className="pm-listhead">
+            <p className="pm-listhead__note">브랜드·제휴사 조건에 따라 혜택 내용과 적용 기간이 다를 수 있습니다.</p>
+            <p className="pm-listhead__count">
+              <strong>{displayed.length.toLocaleString('ko-KR')}</strong>건
+            </p>
+          </div>
+
+          <PromotionGrid items={displayed} isLoading={isLoading} isError={isError} ended={tab === 'ended'} />
+
+          <p className="disclaimer">* 기획전 혜택은 제휴사 조건과 재고 상황에 따라 변경될 수 있습니다.</p>
+        </div>
+      </section>
     </div>
   );
 }
-
-
