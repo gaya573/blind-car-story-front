@@ -5,164 +5,81 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router-dom';
 import Home from './Home.jsx';
 import { contentHttp } from '../../services/contentApi.js';
+import { carHttp } from '../../services/carApi.js';
+import { BcsUiProvider } from '../../bcs/BcsUiContext.jsx';
 
 const renderWithProviders = (ui) => {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
-      },
-    },
-  });
-
+  const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
   return render(
     <QueryClientProvider client={queryClient}>
-      <MemoryRouter>{ui}</MemoryRouter>
+      <MemoryRouter>
+        <BcsUiProvider>{ui}</BcsUiProvider>
+      </MemoryRouter>
     </QueryClientProvider>,
   );
 };
 
-describe('Home page', () => {
-  let mock;
+const page = (items) => [200, { items, pagination: { page: 1, size: items.length, totalElements: items.length, totalPages: 1 } }];
+
+describe('Home page (퍼블리싱 메인)', () => {
+  let content;
+  let cars;
 
   beforeAll(() => {
-    mock = new MockAdapter(contentHttp);
+    content = new MockAdapter(contentHttp);
+    cars = new MockAdapter(carHttp);
   });
 
   afterEach(() => {
-    mock.reset();
+    content.reset();
+    cars.reset();
   });
 
   afterAll(() => {
-    mock.restore();
+    content.restore();
+    cars.restore();
   });
 
-  test('renders the active MAIN TOP banner from the public banner API', async () => {
-    mock.onGet('/api/content/banners').reply((config) => {
-      expect(config.params).toEqual({ banner_type: 'MAIN', position: 'TOP', limit: 10 });
-      return [
-        200,
-        {
-          items: [
-            {
-              id: 1,
-              title: '히어로 배너 테스트',
-              subtitle: '배너 서브타이틀',
-              imageUrl: 'https://via.placeholder.com/840x450',
-              linkUrl: 'https://wondergoodlife.com',
-              position: 'TOP',
-            },
-          ],
-          pagination: { page: 1, size: 1, totalElements: 1, totalPages: 1 },
-        },
-      ];
+  test('제휴 메인 배너와 콘텐츠 API 데이터를 퍼블리싱 섹션에 채운다', async () => {
+    content.onGet('/api/coalition/BLINDCAR/contents').reply((config) => {
+      if (config.params.contentType === 'YOUTUBE') {
+        return [200, [{ id: 3, contentType: 'YOUTUBE', title: '유튜브 영상', youtubeUrl: 'https://youtu.be/abcdefghijk', active: true }]];
+      }
+      expect(config.params).toEqual({ pageType: 'MAIN', contentType: 'BANNER' });
+      return [200, [{ id: 8, contentType: 'BANNER', imageUrl: 'https://cdn.example.com/main.png', title: '메인 배너', active: true }]];
     });
-
-    mock.onGet('/api/content/main-page/closing-soon').reply((config) => {
-      expect(config.params).toEqual({ limit: 10, exclude_ended: true });
-      return [
-        200,
-        {
-          items: [
-            {
-              id: 10,
-              title: '마감 임박 차량',
-              subtitle: '곧 마감됩니다',
-              imageUrl: 'https://via.placeholder.com/300x200',
-              extraInfo: 'KIA',
-              is_active: true,
-            },
-          ],
-          pagination: { page: 1, size: 1, totalElements: 1, totalPages: 1 },
-        },
-      ];
-    });
-
-    mock.onGet('/api/content/main-page/popular-vehicle').reply((config) => {
-      expect(config.params).toEqual({ limit: 10 });
-      return [
-        200,
-        {
-          items: [],
-          pagination: { page: 1, size: 0, totalElements: 0, totalPages: 1 },
-        },
-      ];
-    });
-
-    mock.onGet('/api/content/main-page/top-cars').reply((config) => {
-      expect(config.params).toEqual({ limit: 5 });
-      return [
-        200,
-        {
-          items: [
-            {
-              id: 20,
-              rank: 1,
-              title: '주간 인기 차량',
-              subtitle: '2025년형',
-              description: '인기 차량 설명',
-              imageUrl: 'https://via.placeholder.com/320x200',
-              extraInfo: 'HYUNDAI',
-              is_active: true,
-            },
-          ],
-          pagination: { page: 1, size: 1, totalElements: 1, totalPages: 1 },
-        },
-      ];
-    });
-
-    mock.onGet('/api/content/promotions/brand').reply((config) => {
-      expect(config.params).toEqual({ position: 'TOP', limit: 100 });
-      return [
-        200,
-        {
-          items: [
-            {
-              id: 30,
-              title: '특가 차량',
-              subtitle: '오늘의 특가',
-              description: '특가 설명',
-              imageUrl: 'https://via.placeholder.com/320x200',
-              extraInfo: 'GENESIS',
-              is_active: true,
-            },
-          ],
-          pagination: { page: 1, size: 1, totalElements: 1, totalPages: 1 },
-        },
-      ];
-    });
-
-    mock.onGet('/api/content/pre-purchase').reply((config) => {
-      expect(config.params).toEqual({ limit: 100 });
-      return [
-        200,
-        {
-          items: [
-            {
-              id: 40,
-              title: '즉시 출고 차량',
-              subtitle: '바로 출고 가능',
-              description: '즉시 출고 설명',
-              imageUrl: 'https://via.placeholder.com/320x200',
-              extraInfo: 'KIA',
-              is_active: true,
-            },
-          ],
-          pagination: { page: 1, size: 1, totalElements: 1, totalPages: 1 },
-        },
-      ];
-    });
-
-    mock.onGet('/api/content/inventory').reply(200, { items: [] });
+    content.onGet('/api/content/main-page/closing-soon').reply(() =>
+      page([{ id: 10, title: '마감 임박 차량', subtitle: '곧 마감됩니다', extraInfo: '기아', trimId: 1, lowest_prepayment_30_monthly_fee: 237110 }]),
+    );
+    content.onGet('/api/content/main-page/top-cars').reply(() => page([{ id: 20, rank: 1, title: '주간 인기 차량', trimId: 2 }]));
+    content.onGet('/api/content/pre-purchase').reply(() => page([{ id: 40, title: '특가 차량', trimId: 3 }]));
+    content.onGet(/.*/).reply(() => page([]));
+    cars.onGet('/api/user/cars/brands').reply(200, [{ id: 95, name: '현대' }]);
 
     renderWithProviders(<Home />);
 
-    await waitFor(() => {
-      expect(document.querySelector('[style*="via.placeholder.com/840x450"]')).toBeInTheDocument();
-    });
+    await waitFor(() => expect(screen.getByAltText('메인 배너')).toHaveAttribute('src', 'https://cdn.example.com/main.png'));
+    expect(await screen.findByText('마감 임박 차량')).toBeInTheDocument();
+    expect(screen.getByText('237,110')).toBeInTheDocument();
+    expect(await screen.findByText('주간 인기 차량')).toBeInTheDocument();
+    expect(await screen.findByText('특가 차량')).toBeInTheDocument();
+    expect(await screen.findByText('유튜브 영상')).toBeInTheDocument();
+    expect(await screen.findByRole('option', { name: '현대' })).toBeInTheDocument();
 
-    expect(screen.getByText('마감 임박 차량')).toBeInTheDocument();
-    expect(screen.getByText('주간 인기 차량')).toBeInTheDocument();
-    expect(screen.getByText('즉시 출고 차량')).toBeInTheDocument();
+    // 예시 수치에는 예시 표기를, 개인정보 동의는 기본 해제를 유지한다.
+    expect(screen.getByText('동일 조건 비교 예시')).toBeInTheDocument();
+    screen.getAllByRole('checkbox').forEach((checkbox) => expect(checkbox).not.toBeChecked());
+  });
+
+  test('제휴 메인 배너가 없으면 퍼블리싱 기본 배너를 보여준다', async () => {
+    content.onGet(/.*/).reply((config) => (config.url.startsWith('/api/coalition') ? [200, []] : page([])));
+    cars.onGet(/.*/).reply(200, []);
+
+    renderWithProviders(<Home />);
+
+    await waitFor(() =>
+      expect(document.querySelector('.hero-slide--fit img')).toHaveAttribute('src', '/bcs/images/banner/hero-main.png'),
+    );
+    expect(document.querySelector('.closing-section')).toBeNull();
   });
 });

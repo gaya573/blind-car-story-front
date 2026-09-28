@@ -2,7 +2,24 @@
 
 원더 제휴사 프론트엔드입니다. 원본 리액트(`wonder-front-user`)를 복제해 퍼블리싱과 API 연동을 그대로 가져오고, 브랜딩(사명·로고·색상·SNS)만 블라인드 카스토리로 교체했습니다.
 
-API 호출 코드는 원본과 동일하게 유지했습니다.
+API 호출 코드는 원본과 동일하게 유지했습니다. 화면은 2026-09-28부터 블라인드 카스토리 퍼블리싱(Step 2-1, 2026-08-31 전달)으로 교체했습니다.
+
+## 퍼블리싱 반영 구조
+
+| 위치 | 내용 |
+|---|---|
+| `design/publishing-step2-1/` | 전달받은 퍼블리싱 원본 HTML·CSS·JS (이미지 제외, 수정하지 않음) |
+| `public/bcs/images/` | 퍼블리싱 이미지 |
+| `src/styles/bcs/` | `scripts/build-publishing-css.mjs`가 원본 CSS를 범위 선택자로 감싸 생성 (직접 수정 금지) |
+| `src/styles/bcs-overrides.css` | SPA에 올리면서 필요한 보정만 |
+| `src/bcs/` | 공용 UI(토스트·개인정보·견적 모달), 상담 폼 훅, 차량 카드, PC·모바일 레이아웃, 사이트 상수(`site.js`) |
+
+- 정적 퍼블리싱은 페이지마다 CSS를 따로 불러오지만 SPA는 한 번 불러온 CSS가 남습니다. 그래서 PC 스타일은 `body.pc-page`, 모바일은 `body.mobile-page`, 페이지 전용 CSS는 `.bcs-page-*` 아래에서만 적용되게 감쌌습니다. `:where()`로 감싸 원본 우선순위는 그대로입니다.
+- 퍼블리싱이 새로 오면 `design/`을 교체하고 `node scripts/build-publishing-css.mjs`를 다시 실행합니다.
+- 화면 비교: 개발 서버를 띄운 뒤 `PUBLISHING_DIR=<이미지 포함 퍼블리싱 폴더> node scripts/capture-compare.mjs http://localhost:5173 pc-home` → `python scripts/side-by-side.py pc-home`. 결과는 `tmp/compare/`.
+- 상담 폼은 퍼블리싱의 `data-source` 값을 그대로 `source`로 보냅니다. 어드민 상담 목록에서 어느 폼으로 들어왔는지 구분할 수 있습니다.
+- 퍼블리싱과 다르게 바꾼 것: 개인정보 동의 체크박스는 기본 해제입니다(원본은 기본 체크). 비교 표·견적 모달의 금액은 실제 견적이 아니므로 "예시"를 표기했습니다. 상담 배너 폼에는 동의 줄을 더했습니다.
+- 사업자 정보(주소·대표·사업자등록번호·이메일)는 아직 "정보 준비중"입니다. 확정되면 `src/bcs/site.js`의 `BUSINESS_INFO`만 바꾸면 PC·모바일 푸터에 함께 반영됩니다.
 
 ## 기술 스택
 
@@ -30,6 +47,8 @@ npm run dev
 `npm run dev`만 실행하면 별도 설정 없이 실데이터가 들어옵니다. 운영 빌드는 `.env.development`를 읽지 않으므로 기존처럼 `https://api.wonder.p-e.kr`을 직접 호출합니다.
 
 로컬 백엔드를 띄웠다면 `.env.development`의 `VITE_API_PROXY_TARGET`을 `http://localhost:8080`으로 바꿉니다.
+
+**개발 서버는 운영 API에 쓰기 요청을 보내지 않습니다.** 프록시 대상이 운영 API라서, 화면을 확인하다 상담·분석 로그가 운영 DB에 쌓이지 않도록 GET 외 요청은 `vite.config.js`의 `dev-write-guard`가 가짜 실패 응답(`success:false`)으로 막습니다. 꼭 필요할 때만 `.env.development.local`에 `VITE_DEV_ALLOW_WRITES=true`를 넣으세요.
 
 참고로 `/api/user/cars`는 운영 서버 응답이 20초 이상 걸립니다. 첫 화면 로딩이 느린 건 프록시 문제가 아니라 백엔드 응답 시간입니다.
 
@@ -143,6 +162,7 @@ node scripts/recolor-gold-to-black.mjs
 | Variable | `CLOUDFRONT_DISTRIBUTION_ID` | `E...` |
 | Variable | `AWS_REGION` | `ap-northeast-2` |
 | Variable | `VITE_API_BASE_URL` | `https://api.wonder.p-e.kr` |
+| Variable | `VITE_COALITION_CODE` | `BLINDCAR` (비어 있으면 `BLINDCAR`로 처리) |
 
 ### 로컬 배포
 
@@ -179,7 +199,8 @@ npm run deploy
 
 - **외부 추적을 쓰지 않습니다.** 원본의 Google Tag Manager(`GTM-M6HDSTWD`), Meta Pixel(`1460454072264975`), 네이버 사이트 소유확인 토큰은 원더굿라이프 계정이라 제거했고 다시 넣지 않습니다. 방문·상담 지표는 어드민 **제휴사 관리 → 분석**에서 자체 로그(`POST /api/coalition/BLINDCAR/analytics/log`)로 봅니다.
 - **카카오 상담 채널은 원더굿라이프 채널을 그대로 씁니다.** 제휴사에 `kakaoChannelPublicId`를 비워 두면 백엔드가 기본 채널(`_TIYxaC`)로 보냅니다. 상담 기록 자체는 `coalition_consult`에 BLINDCAR로 분리되어 쌓입니다.
-- **디자인은 원본과 동일하게 둡니다.** 시안으로 맞춘 것은 색상(주색 검정 + 골드 강조)과 배너·유튜브 콘텐츠뿐이고, 일러스트와 레이아웃은 원더굿라이프 그대로입니다.
+- **화면은 블라인드 카스토리 퍼블리싱(Step 2-1)을 따릅니다.** (2026-09-28부터. 그 전에는 원본 레이아웃에 색상만 바꿨습니다.)
+- **플로팅 상담창의 "카톡 간편 상담 신청"은 견적 모달을 엽니다.** 퍼블리싱에서는 데모 버튼이었습니다. 연락처를 남기면 상담이 BLINDCAR로 저장되고, 담당자가 카카오톡이나 문자로 견적을 보냅니다.
 
 ## 아직 남은 항목
 
